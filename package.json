@@ -1,0 +1,20 @@
+{
+  "name": "higgins",
+  "description": "Higgins gets the news, and looks after it until it is required.",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ocean/higgins.git"
+  },
+  "author": "Drew Robinson <drew.robinson@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": "^5.2",
+    "npm": "^3.x.x"
+  },
+  "dependencies": {
+    "express": "^4.13.x",
+    "pantry": "^0.7.x",
+    "morgan": "^1.6.x"
+  }
+}

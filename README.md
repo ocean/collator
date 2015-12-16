@@ -2,7 +2,7 @@
 
 Higgins gets the news, and looks after it until it is required.
 
-This server listens on specific URLs for news feeds. When a feed is requested, it checks for cached news (using pantry) then delivers it as JSON, fetching beforehand if required.
+This server listens on specific URLs for news feeds. When a feed is requested, it checks for cached news (using [pantry](https://github.com/postmedia/pantry)) then delivers it as JSON, fetching beforehand if required.
 
 The cached news can be refreshed with another query.
 

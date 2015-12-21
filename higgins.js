@@ -2,7 +2,7 @@ var Higgins = function () {};
 
 var pantry = require('pantry');
 
-Higgins.prototype.newsPlease = function (url, feedType, clear) {
+Higgins.prototype.newsPlease = function (url, feedType, clear, callback) {
   pantry.configure({
     maxLife: 600,
     parser: 'xml'
@@ -15,7 +15,8 @@ Higgins.prototype.newsPlease = function (url, feedType, clear) {
     if (error) {
       console.log('pantry error: ' + error);
     }
-    return JSON.stringify(data, null, '  ');
+    // return JSON.stringify(data, null, '  ');
+    return callback(JSON.stringify(data, null, '  '));
 //    res.write(JSON.stringify(data, null, '  '));
 //    res.end();
   });

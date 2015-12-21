@@ -29,6 +29,8 @@ Clear the cache for the Commerce Media Releases:
 * Add caching of search results into Memcached.
 * Other nice things.
 
+Test text.
+
 ## License
 
 This news tool is released under the MIT License (see the [license](https://github.com/ocean/higgins/blob/master/LICENSE) file) and is copyright Drew Robinson, 2015.

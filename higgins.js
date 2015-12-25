@@ -16,7 +16,7 @@ Higgins.prototype.newsPlease = function (url, feedType, clear, callback) {
       console.log('pantry error: ' + error);
     }
     // return JSON.stringify(data, null, '  ');
-    return callback(JSON.stringify(data, null, '  '));
+    callback(JSON.stringify(data, null, '  '));
 //    res.write(JSON.stringify(data, null, '  '));
 //    res.end();
   });

@@ -61,6 +61,10 @@ app.get('/v1/commerce-news/:clear?', function (req, res) {
   }
   
   var news = Higgins.newsPlease(url, feedType, clear, callback);
+
+  function callNews(url, feedType, clear, callback) {
+    Higgins.newsPlease(url, feedType, clear, callback);
+  };
   
   res.write(news);
   res.end();

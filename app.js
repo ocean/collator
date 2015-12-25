@@ -1,35 +1,15 @@
 var express = require('express'),
   app = express(),
-  morgan = require('morgan'),
+  logger = require('morgan'),
   Higgins = require('./higgins.js'),
   pantry = require('pantry');
 
 app.enable('jsonp callback');
 
 // Morgan is a replacement for express.logger()
-app.use(morgan('combined'));
+app.use(logger('dev'));
 
 app.use(express.static(__dirname + '/public'));
-
-/// catch 404 and forwarding to error handler
-app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
-});
-
-/// error handlers
-
-// development error handler
-// will print stacktrace
-app.use(function(err, req, res, next) {
-    console.log('error: ' + err);
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: err
-    }); 
-});
 
 var out = '';
 var result = {};
@@ -90,6 +70,25 @@ app.get('/v1/commerce-news/:clear?', function (req, res) {
   });
 });
 
+/// catch 404 and forwarding to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+/// error handlers
+
+// development error handler
+// will print stacktrace
+app.use(function(err, req, res, next) {
+    console.log('error: ' + err);
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: err
+    }); 
+});
 
 // port setup with env var for Heroku
 var port = process.env.PORT || 3000;

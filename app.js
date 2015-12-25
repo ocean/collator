@@ -43,7 +43,7 @@ app.get('/v1/ministerials/:clear?', function (req, res) {
   // Get cache clear param from URL
   var clear = req.params.clear;
   
-  Higgins.newsPlease()
+  //Higgins.newsPlease()
 
   res.write('\r\r' + JSON.stringify(result, null, '  '));
   res.end();
@@ -69,10 +69,8 @@ app.get('/v1/commerce-news/:clear?', function (req, res) {
   
   var news = Higgins.newsPlease(url, feedType, clear, callback);
   
-  function callback() {
-    res.write(news);
-    res.end();
-  };
+  res.write(news);
+  res.end();
   
   req.on('error', function (e) {
     console.log('request error: ' + e.message);

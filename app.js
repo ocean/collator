@@ -38,7 +38,7 @@ app.get('/v1/ministerials/:clear?', function (req, res) {
   
   //Higgins.newsPlease()
 
-  res.write('\r\r' + JSON.stringify(result, null, '  '));
+  res.send('\r\r' + JSON.stringify(result, null, '  '));
   res.end();
 
   req.on('error', function (e) {
@@ -66,7 +66,7 @@ app.get('/v1/commerce-news/:clear?', function (req, res) {
     Higgins.newsPlease(url, feedType, clear, callback);
   };
   
-  res.write(news);
+  res.send(news);
   res.end();
   
   req.on('error', function (e) {
@@ -88,7 +88,7 @@ app.get('/v1/commerce-news/:clear?', function (req, res) {
 app.use(function(err, req, res, next) {
     console.log('error: ' + err);
     res.status(err.status || 500);
-    res.render('error', {
+    res.send({
         message: err.message,
         error: err
     }); 

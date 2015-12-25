@@ -71,7 +71,7 @@ app.get('/v1/commerce-news/:clear?', function (req, res) {
 });
 
 /// catch 404 and forwarding to error handler
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
@@ -89,6 +89,7 @@ app.use(function(err, req, res, next) {
         error: err
     }); 
 });
+*/
 
 // port setup with env var for Heroku
 var port = process.env.PORT || 3000;

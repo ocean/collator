@@ -1,6 +1,7 @@
 var Higgins = function () {};
 
 var pantry = require('pantry');
+var prettyjson = require('prettyjson');
 
 Higgins.prototype.newsPlease = function (url, feedType, clear, callback) {
   pantry.configure({
@@ -15,7 +16,7 @@ Higgins.prototype.newsPlease = function (url, feedType, clear, callback) {
     if (error) {
       console.log('pantry error: ' + error);
     }
-    callback(JSON.stringify(data, null, 2));
+    callback(prettyjson.render(data));
   });
   
 };

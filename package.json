@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "express": "^4.13.x",
+    "morgan": "^1.6.x",
     "pantry": "^0.7.x",
-    "morgan": "^1.6.x"
+    "prettyjson": "^1.1.3"
   }
 }

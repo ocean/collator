@@ -60,12 +60,10 @@ app.get('/v1/commerce-news/:clear?', function (req, res) {
     clear = true;
   }
   
-  Higgins.newsPlease(url, feedType, clear, sendNews);
-  
-  function sendNews(news) {
+  Higgins.newsPlease(url, feedType, clear, function (news) {
     res.send(news);
     res.end();
-  };
+  });
   
   req.on('error', function (e) {
     console.log('request error: ' + e.message);

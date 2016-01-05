@@ -27,7 +27,7 @@ app.get('/v1/ministerials/:clear?', function (req, res) {
   // Get cache clear param from URL
   var clear = false;
 
-  if (req.params.clear === 'clear-cache') {
+  if (req.query.clearCache === 'true') {
     clear = true;
   }
 
@@ -43,7 +43,8 @@ app.get('/v1/ministerials/:clear?', function (req, res) {
 
 app.get('/v1/commerce-news', function (req, res) {
   // URL of Commerce Media Releases ("Announcements")
-  var url = 'http://www.commerce.wa.gov.au/taxonomy/term/182/feed';
+//  var url = 'http://www.commerce.wa.gov.au/taxonomy/term/182/feed';
+  var url = 'http://www.commerce.wa.gov.au/announcements/182/all/feed';
 
   // Feed formatting instructions for Pantry - xml or json
   var feedType = 'xml';

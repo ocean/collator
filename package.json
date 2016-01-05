@@ -13,6 +13,7 @@
     "npm": "^3.x.x"
   },
   "dependencies": {
+    "chalk": "^1.1.x",
     "express": "^4.13.x",
     "morgan": "^1.6.x",
     "pantry": "^0.7.x"

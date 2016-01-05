@@ -1,0 +1,10 @@
+{
+  "preset": "airbnb",
+  "disallowSpacesInAnonymousFunctionExpression": false,
+  "disallowSpacesInFunctionExpression": false,
+  "requirePaddingNewLinesBeforeLineComments": false,
+  "validateIndentation": {
+    value: 2,
+    'allExcept': [ 'comments' ]
+  }
+}

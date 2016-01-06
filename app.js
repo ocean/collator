@@ -18,8 +18,10 @@ app.use(express.static(__dirname + '/public'));
 var corsWhitelist = ['http://203.33.230.66', 'http://www.commerce.wa.gov.au', 'https://www.commerce.wa.gov.au'];
 var corsOptions = {
   origin: function (origin, callback) {
-    var originIsWhitelisted = corsWhitelist.indexOf(origin) !== -1;
-    callback(null, originIsWhitelisted);
+//    var originIsWhitelisted = corsWhitelist.indexOf(origin) !== -1;
+//    callback(null, originIsWhitelisted);
+    // Setting to "true" to whitelist all origins for dev.
+    callback(null, true);
     console.dir('Origin is: ' + origin);
   }
 };

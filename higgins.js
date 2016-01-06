@@ -13,14 +13,18 @@ Higgins.prototype.newsPlease = function (url, feedType, clear, callback) {
 //      childKey: 'article',
     },
   });
-  
+
   if (url.indexOf('http') == -1) {
     // URL is local
-    url = 'http://localhost:3000' + url;
+    if (process.env.HEROKU_URL) {
+      url = process.env.HEROKU_URL + url;
+    } else {
+      url = 'http://localhost:3000' + url;
+    }
   }
 
   console.log('URL is: ' + url);
-  
+
   pantry.fetch({
     uri: url,
   }, function (error, data) {

@@ -13,7 +13,14 @@ Higgins.prototype.newsPlease = function (url, feedType, clear, callback) {
 //      childKey: 'article',
     },
   });
+  
+  if (url.indexOf('http') == -1) {
+    // URL is local
+    url = 'http://localhost:3000' + url;
+  }
 
+  console.log('URL is: ' + url);
+  
   pantry.fetch({
     uri: url,
   }, function (error, data) {
@@ -22,7 +29,7 @@ Higgins.prototype.newsPlease = function (url, feedType, clear, callback) {
       console.log('pantry error: ' + error);
     }
 //    callback(JSON.stringify(data, null, 2));
-    callback(data);
+    callback(error, data);
 //    console.dir(util.inspect(data, false, null));
   });
 

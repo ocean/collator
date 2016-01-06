@@ -1,5 +1,7 @@
 var express = require('express');
 var app = express();
+
+var cors = require('cors');
 var morgan = require('morgan');
 var chalk = require('chalk');
 var Higgins = require('./higgins.js');
@@ -9,7 +11,19 @@ app.enable('jsonp callback');
 // Morgan is a replacement for express.logger()
 app.use(morgan('dev'));
 
+// Serve anything in public as static files
 app.use(express.static(__dirname + '/public'));
+
+// Enable CORS for some domains
+var corsWhitelist = ['http://203.33.230.66', 'http://www.commerce.wa.gov.au', 'https://www.commerce.wa.gov.au'];
+var corsOptions = {
+  origin: function (origin, callback) {
+    var originIsWhitelisted = corsWhitelist.indexOf(origin) !== -1;
+    callback(null, originIsWhitelisted);
+    console.dir('Origin is: ' + origin);
+  }
+};
+app.use(cors(corsOptions));
 
 // Possibly redirect root requests to one versioned endpoint by default, or an endpoint listing.
 //app.get('/', function (req, res) {
@@ -17,7 +31,7 @@ app.use(express.static(__dirname + '/public'));
 //});
 
 //Version 1 of the API :)
-app.get('/v1/ministerials/:clear?', function (req, res) {
+app.get('/v1/ministerials/:clear?', function (req, res, next) {
   // URL of Ministerial Media Statements
   var url = 'https://www.mediastatements.wa.gov.au/Pages/Portfolios/Commerce.aspx';
 
@@ -33,15 +47,16 @@ app.get('/v1/ministerials/:clear?', function (req, res) {
 
   Higgins.newsPlease(url, feedType, clear, function (news) {
     res.send(news);
-    res.end();
+//    res.end();
   });
 
   req.on('error', function (e) {
     console.log('request error: ' + e.message);
   });
+//  next();
 });
 
-app.get('/v1/commerce-news', function (req, res) {
+app.get('/v1/commerce-news', function (req, res, next) {
   // URL of Commerce Media Releases ("Announcements")
 //  var url = 'http://www.commerce.wa.gov.au/taxonomy/term/182/feed';
   var url = 'http://www.commerce.wa.gov.au/announcements/182/all/feed';
@@ -65,26 +80,27 @@ app.get('/v1/commerce-news', function (req, res) {
 //    res.type('json');
 //    res.send(news);
     res.jsonp(news);
-    res.end();
+//    res.end();
   });
 
   req.on('error', function (e) {
     console.log('request error: ' + e.message);
   });
+//  next();
 });
 
 /// catch 404 and forwarding to error handler
-/*app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+app.use(function (req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 /// error handlers
 
 // development error handler
 // will print stacktrace
-app.use(function(err, req, res, next) {
+/*app.use(function(err, req, res, next) {
     console.log('error: ' + err);
     res.status(err.status || 500);
     res.send({

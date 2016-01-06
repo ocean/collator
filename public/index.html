@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Higgins - gets the news</title>
+  <meta name="author" content="Drew Robinson">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="row">
+      <div class="eight column" style="margin-top: 10%">
+        <h1>Higgins &ndash; gets the news</h1>
+        <p><strong>Higgins</strong> is an API that serves news feeds as JSON data.</p>
+        <h3>Usage</h3>
+        <p>Simply the hit the endpoints below to get data. Data is plain JSON by default. JSONP can be requested by adding a <code>?callback=yourCallbackFunctionNameHere</code> query parameter to the URL.</p>
+        <p>Here are the API endpoints available:</p>
+        <table class="u-full-width">
+          <thead>
+            <tr>
+              <th>URL</th>
+              <th>Feed provided</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code><a href="/v1/commerce-news">/v1/commerce-news</a></code></td>
+              <td>Commerce media statements from the <a href="https://www.commerce.wa.gov.au/announcements?title=&field_announcement_type_tid=182">Commerce site</a></td>
+            </tr>
+            <tr>
+              <td><code><a href="/v1/ministerials">/v1/ministerials</a></code></td>
+              <td>Ministerial media statements from the <a href="https://www.mediastatements.wa.gov.au/Pages/Portfolios/Commerce.aspx">WA Govt Media Statements site</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

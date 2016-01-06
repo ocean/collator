@@ -22,8 +22,12 @@ Higgins.prototype.newsPlease = function (url, feedType, clear, callback) {
       url = 'http://localhost:3000' + url;
     }
   }
-
   console.log('URL is: ' + url);
+
+  if (clear) {
+    pantry.clear(url);
+    console.log('Cleared cached copy of: ' + url);
+  }
 
   pantry.fetch({
     uri: url,

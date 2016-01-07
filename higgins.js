@@ -25,8 +25,8 @@ Higgins.prototype.newsPlease = function (url, feedType, clear, callback) {
   console.log('URL is: ' + url);
 
   if (clear) {
-    pantry.clear(url);
-    console.log('Cleared cached copy of: ' + url);
+    pantry.remove(url);
+    console.log('Removed cached copy of: ' + url);
   }
 
   pantry.fetch({

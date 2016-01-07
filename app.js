@@ -106,15 +106,6 @@ app.get('/v1/build/ministerials', function (req, res, next) {
 // All the error things go at the end.
 // ===================================
 
-// catch 404 and forward to error handler, apparently
-app.use(function (err, req, res, next) {
-  if (err.statusCode == 404) {
-    res.status(404).send('404 Not Found');
-    console.dir(req);
-  }
-  next(err);
-});
-
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
@@ -130,6 +121,12 @@ if (app.get('env') === 'development') {
 app.use(function(err, req, res, next) {
   res.status(err.status || 500).send('Error: ' + err.message);
   console.error('Error stack: \n' + err.stack);
+});
+
+// catch 404 as a final thing
+app.use(function (req, res, next) {
+  res.status(404).send('404 Not Found');
+  console.dir(req);
 });
 
 // port setup with env var for Heroku

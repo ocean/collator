@@ -9,15 +9,23 @@ node_js:
   - '0.12'
   - '4'
   - '5'
+env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
 #before_install:
 #  - npm i -g npm@^2.0.0
 #  - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
 before_script:
   - node_modules/.bin/snyk auth ${SNYK_TOKEN}
 script:
-  - npm security_check
-  - npm lint
-  - npm test
+  - npm run security_check
+  - npm run lint
+  - npm run test
 #after_success:
 #  - python scripts/travis_after_all.py
 #  - export $(cat .to_export_back)

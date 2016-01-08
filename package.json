@@ -1,10 +1,16 @@
 {
   "name": "higgins",
   "description": "Higgins gets the news, and looks after it until it is required.",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/ocean/higgins.git"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "lint": "eslint *.js",
+    "security_check": "snyk test",
+    "test": "tap *.spec.js"
   },
   "author": "Drew Robinson <drew.robinson@gmail.com>",
   "license": "MIT",
@@ -18,6 +24,13 @@
     "cors": "^2.7.x",
     "express": "^4.13.x",
     "morgan": "^1.6.x",
-    "pantry": "ocean/pantry"
+    "pantry": "^0.7.x"
+  },
+  "devDependencies": {
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^3.1.0",
+    "eslint-plugin-react": "^3.14.0",
+    "snyk": "^1.8.x",
+    "tap": "^5.x.x"
   }
 }

@@ -97,8 +97,8 @@ app.get('/v1/build/ministerials', function (req, res, next) {
 //  console.log('Request: ' + req);
   // URL of Ministerial Media Statements start page
   var startUrl = 'https://www.mediastatements.wa.gov.au/Pages/Portfolios/Commerce.aspx';
-  
-  res.jsonp({"result": "This is where the data goes."});
+
+  res.jsonp({ "result": "This is where the data goes." });
 //  res.send('some text here');
 });
 
@@ -118,7 +118,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.status(err.status || 500).send('Error: ' + err.message);
   console.error('Error stack: \n' + err.stack);
 });

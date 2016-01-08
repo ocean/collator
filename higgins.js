@@ -3,7 +3,7 @@ var util = require('util');
 
 var Higgins = function () {};
 
-Higgins.prototype.newsPlease = function (url, feedType, clear, callback) {
+Higgins.prototype.newsPlease = function (url, feedType, forceRefresh, callback) {
   pantry.configure({
     maxLife: 600,
 //    parser: feedType,
@@ -14,7 +14,7 @@ Higgins.prototype.newsPlease = function (url, feedType, clear, callback) {
     },
   });
 
-  if (url.indexOf('http') == -1) {
+  if (url.indexOf('http') === -1) {
     // URL is local
     if (process.env.HEROKU_URL) {
       url = process.env.HEROKU_URL + url;
@@ -24,7 +24,7 @@ Higgins.prototype.newsPlease = function (url, feedType, clear, callback) {
   }
   console.log('URL is: ' + url);
 
-  if (clear) {
+  if (forceRefresh) {
     pantry.remove(url);
     console.log('Removed cached copy of: ' + url);
   }

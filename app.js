@@ -4,7 +4,7 @@ var app = express();
 var chalk = require('chalk');
 var cheerio = require('cheerio');
 var cors = require('cors');
-var Higgins = require('./higgins.js');
+var higgins = require('./higgins.js');
 var morgan = require('morgan');
 
 // Morgan is a replacement for express.logger()
@@ -49,15 +49,15 @@ app.get('/v1/commerce-news', function (req, res, next) {
   var feedType = 'xml';
 
   // Get cache clear query string from URL
-  var clear = false;
+  var forceRefresh = false;
 
-  if (req.query.clearCache === 'true') {
-    clear = true;
+  if (req.query.forceRefresh === 'true') {
+    forceRefresh = true;
   }
 //  console.log(chalk.magenta('Cache clear status is: %s'), clear);
 //  console.dir(req.query);
 
-  Higgins.newsPlease(url, feedType, clear, function (error, news) {
+  higgins.newsPlease(url, feedType, forceRefresh, function (error, news) {
     if (error) { return next(error); }
 //    console.dir(news.$, { colors: 'true' });
 //    console.dir(news.channel[0].item[5], { colors: 'true', depth: 5 });
@@ -76,13 +76,13 @@ app.get('/v1/ministerials', function (req, res, next) {
   var feedType = 'json';
 
   // Get cache clear param from URL
-  var clear = false;
+  var forceRefresh = false;
 
-  if (req.query.clearCache === 'true') {
-    clear = true;
+  if (req.query.forceRefresh === 'true') {
+    forceRefresh = true;
   }
 
-  Higgins.newsPlease(url, feedType, clear, function (error, news) {
+  higgins.newsPlease(url, feedType, forceRefresh, function (error, news) {
     if (error) { return next(error); }
 //    res.send(news);
     res.jsonp(news);

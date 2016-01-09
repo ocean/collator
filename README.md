@@ -1,5 +1,7 @@
 # Higgins
 
+[![Travis CI Build Status](https://travis-ci.org/ocean/higgins.svg?branch=master)](https://travis-ci.org/ocean/higgins)
+
 Higgins gets the news, and looks after it until it is required.
 
 This server listens on specific URLs for news feeds. When a feed is requested, it checks for cached news (using [pantry](https://github.com/postmedia/pantry)) then delivers it as JSON, fetching beforehand if required.
@@ -8,29 +10,27 @@ The cached news can be refreshed with another query.
 
 Valid URL arguments are, in order:
 
-	http://[server]/v1/[feed-name]/[clear-cache]
+	http://[server]/v1/[feed-name][?forceRefresh=true]
 
 * **Feed name**: required.
-* **Clear cache**: optional.
+* **Force refresh**: optional.
 
 ## Usage
 
-Give me the Ministerial Media Statements:
+Give me the Ministerial Media Statements feed:
 
 	curl http://[server]/v1/ministerials
 
-Clear the cache for the Commerce Media Releases:
+Force a fetch of a new copy of the Commerce Media Releases feed:
 
-	curl http://[server]/v1/commerce-media/clear-cache
+	curl http://[server]/v1/commerce-media?forceRefresh=true
 
 ## TODO
 
-* Add JSONP capability.
+* ~~Add JSONP capability.~~
 * Add caching of search results into Memcached.
 * Other nice things.
 
-Test text.
-
 ## License
 
-This news tool is released under the MIT License (see the [license](https://github.com/ocean/higgins/blob/master/LICENSE) file) and is copyright Drew Robinson, 2015.
+This news tool thingy is released under the MIT License (see the [license](https://github.com/ocean/higgins/blob/master/LICENSE) file) and is copyright Drew Robinson, 2015.

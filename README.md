@@ -27,7 +27,7 @@ Force a fetch of a new copy of the Commerce Media Releases feed:
 
 ## TODO
 
-* ~~Add JSONP capability.~~
+* ~~Add JSONP capability.~~ done!
 * Add caching of search results into Memcached.
 * Other nice things.
 

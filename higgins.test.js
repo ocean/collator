@@ -2,7 +2,9 @@ var tap = require('tap');
 var higgins = require('./higgins.js');
 var pantry = require('pantry');
 //var JSONurl = 'http://date.jsontest.com';
-var JSONurl = 'http://echo.jsontest.com/testing/string/length/6';
+//var JSONurl = 'http://echo.jsontest.com/testing/string/length/6';
+var JSONurl = 'http://mockbin.org/bin/4bca20ff-ee43-4ea7-bb2e-30fe0581f9ce';
+//var JSONurl = 'http://www.mocky.io/v2/56945fe81100000d1683a732';
 
 tap.test('did the higgins library load', function (t) {
   t.ok(higgins, 'higgins library loaded');

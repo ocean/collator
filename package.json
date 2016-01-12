@@ -10,7 +10,7 @@
     "start": "node app.js",
     "lint": "eslint *.js",
     "security_check": "snyk test",
-    "test": "tap *.spec.js"
+    "test": "tap --reporter=spec --coverage *.test.js"
   },
   "author": "Drew Robinson <drew.robinson@gmail.com>",
   "license": "MIT",

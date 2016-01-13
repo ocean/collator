@@ -21,7 +21,7 @@ addons:
 #  - npm i -g npm@^2.0.0
 #  - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
 before_script:
-  - node_modules/.bin/snyk auth ${SNYK_TOKEN}
+  - snyk auth ${SNYK_TOKEN}
 script:
   - npm run security_check
   - npm run lint

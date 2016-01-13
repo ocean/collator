@@ -23,8 +23,8 @@ tap.test('does higgins fetch a JSON URL and store it', { timeout: 5000 }, functi
     t.notOk(error, 'error object is falsy');
     t.ok(data, 'data returned is ok');
     t.type(data, 'object', 'data is an object');
-    console.log('Data returned is:');
-    console.dir(data, { color: true, depth: 5});
+    // console.log('Data returned is:');
+    // console.dir(data, { color: true, depth: 5});
 //    t.equals(pantry.storage.stockCount, 1, 'pantry has one item stored');
 //    console.dir(pantry.storage.stockCount, { color: true, depth: 5});
 //      console.dir(pantry.storage, { color: true, depth: 5});
@@ -67,7 +67,7 @@ tap.test('expect an error if we try to load a broken url', { timeout: 5000 }, fu
   
   higgins.newsPlease('http://this-does-not-exist-really.in', 'json', false, function (error, data) {
     console.log('error obj is: ' + error);
-    t.same(error, 'Invalid Response Code (503)', 'error is a 503 response code');
+    t.same(error, 'error', 'error contains the string "error"');
     t.ok(error, 'error object is truthy');
     t.notOk(data, 'data returned is not ok');
     t.same(data, undefined, 'data is undefined');

@@ -1,6 +1,6 @@
 # Higgins
 
-[![Travis CI Build Status](https://travis-ci.org/ocean/higgins.svg?branch=master)](https://travis-ci.org/ocean/higgins)
+[![Travis CI Build Status](https://img.shields.io/travis/ocean/higgins/master.svg?style=flat-square)](https://travis-ci.org/ocean/higgins) [![David dependencies](https://img.shields.io/david/ocean/higgins.svg?style=flat-square)](https://david-dm.org/ocean/higgins) [![Coveralls coverage](https://img.shields.io/coveralls/ocean/higgins/master.svg?style=flat-square)](https://coveralls.io/github/ocean/higgins)
 
 Higgins gets the news, and looks after it until it is required.
 

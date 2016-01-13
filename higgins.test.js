@@ -67,7 +67,7 @@ tap.test('expect an error if we try to load a broken url', { timeout: 5000 }, fu
   
   higgins.newsPlease('http://this-does-not-exist-really.in', 'json', false, function (error, data) {
     console.log('error obj is: ' + error);
-    t.match(error, 'error', 'error contains the string "error"');
+    t.match(error, /error/i, 'error contains the string "error"');
     t.ok(error, 'error object is truthy');
     t.notOk(data, 'data returned is not ok');
     t.same(data, undefined, 'data is undefined');

@@ -1,6 +1,6 @@
 # Higgins
 
-[![Travis CI Build Status](https://img.shields.io/travis/ocean/higgins/master.svg?style=flat-square)](https://travis-ci.org/ocean/higgins) [![David dependencies](https://img.shields.io/david/ocean/higgins.svg?style=flat-square)](https://david-dm.org/ocean/higgins) [![Coveralls coverage](https://img.shields.io/coveralls/ocean/higgins/master.svg?style=flat-square)](https://coveralls.io/github/ocean/higgins)
+[![Travis CI Build Status](https://img.shields.io/travis/ocean/higgins/master.svg?style=flat-square)](https://travis-ci.org/ocean/higgins) [![David dependencies](https://img.shields.io/david/ocean/higgins.svg?style=flat-square)](https://david-dm.org/ocean/higgins) [![Coveralls coverage](https://img.shields.io/coveralls/ocean/higgins/master.svg?style=flat-square)](https://coveralls.io/github/ocean/higgins) [![Code Climate](https://codeclimate.com/github/ocean/higgins/badges/gpa.svg)](https://codeclimate.com/github/ocean/higgins)
 
 Higgins gets the news, and looks after it until it is required.
 
@@ -28,8 +28,10 @@ Force a fetch of a new copy of the Commerce Media Releases feed:
 ## TODO
 
 * ~~Add JSONP capability.~~ done!
-* Add caching of search results into Memcached.
-* Other nice things.
+* Build a Ministerials feed from the Media Statements website.
+* Add a unified feed endpoint with sorting via query string parameters.
+* Add caching of search results into Memcached (via Pantry's support).
+* Supply other feeds.
 
 ## License
 

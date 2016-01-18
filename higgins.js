@@ -1,9 +1,10 @@
 var pantry = require('pantry');
-var util = require('util');
+// var util = require('util');
 
-var Higgins = function () {};
+var Higgins = function setup() {};
 
-Higgins.prototype.newsPlease = function (url, feedType, forceRefresh, callback) {
+Higgins.prototype.newsPlease = function hereIsTheNews(url, feedType, forceRefresh, callback) {
+  var fetchLocation = url;
   pantry.configure({
     maxLife: 600,
 //    parser: feedType,
@@ -14,24 +15,27 @@ Higgins.prototype.newsPlease = function (url, feedType, forceRefresh, callback) 
     },
   });
 
-  if (url.indexOf('http') === -1) {
-    // URL is local
+  // Check if requested URL is local (relative), if so make it valid (absolute)
+  if (fetchLocation.indexOf('http') === -1) {
+    // URL has no http, so is relative
     if (process.env.HEROKU_URL) {
-      url = process.env.HEROKU_URL + url;
+      // if on Heroku, add the app URL
+      fetchLocation = process.env.HEROKU_URL + fetchLocation;
     } else {
-      url = 'http://localhost:3000' + url;
+      // if on local, add default Node URL
+      fetchLocation = 'http://localhost:3000' + fetchLocation;
     }
   }
-  console.log('URL is: ' + url);
+  console.log('URL is: ' + fetchLocation);
 
   if (forceRefresh) {
-    pantry.remove(url);
-    console.log('Removed cached copy of: ' + url);
+    pantry.remove(fetchLocation);
+    console.log('Removed cached copy of: ' + fetchLocation);
   }
 
   pantry.fetch({
-    uri: url,
-  }, function (error, data) {
+    uri: fetchLocation,
+  }, function fetchThings(error, data) {
 //    console.log('Fetching: ' + url);
     if (error) {
       console.log('pantry error: ' + error);
@@ -40,7 +44,6 @@ Higgins.prototype.newsPlease = function (url, feedType, forceRefresh, callback) 
     callback(error, data);
 //    console.dir(util.inspect(data, false, null));
   });
-
 };
 
 module.exports = new Higgins();

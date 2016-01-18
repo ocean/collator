@@ -93,12 +93,12 @@ app.get('/v1/ministerials', function getMinisterials(req, res, next) {
 // Endpoints for building sets of data
 // ===================================
 
-app.get('/v1/build/ministerials', function buildMinisterials(req, res, next) {
+app.get('/v1/build/ministerials', function buildMinisterials(req, res) {
 //  console.log('Request: ' + req);
   // URL of Ministerial Media Statements start page
   var startUrl = 'https://www.mediastatements.wa.gov.au/Pages/Portfolios/Commerce.aspx';
 
-  res.jsonp({ "result": "This is where the data goes." });
+  res.jsonp({ 'result': 'This is where the data goes.' });
 //  res.send('some text here');
 });
 
@@ -109,10 +109,11 @@ app.get('/v1/build/ministerials', function buildMinisterials(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function (err, req, res, next) {
+  app.use(function devError(err, req, res, next) {
     res.status(err.status || 500).send(err.stack);
     console.error('Error stack: \n' + err.stack);
 //    console.dir(req);
+    next(err);
   });
 }
 
@@ -121,10 +122,11 @@ if (app.get('env') === 'development') {
 app.use(function errorHandler(err, req, res, next) {
   res.status(err.status || 500).send('Error: ' + err.message);
   console.error('Error stack: \n' + err.stack);
+  next(err);
 });
 
 // catch 404 as a final thing
-app.use(function notFoundHandler(req, res, next) {
+app.use(function notFoundHandler(req, res) {
   res.status(404).send('404 Not Found');
   console.dir(req);
 });

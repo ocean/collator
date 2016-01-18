@@ -96,7 +96,7 @@ app.get('/v1/ministerials', function getMinisterials(req, res, next) {
 app.get('/v1/build/ministerials', function buildMinisterials(req, res) {
 //  console.log('Request: ' + req);
   // URL of Ministerial Media Statements start page
-  //var startUrl = 'https://www.mediastatements.wa.gov.au/Pages/Portfolios/Commerce.aspx';
+  // var startUrl = 'https://www.mediastatements.wa.gov.au/Pages/Portfolios/Commerce.aspx';
 
   res.jsonp(JSON.stringify({ result: 'This is where the data goes.' }));
 });

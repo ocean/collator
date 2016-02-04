@@ -23,10 +23,8 @@
     "cheerio": "^0.19.x",
     "cors": "^2.7.x",
     "express": "^4.13.x",
-    "hawk": "^4.1.x",
     "morgan": "^1.6.x",
-    "pantry": "^0.7.x",
-    "request": "^2.69.x"
+    "pantry": "git://github.com/ocean/pantry.git#master",
   },
   "devDependencies": {
     "eslint": "^1.10.3",

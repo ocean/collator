@@ -24,7 +24,7 @@
     "cors": "^2.7.x",
     "express": "^4.13.x",
     "morgan": "^1.6.x",
-    "pantry": "git://github.com/ocean/pantry.git#master",
+    "pantry": "git://github.com/ocean/pantry.git#master"
   },
   "devDependencies": {
     "eslint": "^1.10.3",

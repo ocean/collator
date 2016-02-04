@@ -23,13 +23,16 @@
     "cheerio": "^0.19.x",
     "cors": "^2.7.x",
     "express": "^4.13.x",
+    "hawk": "^4.1.x",
     "morgan": "^1.6.x",
-    "pantry": "^0.7.x"
+    "pantry": "^0.7.x",
+    "request": "^2.69.x"
   },
   "devDependencies": {
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^3.1.0",
     "eslint-plugin-react": "^3.14.0",
+    "nock": "^5.2.x",
     "snyk": "^1.8.x",
     "tap": "^5.x.x"
   }

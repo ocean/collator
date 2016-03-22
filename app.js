@@ -63,8 +63,8 @@ app.get('/v1/commerce-news', function getCommerceNews(req, res, next) {
 //    console.dir(news.channel[0].item[5], { colors: 'true', depth: 5 });
 //    console.log('Number of items: ' + news.channel[0].item.length);
 //    res.type('json');
-//    res.send(news);
     res.jsonp(news);
+    return true;
   });
 });
 
@@ -86,6 +86,7 @@ app.get('/v1/ministerials', function getMinisterials(req, res, next) {
     if (error) { return next(error); }
 //    res.send(news);
     res.jsonp(news);
+    return true;
   });
 });
 

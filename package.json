@@ -30,7 +30,7 @@
     "eslint": "^2.4.x",
     "eslint-config-airbnb": "^6.1.x",
     "eslint-plugin-react": "^4.2.x",
-    "nock": "^5.2.x",
+    "nock": "^7.7.x",
     "snyk": "^1.8.x",
     "tap": "^5.x.x"
   }

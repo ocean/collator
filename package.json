@@ -20,18 +20,18 @@
   },
   "dependencies": {
     "chalk": "^1.x",
-    "cheerio": "^0.20.x",
+    "cheerio": "^0.22.0",
     "cors": "^2.7.x",
     "express": "^4.13.x",
     "morgan": "^1.6.x",
     "pantry": "git://github.com/ocean/pantry.git#master"
   },
   "devDependencies": {
-    "eslint": "^2.9.x",
-    "eslint-config-airbnb-base": "^2.x",
-    "eslint-plugin-import": "^1.6.x",
-    "nock": "^8.x",
+    "eslint": "^3.9.1",
+    "eslint-config-airbnb-base": "^10.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "nock": "^9.0.2",
     "snyk": "^1.8.x",
-    "tap": "^5.x"
+    "tap": "^8.0.0"
   }
 }

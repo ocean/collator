@@ -6,12 +6,13 @@ var chalk = require('chalk');
 var cors = require('cors');
 var higgins = require('./higgins.js');
 var morgan = require('morgan');
+var path = require('path');
 
 // Morgan is a replacement for express.logger()
 app.use(morgan('dev'));
 
 // Serve anything in public as static files
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.resolve(__dirname, '/public')));
 
 console.log(chalk.red('Node environment: ') + chalk.cyan(app.get('env')));
 

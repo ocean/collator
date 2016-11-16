@@ -27,7 +27,7 @@
     "pantry": "git://github.com/ocean/pantry.git#master"
   },
   "devDependencies": {
-    "eslint": "^3.9.1",
+    "eslint": "^3.10.2",
     "eslint-config-airbnb-base": "^10.0.1",
     "eslint-plugin-import": "^2.2.0",
     "nock": "^9.0.2",

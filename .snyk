@@ -1,0 +1,6 @@
+version: v1.5.0
+ignore: {}
+patch:
+  'npm:ejs:20161128':
+    - pantry > soap > ejs:
+        patched: '2016-12-08T15:31:42.287Z'

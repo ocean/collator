@@ -1,7 +1,7 @@
 {
   "name": "higgins",
   "description": "Higgins gets the news, and looks after it until it is required.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": {
     "type": "git",
     "url": "git://github.com/ocean/higgins.git"

@@ -18,7 +18,7 @@ console.log(chalk.red('Node environment: ') + chalk.cyan(app.get('env')));
 
 // Enable CORS for some domains
 // var corsWhitelist = ['http://203.33.230.66', 'http://www.commerce.wa.gov.au', 'https://www.commerce.wa.gov.au'];
-var corsOptions = {
+var corsOptions = { // eslint-disable-line
   origin: function corsOriginCheck(origin, callback) {
 //    var originIsWhitelisted = corsWhitelist.indexOf(origin) !== -1;
 //    callback(null, originIsWhitelisted);
@@ -133,7 +133,7 @@ app.use(function notFoundHandler(req, res) {
 });
 
 // port setup with env var for Heroku
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3000; // eslint-disable-line
 app.listen(port, function appListen() {
   console.log('Listening on ' + port);
 });

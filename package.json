@@ -1,10 +1,10 @@
 {
-  "name": "higgins",
-  "description": "Higgins gets the news, and looks after it until it is required.",
-  "version": "1.0.1",
+  "name": "collator",
+  "description": "Collator gets information, organises it and serves it up when required.",
+  "version": "2.0.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ocean/higgins.git"
+    "url": "git://github.com/ocean/collator.git"
   },
   "scripts": {
     "start": "node app.js",
@@ -15,7 +15,7 @@
     "prepublish": "npm run snyk-protect"
   },
   "author": "Drew Robinson <drew.robinson@gmail.com>",
-  "license": "MIT",
+  "license": "Apache 2.0",
   "engines": {
     "node": "^5.2",
     "npm": "^3.x.x"

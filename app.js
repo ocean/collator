@@ -4,7 +4,7 @@ var app = express();
 var chalk = require('chalk');
 // var cheerio = require('cheerio');
 var cors = require('cors');
-var higgins = require('./higgins.js');
+var collator = require('./collator.js');
 var morgan = require('morgan');
 var path = require('path');
 
@@ -58,7 +58,7 @@ app.get('/v1/commerce-news', function getCommerceNews(req, res, next) {
 //  console.log(chalk.magenta('Cache clear status is: %s'), clear);
 //  console.dir(req.query);
 
-  higgins.newsPlease(url, feedType, forceRefresh, function newsCB(error, news) {
+  collator.newsPlease(url, feedType, forceRefresh, function newsCB(error, news) {
     if (error) { return next(error); }
 //    console.dir(news.$, { colors: 'true' });
 //    console.dir(news.channel[0].item[5], { colors: 'true', depth: 5 });
@@ -83,7 +83,7 @@ app.get('/v1/ministerials', function getMinisterials(req, res, next) {
     forceRefresh = true;
   }
 
-  higgins.newsPlease(url, feedType, forceRefresh, function ministerialsCB(error, news) {
+  collator.newsPlease(url, feedType, forceRefresh, function ministerialsCB(error, news) {
     if (error) { return next(error); }
 //    res.send(news);
     res.jsonp(news);

@@ -1,9 +1,9 @@
 var pantry = require('pantry');
 // var util = require('util');
 
-var Higgins = function setup() {};
+var Collator = function setup() {};
 
-Higgins.prototype.newsPlease = function hereIsTheNews(url, feedType, forceRefresh, callback) {
+Collator.prototype.newsPlease = function hereIsTheNews(url, feedType, forceRefresh, callback) {
   var fetchLocation = url;
   pantry.configure({
     maxLife: 600,
@@ -46,4 +46,4 @@ Higgins.prototype.newsPlease = function hereIsTheNews(url, feedType, forceRefres
   });
 };
 
-module.exports = new Higgins();
+module.exports = new Collator();

@@ -10,9 +10,7 @@
     "start": "node app.js",
     "lint": "eslint . --ext .js --ignore-path .gitignore",
     "security_check": "snyk test",
-    "test": "tap --reporter=spec --coverage *.test.js",
-    "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "test": "tap --reporter=spec --coverage *.test.js"
   },
   "author": "Drew Robinson <drew.robinson@gmail.com>",
   "license": "Apache 2.0",
@@ -26,15 +24,14 @@
     "cors": "^2.7.x",
     "express": "^4.13.x",
     "morgan": "^1.6.x",
-    "pantry": "git://github.com/ocean/pantry.git#v1.0.0",
-    "snyk": "^1.21.2"
+    "pantry": "git://github.com/ocean/pantry.git#v1.0.0"
   },
   "devDependencies": {
     "eslint": "^3.10.2",
     "eslint-config-airbnb-base": "^11.0.0",
     "eslint-plugin-import": "^2.2.0",
     "nock": "^9.0.2",
+    "snyk": "^1.21.2",
     "tap": "^9.0.0"
-  },
-  "snyk": true
+  }
 }

@@ -24,14 +24,15 @@
     "cors": "^2.7.x",
     "express": "^4.13.x",
     "morgan": "^1.6.x",
-    "pantry": "git://github.com/ocean/pantry.git#v1.0.0"
+    "pantry": "git://github.com/ocean/pantry.git#v1.0.0",
+    "snyk": "^1.26.0"
   },
   "devDependencies": {
     "eslint": "^3.10.2",
     "eslint-config-airbnb-base": "^11.0.0",
     "eslint-plugin-import": "^2.2.0",
     "nock": "^9.0.2",
-    "snyk": "^1.21.2",
-    "tap": "^9.0.0"
-  }
+    "tap": "^10.0.0"
+  },
+  "snyk": true
 }

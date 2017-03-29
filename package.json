@@ -13,10 +13,9 @@
     "test": "tap --reporter=spec --coverage *.test.js"
   },
   "author": "Drew Robinson <drew.robinson@gmail.com>",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "engines": {
-    "node": "^5.2",
-    "npm": "^3.x.x"
+    "node": "^6.x"
   },
   "dependencies": {
     "chalk": "^1.x",

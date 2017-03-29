@@ -12,7 +12,7 @@ var path = require('path');
 app.use(morgan('dev'));
 
 // Serve anything in public as static files
-app.use(express.static(path.resolve(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 console.log(chalk.red('Node environment: ') + chalk.cyan(app.get('env')));
 

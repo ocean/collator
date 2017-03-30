@@ -23,7 +23,7 @@
     "cors": "^2.8.x",
     "express": "^4.15.x",
     "morgan": "^1.8.x",
-    "pantry": "git://github.com/ocean/pantry.git#v1.0.0",
+    "pantry": "git://github.com/ocean/pantry.git#v1.0.1",
     "snyk": "^1.26.0"
   },
   "devDependencies": {

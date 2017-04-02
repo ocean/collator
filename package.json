@@ -24,7 +24,7 @@
     "express": "^4.15.x",
     "morgan": "^1.8.x",
     "pantry": "git://github.com/ocean/pantry.git#v1.0.2",
-    "snyk": "^1.26.x"
+    "snyk": "^1.26.1"
   },
   "devDependencies": {
     "eslint": "^3.18.x",

@@ -47,9 +47,14 @@ server.route([
     method: 'GET',
     path: '/v1/{path*}',
     handler: function (request, reply) {
-      let results = Collator.get(request);
+      Collator.get(request, function callback(error, data) {
+        // if (error) {
+        //   throw error;
+        // }
+        reply(data);
+      });
       // typeof results;
-      reply(results);
+      // reply(results);
     }
   }
 ]);

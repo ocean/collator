@@ -5,7 +5,7 @@
 
 module.exports = {
 
-  get: (request, reply) => {
+  get: function getTest(request, callback) {
     "use strict";
     // console.dir(request);
     console.log(request.params.path);
@@ -13,8 +13,11 @@ module.exports = {
       console.log('this took 5s');
       return 'this thing took 5s'
     }, 5000);
+    let error = false;
     // return 'hi there';
-    return ret;
+    // return ret;
+    console.log(ret);
+    callback(error, ret);
   },
 
   newsPlease: function hereIsTheNews(url, feedType, forceRefresh, callback) {

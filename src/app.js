@@ -1,18 +1,20 @@
 'use strict';
 
-const Hapi = require('hapi');
-const Good = require('good');
-const Collator = require('./collator.js');
+import Hapi from 'hapi';
+import Good from 'good';
+import goodGuyHttp from 'good-guy-http';
 
-// const collator = require('./collator.js');
+const goodGuy = goodGuyHttp();
 
 const server = new Hapi.Server();
 
 // port setup with env var for hosting
 server.connection({
   port: process.env.PORT || 8000,
-  host: 'localhost'
+  host: 'localhost',
 });
+
+server.bind({ goodGuy });
 
 // static file handler for public directory
 server.register(require('inert'), (err) => {
@@ -27,37 +29,13 @@ server.register(require('inert'), (err) => {
     handler: {
       directory: {
         path: 'public',
-        index: true
-      }
-    }
-  })
+        index: true,
+      },
+    },
+  });
 });
 
-server.route([
-  {
-    method: 'GET',
-    path: '/test',
-    handler: function (request, reply) {
-      reply({
-        message: 'Hello there!'
-      })
-    }
-  },
-  {
-    method: 'GET',
-    path: '/v1/{path*}',
-    handler: function (request, reply) {
-      Collator.get(request, function callback(error, data) {
-        // if (error) {
-        //   throw error;
-        // }
-        reply(data);
-      });
-      // typeof results;
-      // reply(results);
-    }
-  }
-]);
+server.route(require('./routes.js'));
 
 server.register({
   register: Good,
@@ -68,22 +46,22 @@ server.register({
         name: 'Squeeze',
         args: [{
           response: '*',
-          log: '*'
-        }]
+          log: '*',
+        }],
       }, {
-        module: 'good-console'
-      }, 'stdout']
-    }
-  }
+        module: 'good-console',
+      }, 'stdout'],
+    },
+  },
 }, (err) => {
   if (err) {
     throw err;
   }
 
-  server.start((err) => {
-    if (err) {
-      console.log(err);
-      throw err;
+  server.start((error) => {
+    if (error) {
+      console.log(error);
+      throw error;
     }
     server.log('info', `Server running at ${server.info.uri}`);
   });

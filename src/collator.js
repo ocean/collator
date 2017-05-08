@@ -16,7 +16,7 @@ module.exports = {
     let error = false;
     // return 'hi there';
     // return ret;
-    console.log(ret);
+    // console.log(ret);
     callback(error, ret);
   },
 

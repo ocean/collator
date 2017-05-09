@@ -2,9 +2,6 @@
 
 import Hapi from 'hapi';
 import Good from 'good';
-import goodGuyHttp from 'good-guy-http';
-
-const goodGuy = goodGuyHttp();
 
 const server = new Hapi.Server();
 
@@ -13,8 +10,6 @@ server.connection({
   port: process.env.PORT || 8000,
   host: 'localhost',
 });
-
-server.bind({ goodGuy });
 
 // static file handler for public directory
 server.register(require('inert'), (err) => {

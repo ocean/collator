@@ -1,4 +1,5 @@
 import CommerceNews from './handlers/commerce_news';
+import Ministerials from './handlers/ministerials';
 
 module.exports = [
   // A test endpoint to check Hapi is working
@@ -17,4 +18,10 @@ module.exports = [
     path: '/v1/get-commerce-media',
     handler: CommerceNews.getNews,
   },
+  {
+    method: 'GET',
+    path: '/v1/get-ministerial-statements',
+    handler: Ministerials.getMinisterials,
+  },
+
 ];

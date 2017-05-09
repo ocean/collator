@@ -7,10 +7,10 @@
     "url": "git://github.com/ocean/collator.git"
   },
   "scripts": {
-    "build": "babel ",
-    "start": "node app.js",
-    "dev": "nodemon ./src/bootstrap.js",
-    "lint": "eslint ./src/ --ignore-path .gitignore",
+    "build": "babel -d dist/ src/",
+    "start": "node dist/app.js",
+    "dev": "nodejs-dashboard -- nodemon -r nodejs-dashboard src/bootstrap.js",
+    "lint": "eslint src/ --ignore-path .gitignore",
     "security_check": "snyk test",
     "test": "tap --reporter=spec --coverage *.test.js"
   },
@@ -20,6 +20,7 @@
     "node": "^6.x"
   },
   "dependencies": {
+    "babel-core": "^6.24.1",
     "cheerio": "^0.22.x",
     "cors": "^2.8.x",
     "good": "^7.1.0",
@@ -33,12 +34,13 @@
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.4.0",
     "eslint": "^3.18.x",
     "eslint-config-airbnb-base": "^11.x",
     "eslint-plugin-import": "^2.2.x",
     "nock": "^9.x",
+    "nodejs-dashboard": "^0.4.1",
     "tap": "^10.x"
   }
 }

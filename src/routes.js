@@ -1,5 +1,5 @@
 import CommerceNews from './handlers/commerce_news';
-import Ministerials from './handlers/ministerials2';
+import Ministerials from './handlers/ministerials';
 
 module.exports = [
   // A test endpoint to check Hapi is working

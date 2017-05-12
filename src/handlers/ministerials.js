@@ -1,153 +1,83 @@
 import Cheerio from 'cheerio';
-// import fs from 'fs';
-import url from 'url';
 import goodGuyHttp from 'good-guy-http';
+import moment from 'moment';
+import url from 'url';
 
-// const certFile = '/usr/local/etc/openssl/cert.pem';
 const mediaLandingUrl = 'https://www.mediastatements.wa.gov.au/Pages/Portfolios/Mines-and-Petroleum.aspx';
-// const mediaHref = url.parse(mediaLandingUrl).href;
-// console.log(`mediaHref = ${mediaHref}`);
-// The below is from the WHATWG URL spec, experimental in Node v7+
-// const mediaOrigin = url.parse(mediaLandingUrl).origin;
-// console.log(`mediaOrigin = ${mediaOrigin}`);
 
 const goodGuy = goodGuyHttp({
   headers: {
     'User-Agent': 'Department of Commerce Intranet - request',
   },
   proxy: 'http://proxy.bedrock.mft.wa.gov.au:8080',
-  // tunnel: true,
   timeout: 15000,
-  // ca: fs.readFileSync(certFile),
-  // agentOptions: {
-  //   ca: fs.readFileSync(certFile),
-  // },
 });
 
-async function parseStatements(linkArray, callback) {
-  // const statements = [];
-  let err = null;
-  // linkArray.forEach((link, index) => {
-  // linkArray.forEach(async (link, index) => {
-  //     // goodGuy(link).then((response) => {
-  //     //   const $ = Cheerio.load(response.body.toString());
-  //     //   const article = $('div#article');
-  //     //   const title = article.find('h1').text();
-  //     //   console.log(`title = ${title}`);
-  //     //   const date = Date.parse(article.find($('div.newsCreatedDate')).text());
-  //     //   console.log(`date = ${date}`);
-  //     //   statements[index] = {
-  //     //     url: link,
-  //     //     title,
-  //     //     date,
-  //     //   };
-  //     // })
-  //     // .catch((error) => {
-  //     //   console.dir(error);
-  //     //   throw error;
-  //     // });
-  //   let response = await goodGuy(link);
-  //   const $ = Cheerio.load(response.body.toString());
-  //   const article = $('div#article');
-  //   const title = article.find('h1').text();
-  //   console.log(`title = ${title}`);
-  //   const date = Date.parse(article.find($('div.newsCreatedDate')).text());
-  //   console.log(`date = ${date}`);
-  //   statements[index] = {
-  //     url: link,
-  //     title,
-  //     date,
-  //   };
-  // });
-  const statements = await linkArray.map(async (link, index) => {
-    // goodGuy(link).then((response) => {
-    //   const $ = Cheerio.load(response.body.toString());
-    //   const article = $('div#article');
-    //   const title = article.find('h1').text();
-    //   console.log(`title = ${title}`);
-    //   const date = Date.parse(article.find($('div.newsCreatedDate')).text());
-    //   console.log(`date = ${date}`);
-    //   const statement = {
-    //     url: link,
-    //     title,
-    //     date,
-    //   };
-    //   return statement;
-    // })
-    // .catch((error) => {
-    //   console.dir(error);
-    //   throw error;
-    // });
-    const response = await goodGuy(link);
-    const $ = Cheerio.load(response.body.toString());
-    const article = $('div#article');
-    const title = article.find('h1').text();
-    console.log(`title = ${title}`);
-    const date = Date.parse(article.find($('div.newsCreatedDate')).text());
-    console.log(`date = ${date}`);
-    return {
-      url: link,
-      title,
-      date,
-    };
-  });
-  // }
-  console.dir(`Statements obj = ${statements}`);
-  // return linkArray;
-  callback(err, statements);
-}
-
-async function fetchStatementLinks(input, callback) {
-  // console.log(input);
-  // let string = Cheerio(input);
-  const $ = Cheerio.load(input);
-  const out = $('tr > td', 'div.cs-rollup-content > table');
-  let err = null;
-  const links = out.find('a');
+exports.getMinisterials = async function getMinisterials(request, reply) {
+  // Fetch the media statements landing page and wait for it to return
+  const landingResponse = await goodGuy(mediaLandingUrl);
+  // Load the HTML body into Cheerio
+  const $ = Cheerio.load(landingResponse.body.toString());
+  // Extract the data from the table of links
+  const landingPage = $('tr > td', 'div.cs-rollup-content > table');
+  // Get an array of the link elements
+  const statementLinks = landingPage.find('a');
+  // Create an array for holding the relative URLs from these links
   const linkPartials = [];
-  links.each((idx, elem) => {
+  // For each link element, extract the href attribute
+  statementLinks.each((idx, elem) => {
     linkPartials[idx] = $(elem).attr('href');
   });
-  // console.dir(linkPartials);
-  // const fullUrls = [];
+  // Create a new array holding the full URLs to each statement,
+  // using url.resolve to make them
   const fullUrls = linkPartials.map((link, index) => {
-    // console.log(link);
-    // let fullUrl = url.resolve(mediaHref, link);
     const fullUrl = url.resolve(mediaLandingUrl, link);
-    console.log(`Full URL = ${fullUrl}`);
+    // console.log(`Full URL ${index} = ${fullUrl}`);
     return fullUrl;
   });
-  // const result = fullUrls;
-  await parseStatements(fullUrls, (parseError, results) => {
-    if (parseError) {
-      console.dir(parseError);
-      throw parseError;
-    }
-    console.log('Results!');
-    console.dir(results);
-    callback(err, results);
+  // Create an array of objects containing data extracted from
+  // each media statement
+  const statements = await fullUrls.map(async (link) => {
+    // Fetch the statement page and wait for it to return
+    const statementResponse = await goodGuy(link);
+    // Load the statement body into Cheerio
+    const $c = await Cheerio.load(statementResponse.body.toString());
+    // Extract the article content element
+    const article = await $c('div#article');
+    // Extract the title text
+    const title = article.find('h1').text();
+    // Extract the raw date created text
+    const rawDateString = article.find($c('div.newsCreatedDate')).text().trim();
+    // Parse the date text into a proper Date object using moment.js and
+    // the known formatting string
+    const dateParsed = moment(rawDateString, 'D/MM/YYYY H:mm A');
+    // Create a nice date string for use in the feed object
+    const dateString = moment(dateParsed).format('dddd, D MMMM YYYY');
+    // Create a more useful Unix epoch date (in seconds) for the feed object
+    const dateUnix = moment(dateParsed).format('X');
+    // Extract the media statement body
+    const contentHtml = article.find('div.article-content');
+    // Get rid of the leading <ul> element from the article HTML
+    const contentHtmlCleaned = contentHtml.html().replace(/<ul>.*<\/ul>/, '');
+    // console.log(contentHtmlCleaned);
+    // Convert the HTML string from above back into a Cheerio object so
+    // it can be further cleaned up
+    const contents = Cheerio.load(contentHtmlCleaned).text().trim().replace(/^Page Content/, '');
+    // const rawContents = contentHtmlCleaned.trim().replace(/^Page Content/, '');
+    // const contents = Cheerio.load(rawContents).text();
+    // Return nice media statement data object
+    return {
+      url: link,
+      dateString,
+      dateUnix,
+      title,
+      contents,
+    };
   });
-  // callback(err, result);
-}
-
-exports.getMinisterials = function getMinisterials(request, reply) {
-  goodGuy(mediaLandingUrl).then((response) => {
-    fetchStatementLinks(response.body.toString(), (error, result) => {
-      if (error) {
-        throw error;
-      }
-      console.log('"Result" is a ... ');
-      console.log(result);
-      // if (result.done) {
-      //   reply(result);
-      // } else {
-      //   Promise.reject(error);
-      // }
-      reply(result);
-    });
-  })
-    .catch((error) => {
-      console.dir(error);
-      throw error;
-    });
+  // Wait for the all the Promise objects in this array to resolve
+  const statementData = Promise.all(statements);
+  // console.log('Statements obj = ');
+  // console.dir(await statementData);
+  // Hapi reply call to send back object data serialised to JSON
+  reply(await statementData);
 };

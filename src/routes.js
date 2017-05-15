@@ -1,4 +1,5 @@
-import CommerceNews from './handlers/commerce_news';
+import CommerceNews from './handlers/commerce-news';
+import GovernmentNews from './handlers/government-news';
 import Ministerials from './handlers/ministerials';
 
 module.exports = [
@@ -22,6 +23,11 @@ module.exports = [
     method: 'GET',
     path: '/v1/get-ministerial-statements',
     handler: Ministerials.getMinisterials,
+  },
+  {
+    method: 'GET',
+    path: '/v1/get-government-statements',
+    handler: GovernmentNews.getStatements,
   },
 
 ];

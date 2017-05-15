@@ -23,6 +23,7 @@
     "babel-core": "^6.24.1",
     "cheerio": "^0.22.x",
     "cors": "^2.8.x",
+    "dotenv": "^4.0.0",
     "good": "^7.1.0",
     "good-console": "^6.4.0",
     "good-guy-http": "^1.9.0",

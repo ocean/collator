@@ -1,7 +1,14 @@
 import xml2js from 'xml2js';
 import goodGuyHttp from 'good-guy-http';
 
-const goodGuy = goodGuyHttp();
+const goodGuy = goodGuyHttp({
+  defaultCaching: {
+    timeToLive: 60000,
+  },
+  headers: {
+    'User-Agent': 'Department of Commerce Intranet - request',
+  },
+});
 const parseString = xml2js.parseString;
 
 // Commerce Media Releases from the 'Announcements' section of the website

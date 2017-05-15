@@ -9,7 +9,7 @@ const goodGuy = goodGuyHttp({
   headers: {
     'User-Agent': 'Department of Commerce Intranet - request',
   },
-  proxy: 'http://proxy.bedrock.mft.wa.gov.au:8080',
+  proxy: process.env.HTTP_PROXY,
   timeout: 15000,
 });
 
@@ -30,16 +30,14 @@ exports.getMinisterials = async function getMinisterials(request, reply) {
   });
   // Create a new array holding the full URLs to each statement,
   // using url.resolve to make them
-  const fullUrls = linkPartials.map((link, index) => {
-    const fullUrl = url.resolve(mediaLandingUrl, link);
-    // console.log(`Full URL ${index} = ${fullUrl}`);
-    return fullUrl;
+  const fullUrls = linkPartials.map((linkPartial) => {
+    return url.resolve(mediaLandingUrl, linkPartial);
   });
   // Create an array of objects containing data extracted from
   // each media statement
-  const statements = await fullUrls.map(async (link) => {
+  const statements = await fullUrls.map(async (fullUrl) => {
     // Fetch the statement page and wait for it to return
-    const statementResponse = await goodGuy(link);
+    const statementResponse = await goodGuy(fullUrl);
     // Load the statement body into Cheerio
     const $c = await Cheerio.load(statementResponse.body.toString());
     // Extract the article content element
@@ -55,19 +53,14 @@ exports.getMinisterials = async function getMinisterials(request, reply) {
     const dateString = moment(dateParsed).format('dddd, D MMMM YYYY');
     // Create a more useful Unix epoch date (in seconds) for the feed object
     const dateUnix = moment(dateParsed).format('X');
-    // Extract the media statement body
-    const contentHtml = article.find('div.article-content');
-    // Get rid of the leading <ul> element from the article HTML
-    const contentHtmlCleaned = contentHtml.html().replace(/<ul>.*<\/ul>/, '');
-    // console.log(contentHtmlCleaned);
-    // Convert the HTML string from above back into a Cheerio object so
-    // it can be further cleaned up
-    const contents = Cheerio.load(contentHtmlCleaned).text().trim().replace(/^Page Content/, '');
-    // const rawContents = contentHtmlCleaned.trim().replace(/^Page Content/, '');
-    // const contents = Cheerio.load(rawContents).text();
+    // Extract the media statement body text,
+    // skipping the <ul> element at the top and the "Page Content" target link
+    const contentHtml = article.find('div.article-content p');
+    // Convert the Cheerio object to text and trim whitespace
+    const contents = contentHtml.text().trim();
     // Return nice media statement data object
     return {
-      url: link,
+      url: fullUrl,
       dateString,
       dateUnix,
       title,

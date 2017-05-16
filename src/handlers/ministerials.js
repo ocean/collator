@@ -33,7 +33,8 @@ exports.getMinisterials = async function getMinisterials(request, reply) {
   });
   // Create a new array holding the full URLs to each statement,
   // using url.resolve to sort them out
-  const fullUrls = linkPartials.map(linkPartial => url.resolve(mediaLandingUrl, encodeURI(linkPartial)));
+  const fullUrls = linkPartials.map(linkPartial => url
+  .resolve(mediaLandingUrl, encodeURI(linkPartial)));
   // Create an array of objects containing data extracted from
   // each media statement
   const statements = await fullUrls.map(async (fullUrl) => {
@@ -69,9 +70,9 @@ exports.getMinisterials = async function getMinisterials(request, reply) {
         title,
         contents,
       };
-    }
-    catch (error) {
+    } catch (error) {
       console.log('Fetch of statement info failed', error);
+      throw error;
     }
   });
   // Wait for the all the Promise objects in this array to resolve

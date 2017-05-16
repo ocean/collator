@@ -26,7 +26,7 @@ exports.getStatements = async function getStatements(request, reply) {
   // Get an array of the link elements
   let statementLinks = landingPage.find('a');
   // Cut the list of statements back to the first 10 on the page
-  statementLinks = statementLinks.slice(0,10);
+  statementLinks = statementLinks.slice(0, 10);
   // Create an array for holding the relative URLs from these links
   const linkPartials = [];
   // For each link element, extract the href attribute
@@ -35,7 +35,8 @@ exports.getStatements = async function getStatements(request, reply) {
   });
   // Create a new array holding the full URLs to each statement,
   // using url.resolve to sort them out
-  const fullUrls = linkPartials.map(linkPartial => url.resolve(mediaFrontUrl, encodeURI(linkPartial)));
+  const fullUrls = linkPartials.map(linkPartial => url
+  .resolve(mediaFrontUrl, encodeURI(linkPartial)));
   // Create an array of objects containing data extracted from
   // each media statement
   const statements = await fullUrls.map(async (fullUrl) => {
@@ -71,9 +72,9 @@ exports.getStatements = async function getStatements(request, reply) {
         title,
         contents,
       };
-    }
-    catch (error) {
+    } catch (error) {
       console.log('Fetch of statement info failed', error);
+      throw error;
     }
   });
   // Wait for the all the Promise objects in this array to resolve

@@ -12,7 +12,7 @@ const goodGuy = goodGuyHttp({
 const parseString = xml2js.parseString;
 
 // Commerce Media Releases from the 'Announcements' section of the website
-exports.getNews = function getCommerceNews(request, reply) {
+exports.getStatements = function getCommerceNews(request, reply) {
   const newsUrl = 'http://www.commerce.wa.gov.au/announcements/182/all/feed';
   goodGuy(newsUrl).then((response) => {
     parseString(response.body, (err, result) => {

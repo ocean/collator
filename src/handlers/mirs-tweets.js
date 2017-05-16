@@ -28,6 +28,10 @@ const twitterEndpointUrl = url.format({
   },
 });
 
+if (!process.env.TWITTER_BEARER_TOKEN) {
+  throw Error('Error: Twitter bearer token must be set in TWITTER_BEARER_TOKEN environment variable.');
+}
+
 const goodGuy = goodGuyHttp({
   defaultCaching: {
     timeToLive: 60000,

@@ -1,6 +1,7 @@
 import CommerceNews from './handlers/commerce-news';
 import GovernmentNews from './handlers/government-news';
 import Ministerials from './handlers/ministerials';
+import MirsTweets from './handlers/mirs-tweets';
 
 module.exports = [
   // A test endpoint to check Hapi is working
@@ -28,6 +29,11 @@ module.exports = [
     method: 'GET',
     path: '/v1/get-government-statements',
     handler: GovernmentNews.getStatements,
+  },
+  {
+    method: 'GET',
+    path: '/v1/get-tweets',
+    handler: MirsTweets.getTweets,
   },
 
 ];

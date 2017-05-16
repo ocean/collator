@@ -32,6 +32,7 @@
     "inert": "^4.2.0",
     "moment": "^2.18.1",
     "pantry": "git://github.com/ocean/pantry.git#v1.0.3",
+    "twitter": "^1.7.0",
     "xml2js": "^0.4.17"
   },
   "devDependencies": {

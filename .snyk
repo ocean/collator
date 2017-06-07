@@ -4,5 +4,5 @@ ignore:
   'npm:qs:20170213':
     - '* > qs':
       reason: Introduced by snyk!
-      expires: '2017-11-01T00:00:00.000Z'
+      expires: 2017-11-01T00:00:00.000Z
 patch: {}

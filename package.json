@@ -12,7 +12,7 @@
     "dev": "nodejs-dashboard -- nodemon -r nodejs-dashboard src/bootstrap.js",
     "lint": "eslint src/ --ignore-path .gitignore",
     "security_check": "snyk test",
-    "test": "tap --reporter=spec --coverage *.test.js"
+    "test": "ava"
   },
   "author": "Drew Robinson <drew.robinson@gmail.com>",
   "license": "Apache-2.0",
@@ -53,7 +53,6 @@
     "eslint-plugin-import": "^2.3.0",
     "locate-path": "^2.0.0",
     "nock": "^9.x",
-    "nodejs-dashboard": "^0.4.1",
-    "tap": "^10.x"
+    "nodejs-dashboard": "^0.4.1"
   }
 }

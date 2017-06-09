@@ -13,8 +13,9 @@ node_js:
   - '8'
 
 env:
-  - CXX=g++-4.8
-  - TWITTER_BEARER_TOKEN=123456789
+  global:
+    - CXX=g++-4.8
+    - TWITTER_BEARER_TOKEN=123456789
 
 addons:
   apt:

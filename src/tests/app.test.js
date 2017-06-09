@@ -1,6 +1,4 @@
-/**
- * Created by drewrobinson on 8/06/2017.
- */
+/* Simple app tests with ava. */
 
 import test from 'ava';
 

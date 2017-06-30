@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Cheerio from 'cheerio';
 import goodGuyHttp from 'good-guy-http';
 import moment from 'moment';
@@ -21,7 +22,7 @@ exports.getTrainTimes = async function getTrainTimes(request, reply) {
     underground: 'http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Perth+Underground+Stn',
   };
   const canningtonDepartures = {
-    cannington: 'http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Cannington+Stn'
+    cannington: 'http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Cannington+Stn',
   };
 
   // Fetch the media statements landing page and wait for it to return

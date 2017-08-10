@@ -36,7 +36,7 @@ exports.getStatements = async function getStatements(request, reply) {
   // Create a new array holding the full URLs to each statement,
   // using url.resolve to sort them out
   const fullUrls = linkPartials.map(linkPartial => url
-  .resolve(mediaFrontUrl, encodeURI(linkPartial)));
+    .resolve(mediaFrontUrl, encodeURI(linkPartial)));
   // Create an array of objects containing data extracted from
   // each media statement
   const statements = await fullUrls.map(async (fullUrl) => {

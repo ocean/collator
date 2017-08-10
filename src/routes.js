@@ -1,8 +1,7 @@
 import CommerceNews from './handlers/commerce-news';
 import GovernmentNews from './handlers/government-news';
 import Ministerials from './handlers/ministerials';
-import MirsTweets from './handlers/mirs-tweets';
-import TransportTweets from './handlers/transport-tweets';
+import Tweets from './handlers/tweets';
 
 module.exports = [
   // A test endpoint to check Hapi is working
@@ -18,28 +17,38 @@ module.exports = [
   // Commerce Media Releases from the 'Announcements' section of the website
   {
     method: 'GET',
-    path: '/v1/get-commerce-statements',
+    path: '/v1/statements/commerce',
     handler: CommerceNews.getStatements,
   },
   {
     method: 'GET',
-    path: '/v1/get-ministerial-statements',
+    path: '/v1/statements/ministerials',
     handler: Ministerials.getMinisterials,
   },
   {
     method: 'GET',
-    path: '/v1/get-government-statements',
+    path: '/v1/statements/government',
     handler: GovernmentNews.getStatements,
   },
   {
     method: 'GET',
-    path: '/v1/get-mirs-tweets',
-    handler: MirsTweets.getTweets,
+    path: '/v1/tweets/{list}',
+    handler: Tweets.getTweets,
   },
-  {
-    method: 'GET',
-    path: '/v1/get-transport-tweets',
-    handler: TransportTweets.getTweets,
-  },
+  // {
+  //   method: 'GET',
+  //   path: '/v1/data/transport/departures',
+  //   handler: TransportData.getDepartures,
+  // },
+  // {
+  //   method: 'GET',
+  //   path: '/v1/data/transport/updates',
+  //   handler: TransportData.getUpdates,
+  // },
+  // {
+  //   method: 'GET',
+  //   path: '/v1/data/weather/{location}',
+  //   handler: WeatherData.getCurrent,
+  // },
 
 ];

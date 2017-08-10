@@ -3,7 +3,10 @@ import goodGuyHttp from 'good-guy-http';
 import moment from 'moment';
 import url from 'url';
 
-const mediaLandingUrl = 'https://www.mediastatements.wa.gov.au/Pages/Portfolios/Mines-and-Petroleum.aspx';
+const mediaLandingUrl = 'https://www.mediastatements.wa.gov.au/Pages/Portfolios/Commerce-and-Industrial-Relations.aspx';
+
+// Need to also aggregate statements from 
+// https://www.mediastatements.wa.gov.au/Pages/Portfolios/Mines-and-Petroleum.aspx
 
 const goodGuy = goodGuyHttp({
   defaultCaching: {
@@ -34,7 +37,7 @@ exports.getMinisterials = async function getMinisterials(request, reply) {
   // Create a new array holding the full URLs to each statement,
   // using url.resolve to sort them out
   const fullUrls = linkPartials.map(linkPartial => url
-  .resolve(mediaLandingUrl, encodeURI(linkPartial)));
+    .resolve(mediaLandingUrl, encodeURI(linkPartial)));
   // Create an array of objects containing data extracted from
   // each media statement
   const statements = await fullUrls.map(async (fullUrl) => {

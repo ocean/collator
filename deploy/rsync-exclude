@@ -1,0 +1,16 @@
+# Exclude file for rsync transfer
+# Add patterns one per line
+
+# Any git things
+.git*
+
+.DS_Store
+.eslint*
+.env
+
+# Deploy artifacts
+log/
+deploy/
+
+# Directory where the form is
+# public/communications-request

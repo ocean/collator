@@ -1,0 +1,14 @@
+{
+  "apps": [{
+    "name": "collator",
+    "cwd": "/opt/app/collator",
+    "script": "dist/app.js",
+    "log_date_format" : "YYYY-MM-DD HH:mm Z",
+    "env": {
+      "NODE_ENV": "production"
+    },
+    "env_development": {
+      "NODE_ENV": "development"
+    }
+  }]
+}

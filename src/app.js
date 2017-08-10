@@ -8,7 +8,7 @@ const server = new Hapi.Server();
 // port setup with env var for hosting
 server.connection({
   port: process.env.PORT || 8000,
-  host: 'localhost',
+  host: process.env.COLLATOR_HOSTNAME || 'localhost',
 });
 
 // static file handler for public directory

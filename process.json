@@ -6,7 +6,8 @@
     "log_date_format" : "YYYY-MM-DD HH:mm Z",
     "env": {
       "NODE_ENV": "production",
-      "PORT": 3000
+      "PORT": 3000,
+      "COLLATOR_HOSTNAME": "dias94.bedrock.mft.wa.gov.au"
     },
     "env_development": {
       "NODE_ENV": "development"

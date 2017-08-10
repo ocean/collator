@@ -6,6 +6,8 @@
 
 .DS_Store
 .eslint*
+
+# Environment files, don't overwrite them
 .env
 
 # Deploy artifacts

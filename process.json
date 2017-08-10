@@ -5,7 +5,8 @@
     "script": "dist/app.js",
     "log_date_format" : "YYYY-MM-DD HH:mm Z",
     "env": {
-      "NODE_ENV": "production"
+      "NODE_ENV": "production",
+      "PORT": 3000
     },
     "env_development": {
       "NODE_ENV": "development"

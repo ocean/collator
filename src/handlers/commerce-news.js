@@ -19,7 +19,22 @@ exports.getStatements = function getCommerceNews(request, reply) {
       if (err) {
         throw err;
       }
-      reply(result);
+      let statements = [];
+      let rssItems = result.rss.channel[0].item;
+      // console.dir(result.rss.channel[0].item);
+      // console.dir(rssItems);
+      rssItems.forEach(function(element) {
+        statements.push({
+          title: element.title,
+          link: element.link,
+          description: element.description,
+          pubdate: element.pubDate,
+          creator: element['dc:creator']
+        })
+      }, this);
+      // console.dir(statements);
+      reply(statements);
+      // reply(result);
     });
   });
 };

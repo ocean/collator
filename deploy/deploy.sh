@@ -29,12 +29,10 @@ npm run build
 echo "$(tput -Tansi setaf 3)Running rsync to copy changes into app directory...$(tput -Tansi sgr 0)"
 rsync --recursive --verbose --links --checksum --delete --exclude-from=deploy/rsync-exclude $REPO_DIR/ $APP_ROOT_DIR/
 
-# Test if PM2 reloaded
-# Set hot reloading?
-
 echo "$(tput -Tansi setaf 3)Gracefully restarting the API with PM2...$(tput -Tansi sgr 0)"
 # startOrReload will gracefully reload or restart or start the process.
-pm2 startOrReload $APP_ROOT_DIR/$PM2_APP_PROCESS_FILE
+# "--update-env" is required so the environment from the process.json is updated.
+pm2 startOrReload --update-env $APP_ROOT_DIR/$PM2_APP_PROCESS_FILE
 
 cd $REPO_DIR
 echo "$(tput -Tansi setaf 2; tput -Tansi bold)Deployment to $(tput -Tansi setaf 1)SIT$(tput -Tansi setaf 2) completed.$(tput -Tansi sgr 0)"

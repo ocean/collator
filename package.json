@@ -8,16 +8,17 @@
   },
   "scripts": {
     "build": "babel -d dist/ src/",
-    "start": "node dist/app.js",
     "dev": "nodejs-dashboard -- nodemon -r nodejs-dashboard src/bootstrap.js",
+    "heroku-postbuild": "npm run build",
     "lint": "eslint src/ --ignore-path .gitignore",
     "security_check": "snyk test",
+    "start": "node dist/app.js",
     "test": "ava"
   },
   "author": "Drew Robinson <drew.robinson@gmail.com>",
   "license": "Apache-2.0",
   "engines": {
-    "node": "^7.x"
+    "node": "7.x"
   },
   "ava": {
     "files": [
@@ -29,6 +30,11 @@
     "babel": "inherit"
   },
   "dependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.0.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-register": "^6.24.1",
     "cheerio": "^1.0.0-rc.2",
     "dotenv": "^4.0.0",
     "good": "^7.2.0",
@@ -38,20 +44,13 @@
     "hapi": "^16.5.2",
     "inert": "^4.2.1",
     "moment": "^2.18.1",
-    "twitter": "^1.7.1",
     "xml2js": "^0.4.17"
   },
   "devDependencies": {
     "ava": "^0.21.0",
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.25.0",
-    "babel-loader": "^7.0.0",
-    "babel-preset-env": "^1.6.0",
-    "babel-register": "^6.24.1",
     "eslint": "^4.4.1",
     "eslint-config-airbnb-base": "^11.3.1",
     "eslint-plugin-import": "^2.7.0",
-    "locate-path": "^2.0.0",
     "nock": "^9.x",
     "nodejs-dashboard": "^0.4.1"
   }

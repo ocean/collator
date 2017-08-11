@@ -25,7 +25,7 @@ Give me the Ministerial Media Statements feed:
 
 A test instance of this app is running on [Heroku](https://heroku.com) at:
 
-  https://collator-news.herokuapp.com/
+  https://collator-tool.herokuapp.com/
 
 ## TODO
 

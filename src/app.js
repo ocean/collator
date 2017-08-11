@@ -7,8 +7,7 @@ const server = new Hapi.Server();
 
 // port setup with env var for hosting
 server.connection({
-  port: process.env.PORT || 8000,
-  host: process.env.COLLATOR_HOSTNAME || 'localhost',
+  port: process.env.PORT || 3000,
 });
 
 // static file handler for public directory
@@ -63,11 +62,6 @@ server.register({
 });
 
 
-// Serve anything in public as static files
-// app.use(express.static(path.join(__dirname, 'public')));
-//
-// console.log(chalk.red('Node environment: ') + chalk.cyan(app.get('env')));
-//
 // // Enable CORS for some domains
 // // var corsWhitelist = ['http://203.33.230.66', 'http://www.commerce.wa.gov.au', 'https://www.commerce.wa.gov.au'];
 // var corsOptions = { // eslint-disable-line

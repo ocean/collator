@@ -16,6 +16,14 @@
   <!-- CSS –––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="css/dist/normalize.css">
   <link rel="stylesheet" href="css/dist/skeleton.css">
+  <style>
+    .disabled {
+      color: lightgrey;
+    }
+    .disabled a {
+      color: lightgrey;
+    }
+  </style>
 
   <!-- Favicon -––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/favicon.png">
@@ -27,12 +35,13 @@
   <div class="container">
     <div class="row">
       <div class="eight column" style="margin-top: 10%">
-        <h1>Collator &ndash; fetches and organises data</h1>
-        <p><strong>Collator</strong> is an API that collects and collates information from various sources and serves it as JSON data, with varying amounts of caching.</p>
+        <h1>Collator &ndash; fetches and organises</h1> 
+        <p><strong>Collator</strong> is an API that collects and collates information from various sources and serves it as JSON, with varying amounts of caching.</p>
         <h3>Usage</h3>
-        <p>Simply the hit the endpoints below to get data. Data is plain JSON by default.</p>
+        <p>Simply the hit the endpoints below. Data is plain JSON by default.</p>
         <!-- <p>Simply the hit the endpoints below to get data. Data is plain JSON by default. JSONP can be requested by adding a <code>?callback=yourCallbackFunctionNameHere</code> query parameter to the URL.</p> -->
-        <p>Here are the API endpoints available:</p>
+        <h3>API endpoints</h3>
+        <p><strong>Note:</strong> greyed out endpoints are not fully implemented yet.</p>
         <table class="u-full-width">
           <thead>
             <tr>
@@ -53,11 +62,11 @@
               <td><code><a href="/v1/statements/government">/v1/statements/government</a></code></td>
               <td>All Government media statements from the <a href="https://www.mediastatements.wa.gov.au/">Media Statements site</a>.</td>
             </tr>
-            <tr>
+            <tr class="disabled">
               <td><code><a href="/v1/tweets/dmirs">/v1/tweets/dmirs</a></code></td>
               <td>Twitter updates from <a href="https://twitter.com/DMIRS_WA">@DMIRS_WA</a> and related accounts.</td>
             </tr>
-            <tr>
+            <tr class="disabled">
               <td><code><a href="/v1/tweets/transport">/v1/tweets/transport</a></code></td>
               <td>Twitter updates about Perth transport information, including <a href="https://twitter.com/Transperth">@Transperth</a> and <a href="https://twitter.com/Perth_Traffic">@Perth_Traffic</a>.</td>
             </tr>

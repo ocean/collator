@@ -2,31 +2,24 @@
 
 [![Travis CI Build Status](https://img.shields.io/travis/ocean/collator/master.svg?style=flat-square)](https://travis-ci.org/ocean/collator) [![David dependencies](https://img.shields.io/david/ocean/collator.svg?style=flat-square)](https://david-dm.org/ocean/collator) [![Coveralls coverage](https://img.shields.io/coveralls/ocean/collator/master.svg?style=flat-square)](https://coveralls.io/github/ocean/collator) [![Code Climate](https://codeclimate.com/github/ocean/collator/badges/gpa.svg)](https://codeclimate.com/github/ocean/collator)
 
-Collator gets information, organises it and serves it up when required.
+Collator fetches information, organises it and serves it up when required.
 
 This server listens on specific URLs for requests for news feeds and other information. When a feed is requested, it checks for cached information then delivers it as JSON, fetching from the upstream URL beforehand if required.
 
-Data is plain JSON by default. JSONP can be requested by adding a `?callback=yourCallbackFunctionNameHere` query parameter to the URL.
-
-The cached news can be refreshed with another query.
+Data is plain JSON by default.
 
 Valid URL arguments are, in order:
 
-	http://[server]/v1/[feed-name][?forceRefresh=true][&[callback=callbackName]]
+	http://[server]/[api-version]/[feed-name]
 
+* **API version**: required, currently "v1".
 * **Feed name**: required.
-* **Force refresh**: optional.
-* **Callback**: for JSONP requests, optional.
 
 ## Usage
 
 Give me the Ministerial Media Statements feed:
 
-	curl http://[server]/v1/ministerials
-
-Force a fetch of a new copy of the Commerce Media Releases feed:
-
-	curl http://[server]/v1/commerce-media?forceRefresh=true
+	curl http://[server]/v1/statements/ministerials
 
 ## Test instance
 
@@ -36,13 +29,17 @@ A test instance of this app is running on [Heroku](https://heroku.com) at:
 
 ## TODO
 
-- [ ] Support GraphQL
-- [ ] Build a Ministerials feed from the Media Statements website.
-- [ ] Build a live train departure times feed from the Transperth website (with [x-ray](https://www.npmjs.com/package/x-ray)).
+- [ ] Support feed pagination for asking for more data.
+- [ ] Build a live train departure times feed from the Transperth website (with [x-ray](https://www.npmjs.com/package/x-ray)?).
 - [ ] Add a unified feed endpoint with sorting via query string parameters.
-- [ ] Add caching of search results into Memcached (via Pantry's support).
-- [ ] Supply other feeds.
-- [x] Add JSONP capability.
+- [ ] Supply other information.
+- [x] Add caching of information.
+- [x] Build a Ministerials feed from the Media Statements website.
+
+## ENHANCEMENTS
+
+- [ ] Convert to use Memcached or Redis for caching backend..
+- [ ] Support / convert to GraphQL
 
 ## License
 

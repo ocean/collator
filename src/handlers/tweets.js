@@ -32,24 +32,23 @@ const transportEndpointUrl = url.format({
   },
 });
 
-if (!process.env.TWITTER_BEARER_TOKEN) {
-  throw Error('Error: Twitter bearer token must be set in TWITTER_BEARER_TOKEN environment variable.');
-}
-
-const goodGuy = goodGuyHttp({
-  defaultCaching: {
-    timeToLive: 60000,
-  },
-  headers: {
-    Authorization: `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,
-  },
-  json: true,
-  proxy: process.env.HTTP_PROXY,
-  timeout: 15000,
-});
-
-// Transport related tweets from a list owned by @CommerceWA on Twitter
 exports.getTweets = async function getTweets(request, reply) {
+  if (!process.env.TWITTER_BEARER_TOKEN) {
+    throw Error('Error: Twitter bearer token must be set in TWITTER_BEARER_TOKEN environment variable.');
+  }
+
+  const goodGuy = goodGuyHttp({
+    defaultCaching: {
+      timeToLive: 60000,
+    },
+    headers: {
+      Authorization: `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,
+    },
+    json: true,
+    proxy: process.env.HTTP_PROXY,
+    timeout: 15000,
+  });
+
   let twitterEndpointUrl = '';
   if (request.params.list === 'dmirs') {
     twitterEndpointUrl = dmirsEndpointUrl;

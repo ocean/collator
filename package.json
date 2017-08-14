@@ -39,7 +39,7 @@
     "dotenv": "^4.0.0",
     "good": "^7.2.0",
     "good-console": "^6.4.0",
-    "good-guy-http": "github:ocean/good-guy-http#master",
+    "good-guy-http": "^1.9.1",
     "good-squeeze": "^5.0.2",
     "hapi": "^16.5.2",
     "inert": "^4.2.1",

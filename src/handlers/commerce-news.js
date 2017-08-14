@@ -1,5 +1,6 @@
-import xml2js from 'xml2js';
 import goodGuyHttp from 'good-guy-http';
+import moment from 'moment';
+import xml2js from 'xml2js';
 
 const goodGuy = goodGuyHttp({
   defaultCaching: {
@@ -21,20 +22,22 @@ exports.getStatements = function getCommerceNews(request, reply) {
       }
       let statements = [];
       let rssItems = result.rss.channel[0].item;
-      // console.dir(result.rss.channel[0].item);
-      // console.dir(rssItems);
       rssItems.forEach(function(element) {
+        const dateParsed = moment(element.pubDate.toString().trim(), 'YYYY-MM-DD H:mm:s');
+        const dateString = moment(dateParsed).format('dddd, D MMMM YYYY');
+        const dateUnix = moment(dateParsed).format('X');
         statements.push({
-          title: element.title,
-          link: element.link,
-          description: element.description,
-          pubdate: element.pubDate,
-          creator: element['dc:creator']
+          url: element.link.toString(),
+          dateString: dateString,
+          dateUnix: dateUnix,
+          title: element.title.toString(),
+          contents: element.description.toString(),
+          type: 'statement',
+          source: 'commerce',
+          author: element['dc:creator'].toString(),
         })
       }, this);
-      // console.dir(statements);
       reply(statements);
-      // reply(result);
     });
   });
 };

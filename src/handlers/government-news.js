@@ -71,6 +71,9 @@ exports.getStatements = async function getStatements(request, reply) {
         dateUnix,
         title,
         contents,
+        type: 'statement',
+        source: 'government',
+        author: 'government',
       };
     } catch (error) {
       console.log('Fetch of statement info failed', error);

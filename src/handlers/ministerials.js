@@ -72,6 +72,9 @@ exports.getMinisterials = async function getMinisterials(request, reply) {
         dateUnix,
         title,
         contents,
+        type: 'statement',
+        source: 'ministerial',
+        author: 'minister',
       };
     } catch (error) {
       console.log('Fetch of statement info failed', error);

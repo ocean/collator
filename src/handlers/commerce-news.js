@@ -20,22 +20,22 @@ exports.getStatements = function getCommerceNews(request, reply) {
       if (err) {
         throw err;
       }
-      let statements = [];
-      let rssItems = result.rss.channel[0].item;
-      rssItems.forEach(function(element) {
+      const statements = [];
+      const rssItems = result.rss.channel[0].item;
+      rssItems.forEach((element) => {
         const dateParsed = moment(element.pubDate.toString().trim(), 'YYYY-MM-DD H:mm:s');
         const dateString = moment(dateParsed).format('dddd, D MMMM YYYY');
         const dateUnix = moment(dateParsed).format('X');
         statements.push({
           url: element.link.toString(),
-          dateString: dateString,
-          dateUnix: dateUnix,
+          dateString,
+          dateUnix,
           title: element.title.toString(),
           contents: element.description.toString(),
           type: 'statement',
           source: 'commerce',
           author: element['dc:creator'].toString(),
-        })
+        });
       }, this);
       reply(statements);
     });

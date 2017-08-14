@@ -61,7 +61,6 @@ server.register({
   });
 });
 
-
 // // Enable CORS for some domains
 // // var corsWhitelist = ['http://203.33.230.66', 'http://www.commerce.wa.gov.au', 'https://www.commerce.wa.gov.au'];
 // var corsOptions = { // eslint-disable-line

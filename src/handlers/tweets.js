@@ -1,5 +1,6 @@
 import Dotenv from 'dotenv';
 import goodGuyHttp from 'good-guy-http';
+import moment from 'moment';
 import url from 'url';
 
 Dotenv.config();
@@ -58,9 +59,28 @@ exports.getTweets = async function getTweets(request, reply) {
   try {
     const response = await goodGuy(twitterEndpointUrl);
     const tweets = response.body;
-    // console.dir(tweets);
-    // console.log(`Number of tweets = ${tweets.length}`);
-    reply(tweets);
+    const updates = [];
+    tweets.forEach((status) => {
+      const dateParsed = moment(status.created_at.toString().trim(), 'ddd MMM DD HH:mm:ss Z YYYY');
+      const dateString = moment(dateParsed).format('dddd, D MMMM YYYY');
+      const dateUnix = moment(dateParsed).format('X');
+      const username = status.user.screen_name;
+      const statusId = status.id_str;
+      const buildUrl = `https://twitter.com/${username}/status/${statusId}`;
+      updates.push({
+        url: buildUrl,
+        dateString,
+        dateUnix,
+        title: '',
+        contents: status.text,
+        type: 'tweet',
+        source: username,
+        author: username,
+        // entities: status.entities.urls,
+        // status,
+      });
+    }, this);
+    reply(updates);
   } catch (error) {
     console.log('Fetch of tweets failed', error);
   }

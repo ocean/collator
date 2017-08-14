@@ -1,6 +1,7 @@
 import CommerceNews from './handlers/commerce-news';
 import GovernmentNews from './handlers/government-news';
 import Ministerials from './handlers/ministerials';
+import Collator from './handlers/collator';
 import Tweets from './handlers/tweets';
 
 module.exports = [
@@ -17,37 +18,42 @@ module.exports = [
   // Commerce Media Releases from the 'Announcements' section of the website
   {
     method: 'GET',
-    path: '/v1/statements/commerce',
+    path: '/api/v1/statements/commerce',
     handler: CommerceNews.getStatements,
   },
   {
     method: 'GET',
-    path: '/v1/statements/ministerials',
+    path: '/api/v1/statements/ministerials',
     handler: Ministerials.getMinisterials,
   },
   {
     method: 'GET',
-    path: '/v1/statements/government',
+    path: '/api/v1/statements/government',
     handler: GovernmentNews.getStatements,
   },
   {
     method: 'GET',
-    path: '/v1/tweets/{list}',
+    path: '/api/v1/tweets/{list}',
     handler: Tweets.getTweets,
+  },
+  {
+    method: 'GET',
+    path: '/api/v1/combined',
+    handler: Collator.combinedNews,
   },
   // {
   //   method: 'GET',
-  //   path: '/v1/data/transport/departures',
+  //   path: '/api/v1/data/transport/departures',
   //   handler: TransportData.getDepartures,
   // },
   // {
   //   method: 'GET',
-  //   path: '/v1/data/transport/updates',
+  //   path: '/api/v1/data/transport/updates',
   //   handler: TransportData.getUpdates,
   // },
   // {
   //   method: 'GET',
-  //   path: '/v1/data/weather/{location}',
+  //   path: '/api/v1/data/weather/{location}',
   //   handler: WeatherData.getCurrent,
   // },
 

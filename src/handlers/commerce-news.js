@@ -23,7 +23,7 @@ exports.getStatements = function getCommerceNews(request, reply) {
       const statements = [];
       const rssItems = result.rss.channel[0].item;
       rssItems.forEach((element) => {
-        const dateParsed = moment(element.pubDate.toString().trim(), 'YYYY-MM-DD H:mm:s');
+        const dateParsed = moment(element.pubDate.toString().trim(), 'YYYY-MM-DD HH:mm:ss');
         const dateString = moment(dateParsed).format('dddd, D MMMM YYYY');
         const dateUnix = moment(dateParsed).format('X');
         statements.push({

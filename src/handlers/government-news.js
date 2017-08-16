@@ -76,7 +76,7 @@ exports.getStatements = async function getStatements(request, reply) {
         author: 'government',
       };
     } catch (error) {
-      console.log('Fetch of statement info failed', error);
+      console.error('Error fetching government media statements:', error);
       throw error;
     }
   });

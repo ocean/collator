@@ -39,5 +39,7 @@ exports.getStatements = function getCommerceNews(request, reply) {
       }, this);
       reply(statements);
     });
+  }).catch((err) => {
+    console.error('Error fetching Commerce news:', err);
   });
 };

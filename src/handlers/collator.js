@@ -22,35 +22,39 @@ exports.combinedNews = async function collateAllNews(request, reply) {
   const checkHost = request.connection.server.info.host;
   // console.log(checkHost);
   let endpointHost = '';
-  if (checkHost.indexOf('local') > 0 ) {
+  if (checkHost.indexOf('local') > 0) {
     // console.log('localhost fired');
     endpointHost = 'localhost';
   } else {
     // console.log('remote host fired');
     endpointHost = checkHost;
-  };
+  }
   // const endpointUrl = 'http://localhost:3000';
   const endpointUrl = `${endpointProto}://${endpointHost}:${endpointPort}`;
   // console.log('endpoint url:', endpointUrl);
-  let news = [];
-  const commerceNews = await goodGuy(`${endpointUrl}/api/v1/statements/commerce`);
-  news.push(JSON.parse(commerceNews.body.toString()));
-  const ministerials = await goodGuy(`${endpointUrl}/api/v1/statements/ministerials`);
-  news.push(JSON.parse(ministerials.body.toString()));
-  const governmentNews = await goodGuy(`${endpointUrl}/api/v1/statements/government`);
-  news.push(JSON.parse(governmentNews.body.toString()));
-  const dmirsTweets = await goodGuy(`${endpointUrl}/api/v1/tweets/dmirs`);
-  news.push(JSON.parse(dmirsTweets.body.toString()));
-  const combined = news.concat(
-    JSON.parse(commerceNews.body.toString()),
-    JSON.parse(ministerials.body.toString()),
-    JSON.parse(governmentNews.body.toString()),
-    JSON.parse(dmirsTweets.body.toString())
-  );
-  const flattened = combined.reduce((a, b) => {
-    return a.concat(b);
-  }, []);
-  console.log('items count =', flattened.length);
+  const news = [];
+  let flattened = [];
+  try {
+    const commerceNews = await goodGuy(`${endpointUrl}/api/v1/statements/commerce`);
+    // news.push(JSON.parse(commerceNews.body.toString()));
+    const ministerials = await goodGuy(`${endpointUrl}/api/v1/statements/ministerials`);
+    // news.push(JSON.parse(ministerials.body.toString()));
+    const governmentNews = await goodGuy(`${endpointUrl}/api/v1/statements/government`);
+    // news.push(JSON.parse(governmentNews.body.toString()));
+    const dmirsTweets = await goodGuy(`${endpointUrl}/api/v1/tweets/dmirs`);
+    // news.push(JSON.parse(dmirsTweets.body.toString()));
+    const combined = news.concat(
+      JSON.parse(commerceNews.body.toString()),
+      JSON.parse(ministerials.body.toString()),
+      JSON.parse(governmentNews.body.toString()),
+      JSON.parse(dmirsTweets.body.toString())
+    );
+    flattened = combined.reduce((a, b) => a.concat(b), []);
+    console.log('items count =', flattened.length);
+  } catch (error) {
+    console.error('Error building combined feed:', error);
+    throw error;
+  }
   // console.dir(news);
   // reply('testing');
   // reply(combined);

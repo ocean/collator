@@ -1,6 +1,8 @@
 import Dotenv from 'dotenv';
+import fs from 'fs';
 import goodGuyHttp from 'good-guy-http';
 import moment from 'moment';
+import path from 'path';
 import url from 'url';
 
 Dotenv.config();
@@ -38,10 +40,16 @@ exports.getTweets = async function getTweets(request, reply) {
     throw Error('Error: Twitter bearer token must be set in TWITTER_BEARER_TOKEN environment variable.');
   }
 
+  let caFile = '';
+  if (process.env.NODE_ENV === 'production') {
+    caFile = fs.readFileSync('/etc/pki/tls/cert.pem');
+  }
+
   const goodGuy = goodGuyHttp({
     defaultCaching: {
       timeToLive: 60000,
     },
+    ca: caFile,
     headers: {
       Authorization: `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,
     },

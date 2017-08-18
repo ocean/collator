@@ -29,20 +29,15 @@ exports.combinedNews = async function collateAllNews(request, reply) {
     // console.log('remote host fired');
     endpointHost = checkHost;
   }
-  // const endpointUrl = 'http://localhost:3000';
   const endpointUrl = `${endpointProto}://${endpointHost}:${endpointPort}`;
   // console.log('endpoint url:', endpointUrl);
   const news = [];
   let flattened = [];
   try {
     const commerceNews = await goodGuy(`${endpointUrl}/api/v1/statements/commerce`);
-    // news.push(JSON.parse(commerceNews.body.toString()));
     const ministerials = await goodGuy(`${endpointUrl}/api/v1/statements/ministerials`);
-    // news.push(JSON.parse(ministerials.body.toString()));
     const governmentNews = await goodGuy(`${endpointUrl}/api/v1/statements/government`);
-    // news.push(JSON.parse(governmentNews.body.toString()));
     const dmirsTweets = await goodGuy(`${endpointUrl}/api/v1/tweets/dmirs`);
-    // news.push(JSON.parse(dmirsTweets.body.toString()));
     const combined = news.concat(
       JSON.parse(commerceNews.body.toString()),
       JSON.parse(ministerials.body.toString()),

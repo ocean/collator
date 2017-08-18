@@ -12,23 +12,16 @@ const goodGuy = goodGuyHttp({
 });
 
 exports.combinedNews = async function collateAllNews(request, reply) {
-  // console.dir(request);
-  // console.dir(request.connection.server.info);
-  // console.dir(server.info);
   const endpointProto = request.connection.server.info.protocol;
-  // console.log(endpointProto);
   const endpointPort = request.connection.server.info.port;
-  // console.log(endpointPort);
-  const checkHost = request.connection.server.info.host;
-  // console.log(checkHost);
-  let endpointHost = '';
-  if (checkHost.indexOf('local') > 0) {
-    // console.log('localhost fired');
-    endpointHost = 'localhost';
-  } else {
-    // console.log('remote host fired');
-    endpointHost = checkHost;
-  }
+  // const checkHost = request.connection.server.info.host;
+  // let endpointHost = '';
+  // if (checkHost.indexOf('local') > 0) {
+  //   endpointHost = 'localhost';
+  // } else {
+  //   endpointHost = checkHost;
+  // }
+  const endpointHost = 'localhost';
   const endpointUrl = `${endpointProto}://${endpointHost}:${endpointPort}`;
   // console.log('endpoint url:', endpointUrl);
   const news = [];

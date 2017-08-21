@@ -7,7 +7,7 @@
     "url": "git://github.com/ocean/collator.git"
   },
   "scripts": {
-    "build": "babel -d dist/ src/",
+    "build": "BABEL_ENV=production babel -d dist/ src/",
     "dev": "nodejs-dashboard -- nodemon -r nodejs-dashboard src/bootstrap.js",
     "heroku-postbuild": "npm run build",
     "lint": "eslint src/ --ignore-path .gitignore",
@@ -53,6 +53,7 @@
     "eslint-plugin-import": "^2.7.0",
     "nock": "^9.x",
     "nodejs-dashboard": "^0.4.1",
+    "nyc": "^11.1.0",
     "supertest": "^3.0.0"
   }
 }

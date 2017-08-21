@@ -5,5 +5,11 @@
         "node": "current"
       }
     }]
-  ]
+  ],
+  // "ignore": "src/tests/*.js",
+  "env": {
+    "development": {
+      "sourceMaps": "inline"
+    }
+  }
 }

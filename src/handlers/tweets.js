@@ -2,7 +2,6 @@ import Dotenv from 'dotenv';
 import fs from 'fs';
 import goodGuyHttp from 'good-guy-http';
 import moment from 'moment';
-import path from 'path';
 import url from 'url';
 
 Dotenv.config();

@@ -1,7 +1,7 @@
 {
   "name": "collator",
   "description": "Collator gets information, organises it and serves it up when required.",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/ocean/collator.git"

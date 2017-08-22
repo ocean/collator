@@ -1,8 +1,5 @@
-/* eslint-disable */
 import Cheerio from 'cheerio';
 import goodGuyHttp from 'good-guy-http';
-import moment from 'moment';
-import url from 'url';
 
 const goodGuy = goodGuyHttp({
   defaultCaching: {
@@ -15,80 +12,91 @@ const goodGuy = goodGuyHttp({
   timeout: 15000,
 });
 
-exports.getTrainTimes = async function getTrainTimes(request, reply) {
-  console.dir(request);
-  const perthDepartures = {
-    perth: 'http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Perth+Stn',
-    underground: 'http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Perth+Underground+Stn',
-  };
-  const canningtonDepartures = {
-    cannington: 'http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Cannington+Stn',
+exports.getDepartures = async function getDepartures(request, reply) {
+  const locations = {
+    perth: {
+      0: {
+        station: 'Perth Station',
+        url: 'http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Perth+Stn',
+      },
+      1: {
+        station: 'Perth Underground Station',
+        url: 'http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Perth+Underground+Stn',
+      },
+    },
+    cannington: {
+      0: {
+        station: 'Cannington Station',
+        url: 'http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Cannington+Stn',
+      },
+    },
   };
 
-  // Fetch the media statements landing page and wait for it to return
-  const landingResponse = await goodGuy(perthDepartures.perth);
-  // Load the HTML body into Cheerio
-  const $ = Cheerio.load(landingResponse.body.toString());
-  // Extract the data from the table of links
-  const landingPage = $('tr > td', 'div.cs-rollup-content > table');
-  // Get an array of the link elements
-  let statementLinks = landingPage.find('a');
-  // Cut the list of statements back to the first 10 on the page
-  statementLinks = statementLinks.slice(0, 10);
-  // Create an array for holding the relative URLs from these links
-  const linkPartials = [];
-  // For each link element, extract the href attribute
-  statementLinks.each((idx, elem) => {
-    linkPartials[idx] = $(elem).attr('href');
-  });
-  // Create a new array holding the full URLs to each statement,
-  // using url.resolve to sort them out
-  const fullUrls = linkPartials.map(linkPartial => url
-  .resolve(mediaFrontUrl, encodeURI(linkPartial)));
-  // Create an array of objects containing data extracted from
-  // each media statement
-  const statements = await fullUrls.map(async (fullUrl) => {
+  const location = request.params.location;
+  // console.log('location=', location);
+
+  const stationObject = locations[location];
+  // console.log('stationObject=', stationObject);
+
+  // const departures = [];
+
+  const stationArray = Object.keys(stationObject);
+  // for (station in stationObject) {
+  // stationArray.each()
+  const departures = await stationArray.map(async (station) => {
+    // console.dir(station);
     try {
-      // Fetch the statement page and wait for it to return
-      const statementResponse = await goodGuy(fullUrl);
-      // Load the statement body into Cheerio
-      const $c = await Cheerio.load(statementResponse.body.toString());
-      // Extract the article content element
-      const article = await $c('div#article');
-      // Extract the title text
-      const title = article.find('h1').text();
-      // Extract the raw date created text
-      const rawDateString = article.find($c('div.newsCreatedDate')).text().trim();
-      // Parse the date text into a proper Date object using moment.js and
-      // the known formatting string
-      const dateParsed = moment(rawDateString, 'D/MM/YYYY H:mm A');
-      // Create a nice date string for use in the feed object
-      const dateString = moment(dateParsed).format('dddd, D MMMM YYYY');
-      // Create a more useful Unix epoch date (in seconds) for the feed object
-      const dateUnix = moment(dateParsed).format('X');
-      // Extract the media statement body text,
-      // skipping the <ul> element at the top and the "Page Content" target link
-      const contentHtml = article.find('div.article-content p');
-      // Convert the Cheerio object to text, trim whitespace and reduce to 100 words
-      // const contents = contentHtml.text().trim();
-      const contents = contentHtml.text().trim().split(' ', 100).join(' ');
-      // Return nice media statement data object
-      return {
-        url: fullUrl,
-        dateString,
-        dateUnix,
-        title,
-        contents,
-      };
+      const informationResponse = await goodGuy(stationObject[station].url);
+      // Load the page body into Cheerio
+      const $ = Cheerio.load(informationResponse.body.toString());
+      // Extract the table rows showing train information
+      const rowData = $('div.DNNModuleContent table tbody tr');
+      // const times = [];
+      rowData.each((index, element) => {
+        // console.log($(element));
+        const cellData = $(element).find('td');
+        // console.log(rowData.text());
+        const testarr = [];
+        cellData.each((idx, elem) => {
+          // console.log($(elem).text());
+          testarr.push($(elem).text().trim());
+        //   const departureTime = rowData[0].text().trim();
+        //   console.log('departure time =', departureTime);
+        //   const destination = rowData.eq(1).text().trim();
+        //   console.log('destination =', destination);
+        //   const description = rowData.eq(2).text().trim();
+        //   console.log('description =', description);
+        //   const status = rowData.eq(3).text().trim();
+        //   console.log('status =', status);
+          // console.log(testarr);
+        });
+        console.log(testarr);
+      });
+      // console.dir(rawTimes.first().html());
+      // // Extract the media statement body text,
+      // // skipping the <ul> element at the top and the "Page Content" target link
+      // const contentHtml = article.find('div.article-content p');
+      // // Convert the Cheerio object to text, trim whitespace and reduce to 100 words
+      // // const contents = contentHtml.text().trim();
+      // const contents = contentHtml.text().trim().split(' ', 100).join(' ');
+      // // Return nice media statement data object
+      // return {
+      //   url: fullUrl,
+      //   dateString,
+      //   dateUnix,
+      //   title,
+      //   contents,
+      // };
+      return rowData.text();
+      // departures.push(rawTimes.text());
     } catch (error) {
       console.log('Fetch of statement info failed', error);
       throw error;
     }
   });
   // Wait for the all the Promise objects in this array to resolve
-  const statementData = Promise.all(statements);
-  // console.log('Statements obj = ');
-  // console.dir(await statementData);
+  const departureData = Promise.all(departures);
+
   // Hapi reply call to send back object data serialised to JSON
-  reply(await statementData);
+  reply(await departureData);
 };

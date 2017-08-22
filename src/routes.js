@@ -1,7 +1,8 @@
+import Collator from './handlers/collator';
 import CommerceNews from './handlers/commerce-news';
 import GovernmentNews from './handlers/government-news';
 import Ministerials from './handlers/ministerials';
-import Collator from './handlers/collator';
+import TransportData from './handlers/transport-data';
 import Tweets from './handlers/tweets';
 
 module.exports = [
@@ -41,11 +42,11 @@ module.exports = [
     path: '/api/v1/combined',
     handler: Collator.combinedNews,
   },
-  // {
-  //   method: 'GET',
-  //   path: '/api/v1/data/transport/departures',
-  //   handler: TransportData.getDepartures,
-  // },
+  {
+    method: 'GET',
+    path: '/api/v1/data/transport/departures/{location}',
+    handler: TransportData.getDepartures,
+  },
   // {
   //   method: 'GET',
   //   path: '/api/v1/data/transport/updates',

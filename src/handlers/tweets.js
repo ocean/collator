@@ -1,4 +1,5 @@
 import Dotenv from 'dotenv';
+import Boom from 'boom';
 import fs from 'fs';
 import goodGuyHttp from 'good-guy-http';
 import moment from 'moment';
@@ -26,6 +27,7 @@ const transportEndpointUrl = url.format({
   protocol: 'https',
   hostname: 'api.twitter.com',
   pathname: '1.1/lists/statuses.json',
+  // pathname: '1.1/lists/',
   query: {
     count: 50,
     include_rts: true,
@@ -45,8 +47,8 @@ exports.getTweets = async function getTweets(request, reply) {
   }
 
   const goodGuy = goodGuyHttp({
-    defaultCaching: {
-      timeToLive: 60000,
+    forceCaching: {
+      timeToLive: 30000,
     },
     ca: caFile,
     headers: {
@@ -89,6 +91,8 @@ exports.getTweets = async function getTweets(request, reply) {
     }, this);
     reply(updates);
   } catch (error) {
-    console.log('Fetch of tweets failed', error);
+    Boom.boomify(error, { statusCode: 501, message: 'A decent network was not implemented. Fetch of tweets failed.' });
+    // console.log('Fetch of tweets failed', error);
+    reply(error);
   }
 };

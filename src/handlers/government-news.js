@@ -6,7 +6,7 @@ import url from 'url';
 const mediaFrontUrl = 'https://www.mediastatements.wa.gov.au/Pages/Default.aspx';
 
 const goodGuy = goodGuyHttp({
-  defaultCaching: {
+  forceCaching: {
     timeToLive: 300000,
   },
   headers: {

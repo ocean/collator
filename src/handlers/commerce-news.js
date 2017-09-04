@@ -3,7 +3,7 @@ import moment from 'moment';
 import xml2js from 'xml2js';
 
 const goodGuy = goodGuyHttp({
-  defaultCaching: {
+  forceCaching: {
     timeToLive: 60000,
   },
   headers: {

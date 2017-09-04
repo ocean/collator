@@ -1,13 +1,14 @@
 import goodGuyHttp from 'good-guy-http';
 
 const goodGuy = goodGuyHttp({
-  // defaultCaching: {
-  //   timeToLive: 300000,
-  // },
+  forceCaching: {
+    timeToLive: 30000,
+  },
   // headers: {
   //   'User-Agent': 'Department of Commerce Intranet - request',
   // },
   // proxy: process.env.HTTP_PROXY,
+  postprocess: resp => JSON.parse(resp.body.toString()),
   timeout: 15000,
 });
 
@@ -23,26 +24,23 @@ exports.combinedNews = async function collateAllNews(request, reply) {
   // }
   const endpointHost = 'localhost';
   const endpointUrl = `${endpointProto}://${endpointHost}:${endpointPort}`;
-  // console.log('endpoint url:', endpointUrl);
-  // const news = [];
-  // let sortable = [];
   const combined = [];
   let flattened = [];
   try {
-    const commerceNews = await goodGuy(`${endpointUrl}/api/v1/statements/commerce`);
-    const ministerials = await goodGuy(`${endpointUrl}/api/v1/statements/ministerials`);
-    const governmentNews = await goodGuy(`${endpointUrl}/api/v1/statements/government`);
-    const dmirsTweets = await goodGuy(`${endpointUrl}/api/v1/tweets/dmirs`);
-    // const combined = news.concat(
-    //   JSON.parse(commerceNews.body.toString()),
-    //   JSON.parse(ministerials.body.toString()),
-    //   JSON.parse(governmentNews.body.toString()),
-    //   JSON.parse(dmirsTweets.body.toString())
-    // );
-    const commerceNewsItems = JSON.parse(commerceNews.body.toString());
-    const ministerialsItems = JSON.parse(ministerials.body.toString());
-    const governmentNewsItems = JSON.parse(governmentNews.body.toString());
-    const dmirsTweetsItems = JSON.parse(dmirsTweets.body.toString());
+    // const commerceNews = await goodGuy(`${endpointUrl}/api/v1/statements/commerce`);
+    // const ministerials = await goodGuy(`${endpointUrl}/api/v1/statements/ministerials`);
+    // const governmentNews = await goodGuy(`${endpointUrl}/api/v1/statements/government`);
+    // const dmirsTweets = await goodGuy(`${endpointUrl}/api/v1/tweets/dmirs`);
+
+    const commerceNewsItems = await goodGuy(`${endpointUrl}/api/v1/statements/commerce`);
+    const ministerialsItems = await goodGuy(`${endpointUrl}/api/v1/statements/ministerials`);
+    const governmentNewsItems = await goodGuy(`${endpointUrl}/api/v1/statements/government`);
+    const dmirsTweetsItems = await goodGuy(`${endpointUrl}/api/v1/tweets/dmirs`);
+
+    // const commerceNewsItems = JSON.parse(commerceNews.body.toString());
+    // const ministerialsItems = JSON.parse(ministerials.body.toString());
+    // const governmentNewsItems = JSON.parse(governmentNews.body.toString());
+    // const dmirsTweetsItems = JSON.parse(dmirsTweets.body.toString());
     const itemCounter = {
       commerce: 2,
       government: 0,
@@ -50,14 +48,6 @@ exports.combinedNews = async function collateAllNews(request, reply) {
       twitter: 2,
     };
     const iterations = commerceNewsItems.length / itemCounter.commerce;
-    // sortable = [
-    //   { name: commerceNewsItems, length: commerceNewsItems.length },
-    //   { name: ministerialsItems, length: ministerialsItems.length },
-    //   { name: governmentNewsItems, length: governmentNewsItems.length },
-    //   { name: dmirsTweetsItems, length: dmirsTweetsItems.length },
-    // ];
-    // sortable.sort((a, b) => a.value - b.value);
-    // console.log('shortest =', sortable[0].name);
     let i = 0;
     while (i < iterations) {
       const subarray = [];
@@ -90,8 +80,5 @@ exports.combinedNews = async function collateAllNews(request, reply) {
     console.error('Error building combined feed:', error);
     throw error;
   }
-  // console.dir(news);
   reply(combined);
-  // reply(flattened);
-  // reply(sortable);
 };

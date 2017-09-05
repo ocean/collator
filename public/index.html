@@ -64,26 +64,32 @@
             </tr>
             <tr>
               <td><code><a href="/api/v1/combined">/api/v1/combined</a></code></td>
-              <td>Returns a special "combined" feed containing a currently-hardcoded number of combined items. Currently:
-                <ul>
-                  <li>2 &times; Commerce media statements</li>
-                  <li>1 &times; Ministerial media statement</li>
-                  <li>2 &times; DMIRS Twitter updates</li>
+              <td><p>Returns a special "combined" feed containing a currently-hardcoded number of combined items.</p>
+                <p>Currently:
+                  <ul>
+                    <li>2 &times; Commerce media statements</li>
+                    <li>1 &times; Ministerial media statement</li>
+                    <li>2 &times; DMIRS Twitter updates</li>
+                  </ul>
+                </p>
               </td>
             </tr>
-            <tr class="disabled">
+            <tr>
               <td><code><a href="/api/v1/tweets/dmirs">/api/v1/tweets/dmirs</a></code></td>
               <td>Twitter updates from <a href="https://twitter.com/DMIRS_WA">@DMIRS_WA</a> and related accounts.</td>
             </tr>
-            <tr class="disabled">
+            <tr>
               <td><code><a href="/api/v1/tweets/transport">/api/v1/tweets/transport</a></code></td>
               <td>Twitter updates about Perth transport information, including <a href="https://twitter.com/Transperth">@Transperth</a> and <a href="https://twitter.com/Perth_Traffic">@Perth_Traffic</a>.</td>
             </tr>
-            <!-- <tr>
-              <td><code><a href="/api/v1/data/transport/departures">/api/v1/data/transport/departures</a></code></td>
-              <td>Train departures information from <a href="http://www.transperth.wa.gov.au/Timetables/Live-Train-Times">Transperth live train times</a>.</td>
-            </tr>
             <tr>
+              <td><code><a href="/api/v1/data/transport/departures/perth">/api/v1/data/transport/departures/{location]</a></code></td>
+              <td>
+                <p>Train departures information from <a href="http://www.transperth.wa.gov.au/Timetables/Live-Train-Times">Transperth live train times</a>.</p>
+                <p><code>location</code> must be either <code>perth</code> or <code>cannington</code>.</p>
+              </td>
+            </tr>
+            <!--<tr>
               <td><code><a href="/api/v1/data/transport/updates">/api/v1/data/transport/updates</a></code></td>
               <td>Train service updates from <a href="http://www.transperth.wa.gov.au/Service-Updates/Train-Updates">Transperth train updates</a>.</td>
             </tr>

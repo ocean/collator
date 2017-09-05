@@ -6,7 +6,7 @@ const goodGuy = goodGuyHttp({
     timeToLive: 30000,
   },
   headers: {
-    'User-Agent': 'Department of Commerce Intranet - request',
+    'User-Agent': 'DMIRS Intranet Development - request',
   },
   proxy: process.env.HTTP_PROXY,
   timeout: 15000,
@@ -32,34 +32,47 @@ exports.getDepartures = async function getDepartures(request, reply) {
     },
   };
 
+  // Get the location from the request parameter
   const location = request.params.location;
   // console.log('location=', location);
 
+  // Find a station object associated with the location
   const stationObject = locations[location];
   // console.log('stationObject=', stationObject);
 
-  // const departures = [];
-
+  // A station object could have one or more stations in it, this handles that
   const stationArray = Object.keys(stationObject);
-  // for (station in stationObject) {
-  // stationArray.each()
+  // Async function to wait for the info to be fetched and processed
   const departures = await stationArray.map(async (station) => {
     // console.dir(station);
     try {
+      // Wait for good-guy to load the page from the URL
       const informationResponse = await goodGuy(stationObject[station].url);
       // Load the page body into Cheerio
       const $ = Cheerio.load(informationResponse.body.toString());
       // Extract the table rows showing train information
       const rowData = $('div.DNNModuleContent table tbody tr');
-      // const times = [];
+      // Create array for holding output data
+      const times = [];
+      // Iterate over each table row
       rowData.each((index, element) => {
-        // console.log($(element));
+        // Extract td elements from each row into an array
         const cellData = $(element).find('td');
-        // console.log(rowData.text());
-        const testarr = [];
+        // Array for holding data for each row
+        const info = [];
+        // Iterate over each td element in the row
         cellData.each((idx, elem) => {
-          // console.log($(elem).text());
-          testarr.push($(elem).text().trim());
+          // If this is the 3rd aaray value (containing the train stopping pattern info)
+          // clean it up as it has lots of spaces and a linebreak in it
+          if (idx === 2) {
+            const split = $(elem).text().trim().split('\n');
+            const cleaned = split.map(val => val.trim(), []);
+            info[idx] = cleaned.join(' ');
+          } else {
+            // Put the trimmed text into array elements
+            info[idx] = $(elem).text().trim();
+          }
+          // Possible plays with making an object instead.
         //   const departureTime = rowData[0].text().trim();
         //   console.log('departure time =', departureTime);
         //   const destination = rowData.eq(1).text().trim();
@@ -68,27 +81,11 @@ exports.getDepartures = async function getDepartures(request, reply) {
         //   console.log('description =', description);
         //   const status = rowData.eq(3).text().trim();
         //   console.log('status =', status);
-          // console.log(testarr);
         });
-        console.log(testarr);
+        // Add this row's data to the main output array
+        times.push(info);
       });
-      // console.dir(rawTimes.first().html());
-      // // Extract the media statement body text,
-      // // skipping the <ul> element at the top and the "Page Content" target link
-      // const contentHtml = article.find('div.article-content p');
-      // // Convert the Cheerio object to text, trim whitespace and reduce to 100 words
-      // // const contents = contentHtml.text().trim();
-      // const contents = contentHtml.text().trim().split(' ', 100).join(' ');
-      // // Return nice media statement data object
-      // return {
-      //   url: fullUrl,
-      //   dateString,
-      //   dateUnix,
-      //   title,
-      //   contents,
-      // };
-      return rowData.text();
-      // departures.push(rawTimes.text());
+      return times;
     } catch (error) {
       console.log('Fetch of statement info failed', error);
       throw error;

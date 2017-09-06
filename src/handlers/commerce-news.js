@@ -10,7 +10,7 @@ const goodGuy = goodGuyHttp({
     'User-Agent': 'Department of Commerce Intranet - request',
   },
 });
-const parseString = xml2js.parseString;
+const { parseString } = xml2js;
 
 // Commerce Media Releases from the 'Announcements' section of the website
 exports.getStatements = function getCommerceNews(request, reply) {

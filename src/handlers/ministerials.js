@@ -5,7 +5,7 @@ import url from 'url';
 
 const mediaLandingUrl = 'https://www.mediastatements.wa.gov.au/Pages/Portfolios/Commerce-and-Industrial-Relations.aspx';
 
-// Need to also aggregate statements from 
+// Need to also aggregate statements from
 // https://www.mediastatements.wa.gov.au/Pages/Portfolios/Mines-and-Petroleum.aspx
 
 const goodGuy = goodGuyHttp({

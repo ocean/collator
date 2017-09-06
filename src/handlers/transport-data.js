@@ -2,7 +2,7 @@ import Cheerio from 'cheerio';
 import goodGuyHttp from 'good-guy-http';
 
 const goodGuy = goodGuyHttp({
-  defaultCaching: {
+  forceCaching: {
     timeToLive: 30000,
   },
   headers: {
@@ -33,7 +33,7 @@ exports.getDepartures = async function getDepartures(request, reply) {
   };
 
   // Get the location from the request parameter
-  const location = request.params.location;
+  const { location } = request.params;
   // console.log('location=', location);
 
   // Find a station object associated with the location

@@ -1,6 +1,7 @@
 import Collator from './handlers/collator';
 import CommerceNews from './handlers/commerce-news';
 import GovernmentNews from './handlers/government-news';
+import IntranetNews from './handlers/intranet-news';
 import Ministerials from './handlers/ministerials';
 import TransportData from './handlers/transport-data';
 import Tweets from './handlers/tweets';
@@ -24,6 +25,11 @@ module.exports = [
   },
   {
     method: 'GET',
+    path: '/api/v1/intranet/news',
+    handler: IntranetNews.getIntranetNews,
+  },
+  {
+    method: 'GET',
     path: '/api/v1/statements/ministerials',
     handler: Ministerials.getMinisterials,
   },
@@ -40,7 +46,7 @@ module.exports = [
   {
     method: 'GET',
     path: '/api/v1/combined',
-    handler: Collator.combinedNews,
+    handler: Collator.collate,
   },
   {
     method: 'GET',

@@ -12,7 +12,7 @@ const goodGuy = goodGuyHttp({
   timeout: 15000,
 });
 
-exports.combinedNews = async function collateAllNews(request, reply) {
+exports.collate = async function collateAllNews(request, reply) {
   const endpointProto = request.connection.server.info.protocol;
   const endpointPort = request.connection.server.info.port;
   // const checkHost = request.connection.server.info.host;
@@ -33,6 +33,7 @@ exports.combinedNews = async function collateAllNews(request, reply) {
     // const dmirsTweets = await goodGuy(`${endpointUrl}/api/v1/tweets/dmirs`);
 
     const commerceNewsItems = await goodGuy(`${endpointUrl}/api/v1/statements/commerce`);
+    const intranetNewsItems = await goodGuy(`${endpointUrl}/api/v1/intranet/news`);
     const ministerialsItems = await goodGuy(`${endpointUrl}/api/v1/statements/ministerials`);
     const governmentNewsItems = await goodGuy(`${endpointUrl}/api/v1/statements/government`);
     const dmirsTweetsItems = await goodGuy(`${endpointUrl}/api/v1/tweets/dmirs`);
@@ -43,6 +44,7 @@ exports.combinedNews = async function collateAllNews(request, reply) {
     // const dmirsTweetsItems = JSON.parse(dmirsTweets.body.toString());
     const itemCounter = {
       commerce: 2,
+      intranet: 1,
       government: 0,
       ministerial: 1,
       twitter: 2,
@@ -55,6 +57,11 @@ exports.combinedNews = async function collateAllNews(request, reply) {
       while (c < itemCounter.commerce) {
         subarray.push(commerceNewsItems.shift());
         c += 1;
+      }
+      let inews = 0;
+      while (inews < itemCounter.intranet) {
+        subarray.push(intranetNewsItems.shift());
+        inews += 1;
       }
       let g = 0;
       while (g < itemCounter.government) {

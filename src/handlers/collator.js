@@ -4,9 +4,6 @@ const goodGuy = goodGuyHttp({
   forceCaching: {
     timeToLive: 30000,
   },
-  // headers: {
-  //   'User-Agent': 'Department of Commerce Intranet - request',
-  // },
   // proxy: process.env.HTTP_PROXY,
   postprocess: resp => JSON.parse(resp.body.toString()),
   timeout: 15000,
@@ -27,25 +24,16 @@ exports.collate = async function collateAllNews(request, reply) {
   const combined = [];
   let flattened = [];
   try {
-    // const commerceNews = await goodGuy(`${endpointUrl}/api/v1/statements/commerce`);
-    // const ministerials = await goodGuy(`${endpointUrl}/api/v1/statements/ministerials`);
-    // const governmentNews = await goodGuy(`${endpointUrl}/api/v1/statements/government`);
-    // const dmirsTweets = await goodGuy(`${endpointUrl}/api/v1/tweets/dmirs`);
-
     const commerceNewsItems = await goodGuy(`${endpointUrl}/api/v1/statements/commerce`);
     const intranetNewsItems = await goodGuy(`${endpointUrl}/api/v1/intranet/news`);
     const ministerialsItems = await goodGuy(`${endpointUrl}/api/v1/statements/ministerials`);
-    const governmentNewsItems = await goodGuy(`${endpointUrl}/api/v1/statements/government`);
+    // const governmentNewsItems = await goodGuy(`${endpointUrl}/api/v1/statements/government`);
     const dmirsTweetsItems = await goodGuy(`${endpointUrl}/api/v1/tweets/dmirs`);
 
-    // const commerceNewsItems = JSON.parse(commerceNews.body.toString());
-    // const ministerialsItems = JSON.parse(ministerials.body.toString());
-    // const governmentNewsItems = JSON.parse(governmentNews.body.toString());
-    // const dmirsTweetsItems = JSON.parse(dmirsTweets.body.toString());
     const itemCounter = {
       commerce: 2,
       intranet: 1,
-      government: 0,
+      // government: 0,
       ministerial: 1,
       twitter: 2,
     };
@@ -63,11 +51,11 @@ exports.collate = async function collateAllNews(request, reply) {
         subarray.push(intranetNewsItems.shift());
         inews += 1;
       }
-      let g = 0;
-      while (g < itemCounter.government) {
-        subarray.push(governmentNewsItems.shift());
-        g += 1;
-      }
+      // let g = 0;
+      // while (g < itemCounter.government) {
+      //   subarray.push(governmentNewsItems.shift());
+      //   g += 1;
+      // }
       let m = 0;
       while (m < itemCounter.ministerial) {
         subarray.push(ministerialsItems.shift());

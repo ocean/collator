@@ -8,6 +8,12 @@ const server = new Hapi.Server();
 // port setup with env var for hosting
 server.connection({
   port: process.env.PORT || 3000,
+  routes: {
+    cors: {
+      origin: ['*.local', '*.wa.gov.au'],
+      headers: ['Accept', 'Authorization', 'Content-Type', 'If-None-Match', 'Accept-language'],
+    },
+  },
 });
 
 // static file handler for public directory
@@ -60,16 +66,3 @@ server.register({
     server.log('info', `Server running at ${server.info.uri}`);
   });
 });
-
-// // Enable CORS for some domains
-// // var corsWhitelist = ['http://203.33.230.66', 'http://www.commerce.wa.gov.au', 'https://www.commerce.wa.gov.au'];
-// var corsOptions = { // eslint-disable-line
-//   origin: function corsOriginCheck(origin, callback) {
-// //    var originIsWhitelisted = corsWhitelist.indexOf(origin) !== -1;
-// //    callback(null, originIsWhitelisted);
-//     // Setting to "true" to whitelist all origins for development
-//     callback(null, true);
-//     console.log(chalk.red('Origin is: ') + chalk.cyan(origin));
-//   },
-// };
-// app.use(cors(corsOptions));

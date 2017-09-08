@@ -1,6 +1,7 @@
 import goodGuyHttp from 'good-guy-http';
 import moment from 'moment';
 import xml2js from 'xml2js';
+import hash from '../hash';
 
 const goodGuy = goodGuyHttp({
   forceCaching: {
@@ -35,6 +36,7 @@ exports.getStatements = function getCommerceNews(request, reply) {
           type: 'statement',
           source: 'commerce',
           author: element['dc:creator'].toString(),
+          id: hash.generate(element.title.toString()),
         });
       }, this);
       reply(statements);

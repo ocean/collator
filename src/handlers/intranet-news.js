@@ -1,5 +1,6 @@
 import goodGuyHttp from 'good-guy-http';
 import moment from 'moment';
+import hash from '../hash';
 
 const goodGuy = goodGuyHttp({
   forceCaching: {
@@ -30,6 +31,8 @@ exports.getIntranetNews = async function getIntranetNews(request, reply) {
       const dateParsed = moment(element.dateUnix, 'X');
       const dateString = dateParsed.format('dddd, D MMMM YYYY');
       newsItem.dateString = dateString;
+      newsItem.contents = newsItem.contents.replace(/&nbsp;|\r\n/g, ' ');
+      newsItem.id = hash.generate(newsItem.title);
       newsItems.push(newsItem);
     });
     reply(newsItems);

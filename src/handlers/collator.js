@@ -22,6 +22,7 @@ exports.collate = async function collateAllNews(request, reply) {
   const endpointHost = 'localhost';
   const endpointUrl = `${endpointProto}://${endpointHost}:${endpointPort}`;
   const combined = [];
+  let err = null;
   let flattened = [];
   try {
     const commerceNewsItems = await goodGuy(`${endpointUrl}/api/v1/statements/commerce`);
@@ -73,7 +74,8 @@ exports.collate = async function collateAllNews(request, reply) {
     console.log('items count =', flattened.length);
   } catch (error) {
     console.error('Error building combined feed:', error);
+    err = error;
     throw error;
   }
-  reply(combined);
+  reply(err, combined);
 };

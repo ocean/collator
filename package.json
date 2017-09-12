@@ -11,6 +11,7 @@
     "dev": "nodejs-dashboard -- nodemon -r nodejs-dashboard src/bootstrap.js",
     "heroku-postbuild": "npm run build",
     "lint": "eslint src/ --ignore-path .gitignore",
+    "mon": "nodemon src/bootstrap.js",
     "security_check": "snyk test",
     "start": "node dist/app.js",
     "test": "ava"
@@ -43,6 +44,7 @@
     "good-guy-http": "^1.10.0",
     "good-squeeze": "^5.0.2",
     "hapi": "^16.5.2",
+    "he": "^1.1.1",
     "inert": "^4.2.1",
     "moment": "^2.18.1",
     "xml2js": "^0.4.19"

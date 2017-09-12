@@ -1,4 +1,5 @@
 import goodGuyHttp from 'good-guy-http';
+import he from 'he';
 import moment from 'moment';
 import xml2js from 'xml2js';
 import hash from '../hash';
@@ -31,7 +32,7 @@ exports.getStatements = function getCommerceNews(request, reply) {
           url: element.link.toString(),
           dateString,
           dateUnix,
-          title: element.title.toString(),
+          title: he.decode(element.title.toString()),
           contents: element.description.toString(),
           type: 'statement',
           source: 'commerce',

@@ -2,6 +2,7 @@ import Cheerio from 'cheerio';
 import goodGuyHttp from 'good-guy-http';
 import moment from 'moment';
 import url from 'url';
+import hash from '../hash';
 
 const mediaFrontUrl = 'https://www.mediastatements.wa.gov.au/Pages/Default.aspx';
 
@@ -74,6 +75,7 @@ exports.getStatements = async function getStatements(request, reply) {
         type: 'statement',
         source: 'government',
         author: 'government',
+        id: hash.generate(title),
       };
     } catch (error) {
       console.error('Error fetching government media statements:', error);

@@ -83,8 +83,9 @@ exports.getTweets = async function getTweets(request, reply) {
         title: '',
         contents: status.text,
         type: 'tweet',
-        source: username,
+        source: 'twitter',
         author: username,
+        id: statusId,
         // entities: status.entities.urls,
         // status,
       });

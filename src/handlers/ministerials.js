@@ -2,6 +2,7 @@ import Cheerio from 'cheerio';
 import goodGuyHttp from 'good-guy-http';
 import moment from 'moment';
 import url from 'url';
+import hash from '../hash';
 
 const mediaLandingUrl = 'https://www.mediastatements.wa.gov.au/Pages/Portfolios/Commerce-and-Industrial-Relations.aspx';
 
@@ -75,6 +76,7 @@ exports.getMinisterials = async function getMinisterials(request, reply) {
         type: 'statement',
         source: 'ministerial',
         author: 'minister',
+        id: hash.generate(title),
       };
     } catch (error) {
       console.log('Fetch of statement info failed', error);

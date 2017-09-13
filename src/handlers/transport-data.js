@@ -1,5 +1,6 @@
 import Cheerio from 'cheerio';
 import goodGuyHttp from 'good-guy-http';
+import hash from '../hash';
 
 const goodGuy = goodGuyHttp({
   forceCaching: {
@@ -62,7 +63,7 @@ exports.getDepartures = async function getDepartures(request, reply) {
         const info = [];
         // Iterate over each td element in the row
         cellData.each((idx, elem) => {
-          // If this is the 3rd aaray value (containing the train stopping pattern info)
+          // If this is the 3rd array value (containing the train stopping pattern info)
           // clean it up as it has lots of spaces and a linebreak in it
           if (idx === 2) {
             const split = $(elem).text().trim().split('\n');
@@ -96,4 +97,37 @@ exports.getDepartures = async function getDepartures(request, reply) {
 
   // Hapi reply call to send back object data serialised to JSON
   reply(await departureData);
+};
+
+
+exports.getUpdates = async function getUpdates(request, reply) {
+  const serviceUpdatesUrl = 'http://www.transperth.wa.gov.au/service-updates/train-updates';
+  try {
+    // Fetch the service updates page and wait for it to return
+    const serviceResponse = await goodGuy(serviceUpdatesUrl);
+    // Load the HTML body into Cheerio
+    const $ = Cheerio.load(serviceResponse.body.toString());
+    // Extract the data from the table of train service disruptions
+    const serviceNotices = $('#EDN_Transperth table');
+    // Get an array of the link elements (knock off the last item as it is not needed :) )
+    const noticeLinks = serviceNotices.find('a').slice(0, -1);
+    // Iterate over each link
+    const noticeData = noticeLinks
+      .map((index, element) => {
+        const notice = $(element);
+        // Extract the title text
+        const title = notice.text();
+        // Extract the url
+        const url = notice.attr('href');
+        // Generate a unique id
+        const id = hash.generate(title);
+        return { id, title, url };
+      })
+      .get();
+
+    // Hapi reply call to send back object data serialised to JSON
+    reply(noticeData);
+  } catch (error) {
+    console.error('Error fetching Intranet news:', error);
+  }
 };

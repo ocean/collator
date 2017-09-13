@@ -53,11 +53,11 @@ module.exports = [
     path: '/api/v1/data/transport/departures/{location}',
     handler: TransportData.getDepartures,
   },
-  // {
-  //   method: 'GET',
-  //   path: '/api/v1/data/transport/updates',
-  //   handler: TransportData.getUpdates,
-  // },
+  {
+    method: 'GET',
+    path: '/api/v1/data/transport/updates',
+    handler: TransportData.getUpdates,
+  },
   // {
   //   method: 'GET',
   //   path: '/api/v1/data/weather/{location}',

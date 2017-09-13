@@ -1,6 +1,8 @@
 import Cheerio from 'cheerio';
 import goodGuyHttp from 'good-guy-http';
+import { flatten, sortBy } from 'lodash';
 import hash from '../hash';
+
 
 const goodGuy = goodGuyHttp({
   forceCaching: {
@@ -45,7 +47,6 @@ exports.getDepartures = async function getDepartures(request, reply) {
   const stationArray = Object.keys(stationObject);
   // Async function to wait for the info to be fetched and processed
   const departures = await stationArray.map(async (station) => {
-    // console.dir(station);
     try {
       // Wait for good-guy to load the page from the URL
       const informationResponse = await goodGuy(stationObject[station].url);
@@ -54,49 +55,41 @@ exports.getDepartures = async function getDepartures(request, reply) {
       // Extract the table rows showing train information
       const rowData = $('div.DNNModuleContent table tbody tr');
       // Create array for holding output data
-      const times = [];
+
       // Iterate over each table row
-      rowData.each((index, element) => {
-        // Extract td elements from each row into an array
-        const cellData = $(element).find('td');
-        // Array for holding data for each row
-        const info = [];
-        // Iterate over each td element in the row
-        cellData.each((idx, elem) => {
-          // If this is the 3rd array value (containing the train stopping pattern info)
-          // clean it up as it has lots of spaces and a linebreak in it
-          if (idx === 2) {
-            const split = $(elem).text().trim().split('\n');
-            const cleaned = split.map(val => val.trim(), []);
-            info[idx] = cleaned.join(' ');
-          } else {
-            // Put the trimmed text into array elements
-            info[idx] = $(elem).text().trim();
-          }
-          // Possible plays with making an object instead.
-        //   const departureTime = rowData[0].text().trim();
-        //   console.log('departure time =', departureTime);
-        //   const destination = rowData.eq(1).text().trim();
-        //   console.log('destination =', destination);
-        //   const description = rowData.eq(2).text().trim();
-        //   console.log('description =', description);
-        //   const status = rowData.eq(3).text().trim();
-        //   console.log('status =', status);
-        });
-        // Add this row's data to the main output array
-        times.push(info);
-      });
-      return times;
+      const trainTimes = rowData.map((index, element) => {
+        // We don't want the last row in each table.
+        if (index < rowData.length - 1) {
+          const train = $(element).find('td');
+
+          const departureTime = train.eq(0).text().trim();
+          const destination = train.eq(1).text().trim();
+          const description = train.eq(2).text().split('\n').map(val => val.trim(), []).join(' ').trim();
+          const status = train.eq(3).text().trim();
+          const id = hash.generate(departureTime + destination);
+
+          return {
+            id,
+            departureTime,
+            destination,
+            description,
+            status,
+          };
+        }
+        // if last item return null (basically break...unless you can break in JS.)
+        return null;
+      }).get();
+
+      return trainTimes;
     } catch (error) {
       console.log('Fetch of statement info failed', error);
       throw error;
     }
   });
   // Wait for the all the Promise objects in this array to resolve
-  const departureData = Promise.all(departures);
-
+  const departureData = await Promise.all(departures);
   // Hapi reply call to send back object data serialised to JSON
-  reply(await departureData);
+  reply(await sortBy(flatten(departureData), 'departureTime'));
 };
 
 

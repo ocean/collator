@@ -1,6 +1,7 @@
 import Cheerio from 'cheerio';
 import goodGuyHttp from 'good-guy-http';
 import { flatten, sortBy } from 'lodash';
+import Moment from 'moment';
 import hash from '../hash';
 
 
@@ -46,6 +47,9 @@ exports.getDepartures = async function getDepartures(request, reply) {
   // A station object could have one or more stations in it, this handles that
   const stationArray = Object.keys(stationObject);
   // Async function to wait for the info to be fetched and processed
+
+  const now = Moment().format('YYYY-MM-DD');
+
   const departures = await stationArray.map(async (station) => {
     try {
       // Wait for good-guy to load the page from the URL
@@ -62,7 +66,7 @@ exports.getDepartures = async function getDepartures(request, reply) {
         if (index < rowData.length - 1) {
           const train = $(element).find('td');
 
-          const departureTime = train.eq(0).text().trim();
+          const departureTime = `${now}T${train.eq(0).text().trim()}:00+08:00`;
           const destination = train.eq(1).text().trim();
           const description = train.eq(2).text().split('\n').map(val => val.trim(), []).join(' ').trim();
           const status = train.eq(3).text().trim();

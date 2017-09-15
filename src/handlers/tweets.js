@@ -2,6 +2,7 @@ import Dotenv from 'dotenv';
 import Boom from 'boom';
 import fs from 'fs';
 import goodGuyHttp from 'good-guy-http';
+import he from 'he';
 import moment from 'moment';
 import url from 'url';
 
@@ -70,7 +71,6 @@ exports.getTweets = async function getTweets(request, reply) {
     const tweets = response.body;
     const updates = [];
     tweets.forEach((status) => {
-
       // console.log(status);
       const dateParsed = moment(status.created_at.toString().trim(), 'ddd MMM DD HH:mm:ss Z YYYY');
       const dateTime = moment(dateParsed).format();
@@ -81,7 +81,7 @@ exports.getTweets = async function getTweets(request, reply) {
       updates.push({
         id: statusId,
         author: username,
-        contents: status.text,
+        contents: he.decode(status.text),
         dateTime,
         displayName,
         source: 'twitter',
@@ -92,7 +92,6 @@ exports.getTweets = async function getTweets(request, reply) {
     reply(updates);
   } catch (error) {
     Boom.boomify(error, { statusCode: 501, message: 'A decent network was not implemented. Fetch of tweets failed.' });
-    // console.log('Fetch of tweets failed', error);
     reply(error);
   }
 };

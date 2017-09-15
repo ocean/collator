@@ -70,24 +70,23 @@ exports.getTweets = async function getTweets(request, reply) {
     const tweets = response.body;
     const updates = [];
     tweets.forEach((status) => {
+
+      // console.log(status);
       const dateParsed = moment(status.created_at.toString().trim(), 'ddd MMM DD HH:mm:ss Z YYYY');
-      const dateString = moment(dateParsed).format('dddd, D MMMM YYYY');
-      const dateUnix = moment(dateParsed).format('X');
+      const dateTime = moment(dateParsed).format();
+      const displayName = status.user.name;
       const username = status.user.screen_name;
       const statusId = status.id_str;
       const buildUrl = `https://twitter.com/${username}/status/${statusId}`;
       updates.push({
-        url: buildUrl,
-        dateString,
-        dateUnix,
-        title: '',
-        contents: status.text,
-        type: 'tweet',
-        source: 'twitter',
-        author: username,
         id: statusId,
-        // entities: status.entities.urls,
-        // status,
+        author: username,
+        contents: status.text,
+        dateTime,
+        displayName,
+        source: 'twitter',
+        type: 'tweet',
+        url: buildUrl,
       });
     }, this);
     reply(updates);

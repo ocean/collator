@@ -30,6 +30,11 @@ module.exports = [
   },
   {
     method: 'GET',
+    path: '/api/v1/intranet/news/type/{newsType}',
+    handler: IntranetNews.getIntranetNewsByType,
+  },
+  {
+    method: 'GET',
     path: '/api/v1/statements/ministerials',
     handler: Ministerials.getMinisterials,
   },

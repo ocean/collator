@@ -13,17 +13,40 @@ const goodGuy = goodGuyHttp({
   proxy: '',
 });
 
-let intranetNewsUrl = '';
+let intranetNewsHost = '';
 if (process.env.NODE_ENV === 'production') {
-  intranetNewsUrl = 'http://intranet.dias94.bedrock.mft.wa.gov.au/news-centre/api/v1/news/all';
+  intranetNewsHost = 'http://intranet.dias94.bedrock.mft.wa.gov.au';
 } else {
-  intranetNewsUrl = 'http://intranet.vagrant.local/news-centre/api/v1/news/all';
+  intranetNewsHost = 'http://intranet.vagrant.local';
 }
 
-// Intranet news items from this local server
+// Intranet news, all items from this local server
 exports.getIntranetNews = async function getIntranetNews(request, reply) {
   try {
-    const newsResponse = await goodGuy(intranetNewsUrl);
+    const newsResponse = await goodGuy(`${intranetNewsHost}/news-centre/api/v1/news/all`);
+
+    const newsItems = [];
+    newsResponse.forEach((element) => {
+      const newsItem = element;
+      const dateParsed = moment(element.dateUnix, 'X');
+      const dateTime = dateParsed.format();
+      newsItem.dateTime = dateTime;
+      newsItem.contents = newsItem.contents.replace(/&nbsp;|\r\n/g, ' ');
+      newsItem.id = hash.generate(newsItem.title);
+      newsItems.push(newsItem);
+    });
+    reply(newsItems);
+  } catch (error) {
+    console.error('Error fetching Intranet news:', error);
+  }
+};
+
+// Intranet news items from this local server
+exports.getIntranetNewsByType = async function getIntranetNewsByType(request, reply) {
+  try {
+    // Get the news type from the request parameter
+    const { newsType } = request.params;
+    const newsResponse = await goodGuy(`${intranetNewsHost}/news-centre/api/v1/news/type/${newsType}`);
 
     const newsItems = [];
     newsResponse.forEach((element) => {

@@ -29,8 +29,8 @@ exports.getIntranetNews = async function getIntranetNews(request, reply) {
     newsResponse.forEach((element) => {
       const newsItem = element;
       const dateParsed = moment(element.dateUnix, 'X');
-      const dateString = dateParsed.format('dddd, D MMMM YYYY');
-      newsItem.dateString = dateString;
+      const dateTime = dateParsed.format();
+      newsItem.dateTime = dateTime;
       newsItem.contents = newsItem.contents.replace(/&nbsp;|\r\n/g, ' ');
       newsItem.id = hash.generate(newsItem.title);
       newsItems.push(newsItem);

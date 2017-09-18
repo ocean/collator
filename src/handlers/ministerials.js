@@ -56,10 +56,8 @@ exports.getMinisterials = async function getMinisterials(request, reply) {
       // Parse the date text into a proper Date object using moment.js and
       // the known formatting string
       const dateParsed = moment(rawDateString, 'D/MM/YYYY H:mm A');
-      // Create a nice date string for use in the feed object
-      const dateString = moment(dateParsed).format('dddd, D MMMM YYYY');
-      // Create a more useful Unix epoch date (in seconds) for the feed object
-      const dateUnix = moment(dateParsed).format('X');
+      // Create a simple ISO 8601 date and time string for use in the feed object
+      const dateTime = moment(dateParsed).format();
       // Extract the media statement body text,
       // skipping the <ul> element at the top and the "Page Content" target link
       const contentHtml = article.find('div.article-content p');
@@ -69,8 +67,7 @@ exports.getMinisterials = async function getMinisterials(request, reply) {
       // Return nice media statement data object
       return {
         url: fullUrl,
-        dateString,
-        dateUnix,
+        dateTime,
         title,
         contents,
         type: 'statement',

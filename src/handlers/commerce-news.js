@@ -25,13 +25,14 @@ exports.getStatements = function getCommerceNews(request, reply) {
       const statements = [];
       const rssItems = result.rss.channel[0].item;
       rssItems.forEach((element) => {
+        // Parse the date text into a proper Date object using moment.js and
+        // the known formatting string
         const dateParsed = moment(element.pubDate.toString().trim(), 'YYYY-MM-DD HH:mm:ss');
-        const dateString = moment(dateParsed).format('dddd, D MMMM YYYY');
-        const dateUnix = moment(dateParsed).format('X');
+        // Create a simple ISO 8601 date and time string for use in the feed object
+        const dateTime = moment(dateParsed).format();
         statements.push({
           url: element.link.toString(),
-          dateString,
-          dateUnix,
+          dateTime,
           title: he.decode(element.title.toString()),
           contents: element.description.toString(),
           type: 'statement',

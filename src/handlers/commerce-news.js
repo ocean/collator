@@ -38,7 +38,7 @@ exports.getStatements = function getCommerceNews(request, reply) {
           type: 'statement',
           source: 'commerce',
           author: element['dc:creator'].toString(),
-          id: hash.generate(element.title.toString()),
+          id: hash.generate(element.title.toString() + dateTime),
         });
       }, this);
       reply(statements);

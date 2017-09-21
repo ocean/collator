@@ -57,6 +57,11 @@ module.exports = [
     method: 'GET',
     path: '/api/v1/data/transport/departures/{location}',
     handler: TransportData.getDepartures,
+    config: {
+      cache: {
+        expiresIn: 10000,
+      },
+    },
   },
   {
     method: 'GET',

@@ -30,7 +30,7 @@ const transportEndpointUrl = url.format({
   pathname: '1.1/lists/statuses.json',
   // pathname: '1.1/lists/',
   query: {
-    count: 50,
+    count: 20,
     include_rts: true,
     // If this is passed as a Number, JavaScript will "round it" and break the URL
     list_id: '864392667689398272',

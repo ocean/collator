@@ -23,7 +23,7 @@ exports.collate = async function collateAllNews(request, reply) {
   const endpointUrl = `${endpointProto}://${endpointHost}:${endpointPort}`;
   const combined = [];
   let err = null;
-  let flattened = [];
+  // let flattened = [];
   try {
     const commerceNewsItems = await goodGuy(`${endpointUrl}/api/v1/statements/commerce`);
     const intranetNewsItems = await goodGuy(`${endpointUrl}/api/v1/intranet/news`);
@@ -70,8 +70,8 @@ exports.collate = async function collateAllNews(request, reply) {
       combined.push(subarray);
       i += 1;
     }
-    flattened = combined.reduce((a, b) => a.concat(b), []);
-    console.log('items count =', flattened.length);
+    // flattened = combined.reduce((a, b) => a.concat(b), []);
+    // console.log('items count =', flattened.length);
   } catch (error) {
     console.error('Error building combined feed:', error);
     err = error;

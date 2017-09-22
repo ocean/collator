@@ -37,7 +37,8 @@ exports.getIntranetNews = async function getIntranetNews(request, reply) {
     });
     reply(newsItems);
   } catch (error) {
-    console.error('Error fetching Intranet news:', error);
+    console.error('Error fetching all news items.', error);
+    reply(error.response.body);
   }
 };
 
@@ -60,6 +61,7 @@ exports.getIntranetNewsByType = async function getIntranetNewsByType(request, re
     });
     reply(newsItems);
   } catch (error) {
-    console.error('Error fetching Intranet news:', error);
+    console.error('Error fetching news items by type.', error);
+    reply(error.response.body);
   }
 };

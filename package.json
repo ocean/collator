@@ -36,7 +36,7 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
     "babel-register": "^6.26.0",
-    "boom": "^5.2.0",
+    "boom": "^6.0.0",
     "cheerio": "^1.0.0-rc.2",
     "dotenv": "^4.0.0",
     "etagger": "^3.0.0",

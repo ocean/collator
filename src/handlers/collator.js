@@ -36,7 +36,7 @@ exports.collate = async function collateAllNews(request, reply) {
       intranet: 1,
       // government: 0,
       ministerial: 2,
-      twitter: 2,
+      twitter: 4,
     };
     const iterations = commerceNewsItems.length / itemCounter.commerce;
     let i = 0;
@@ -63,7 +63,7 @@ exports.collate = async function collateAllNews(request, reply) {
         m += 1;
       }
       let t = 0;
-      while (t < itemCounter.commerce) {
+      while (t < itemCounter.twitter) {
         subarray.push(dmirsTweetsItems.shift());
         t += 1;
       }

@@ -25,12 +25,12 @@ module.exports = [
   },
   {
     method: 'GET',
-    path: '/api/v1/intranet/news',
+    path: '/api/v1/intranet/news/{featured?}',
     handler: IntranetNews.getIntranetNews,
   },
   {
     method: 'GET',
-    path: '/api/v1/intranet/news/type/{newsType}/{withImages?}',
+    path: '/api/v1/intranet/news/type/{newsType}/{featured?}',
     handler: IntranetNews.getIntranetNewsByType,
   },
   {

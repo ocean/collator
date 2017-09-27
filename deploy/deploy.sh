@@ -21,7 +21,7 @@ APP_ROOT_DIR=/opt/app/collator
 PM2_APP_PROCESS_FILE=process.json
 
 echo "$(tput -Tansi setaf 6)Installing required Node modules with 'npm install'...$(tput -Tansi sgr 0)"
-npm install
+NODE_ENV=production npm install
 npm run build
 
 # Any other installation bits here

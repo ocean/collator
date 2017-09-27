@@ -46,10 +46,11 @@ exports.getIntranetNews = async function getIntranetNews(request, reply) {
 exports.getIntranetNewsByType = async function getIntranetNewsByType(request, reply) {
   try {
     // Get the news type from the request parameter
-    const { newsType } = request.params;
+    const { newsType, withImages } = request.params;
     const newsResponse = await goodGuy(`${intranetNewsHost}/news-centre/api/v1/news/type/${newsType}`);
 
     const newsItems = [];
+    let imageNewsItems = [];
     newsResponse.forEach((element) => {
       const newsItem = element;
       const dateParsed = moment(element.dateUnix, 'X');
@@ -59,7 +60,12 @@ exports.getIntranetNewsByType = async function getIntranetNewsByType(request, re
       newsItem.id = hash.generate(newsItem.title);
       newsItems.push(newsItem);
     });
-    reply(newsItems);
+    if (withImages) {
+      imageNewsItems = newsItems.filter(element => element.imageSrc);
+      reply(imageNewsItems);
+    } else {
+      reply(newsItems);
+    }
   } catch (error) {
     console.error('Error fetching news items by type.', error);
     reply(error.response.body);

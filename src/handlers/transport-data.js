@@ -68,7 +68,10 @@ exports.getDepartures = async function getDepartures(request, reply) {
 
           const departureTime = `${now}T${train.eq(0).text().trim()}:00+08:00`;
           const destination = train.eq(1).text().replace('To', '').trim();
-          const description = train.eq(2).text().split('\n').map(val => val.trim(), []).join(' ').trim();
+          const description = train.eq(2).text().split('\n')
+            .map(val => val.trim(), [])
+            .join(' ')
+            .trim();
           const status = train.eq(3).text().trim();
           const id = hash.generate(departureTime + destination);
 

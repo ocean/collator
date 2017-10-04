@@ -5,6 +5,7 @@ import IntranetNews from './handlers/intranet-news';
 import Ministerials from './handlers/ministerials';
 import TransportData from './handlers/transport-data';
 import Tweets from './handlers/tweets';
+import WeatherData from './handlers/weather-data';
 
 module.exports = [
   // A test endpoint to check Hapi is working
@@ -68,10 +69,10 @@ module.exports = [
     path: '/api/v1/data/transport/updates',
     handler: TransportData.getUpdates,
   },
-  // {
-  //   method: 'GET',
-  //   path: '/api/v1/data/weather/{location}',
-  //   handler: WeatherData.getCurrent,
-  // },
+  {
+    method: 'GET',
+    path: '/api/v1/data/weather/{location}',
+    handler: WeatherData.getForecast,
+  },
 
 ];

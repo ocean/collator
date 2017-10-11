@@ -35,7 +35,7 @@ exports.collate = async function collateAllNews(request, reply) {
       commerce: 2,
       intranet: 1,
       // government: 0,
-      ministerial: 2,
+      ministerial: 1,
       twitter: 4,
     };
     const iterations = commerceNewsItems.length / itemCounter.commerce;

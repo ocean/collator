@@ -36,7 +36,7 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
-    "boom": "5.2.x",
+    "boom": "5.2.0",
     "cheerio": "^1.0.0-rc.2",
     "dotenv": "^4.0.0",
     "etagger": "^3.0.0",
@@ -52,7 +52,7 @@
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
-    "ava": "^0.22.0",
+    "ava": "^0.23.0",
     "babel-preset-airbnb": "^2.4.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "^12.1.0",

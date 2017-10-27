@@ -49,7 +49,7 @@ exports.getForecast = async function getWeather(request, reply) {
     const forecasts = newsResponse.body.list.map(forecast => ({
       dateTime: moment.unix(forecast.dt).toISOString(),
       humidity: forecast.main.humidity,
-      tempurate: forecast.main.temp,
+      temperature: forecast.main.temp,
       weather: forecast.weather[0].main,
       weather_id: forecast.weather[0].id,
     }));

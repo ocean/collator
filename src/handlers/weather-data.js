@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const goodGuy = goodGuyHttp({
   forceCaching: {
-    timeToLive: 30000,
+    timeToLive: 2700000,
   },
   ca: caFile,
   headers: {

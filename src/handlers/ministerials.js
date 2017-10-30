@@ -10,7 +10,7 @@ const mediaLandingUrl = 'https://www.mediastatements.wa.gov.au/Pages/Portfolios/
 // https://www.mediastatements.wa.gov.au/Pages/Portfolios/Mines-and-Petroleum.aspx
 
 const goodGuy = goodGuyHttp({
-  defaultCaching: {
+  forceCaching: {
     timeToLive: 300000,
   },
   headers: {

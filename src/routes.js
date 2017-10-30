@@ -73,6 +73,11 @@ module.exports = [
     method: 'GET',
     path: '/api/v1/data/weather/{location}',
     handler: WeatherData.getForecast,
+    config: {
+      cache: {
+        expiresIn: 86400000,
+      },
+    },
   },
 
 ];

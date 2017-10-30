@@ -6,11 +6,12 @@ import hash from '../hash';
 
 const goodGuy = goodGuyHttp({
   forceCaching: {
-    timeToLive: 60000,
+    timeToLive: 120000,
   },
   headers: {
     'User-Agent': 'Department of Commerce Intranet - request',
   },
+  timeout: 15000,
 });
 const { parseString } = xml2js;
 

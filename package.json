@@ -37,6 +37,8 @@
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.26.0",
     "boom": "^6.x",
+    "catbox": "^9.0.0",
+    "catbox-redis": "^3.1.1",
     "cheerio": "^1.0.0-rc.2",
     "dotenv": "^4.0.0",
     "etagger": "^3.0.1",

@@ -5,14 +5,14 @@ import Good from 'good';
 import etagger from 'etagger';
 
 const server = new Hapi.Server({
-  cache: [
-    {
-      name: 'redisCache',
-      engine: require('catbox-redis'), // eslint-disable-line
-      host: '127.0.0.1',
-      partition: 'cache',
-    },
-  ],
+  // cache: [
+  //   {
+  //     name: 'redisCache',
+  //     engine: require('catbox-redis'), // eslint-disable-line
+  //     host: '127.0.0.1',
+  //     partition: 'cache',
+  //   },
+  // ],
 });
 
 // port setup with env var for hosting

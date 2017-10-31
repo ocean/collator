@@ -42,8 +42,6 @@ exports.getForecast = async function getWeather(request, reply) {
   });
 
   try {
-    // Get the featured status from the request parameter
-    // const { featured } = request.params;
     const newsResponse = await goodGuy(openWeatherMapEndPoint);
 
     const forecasts = newsResponse.body.list.map(forecast => ({

@@ -51,6 +51,8 @@ exports.getForecast = async function getWeather(request, reply) {
       weather: forecast.weather[0].main,
       weather_id: forecast.weather[0].id,
     }));
+    // console.dir(request.connection.server.cache);
+    // request.connection.server.cache.policy.set(openWeatherMapEndPoint, forecasts, 86400);
     reply(forecasts);
   } catch (error) {
     console.error('Error fetching weather forecast.', error);

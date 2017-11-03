@@ -50,6 +50,7 @@ exports.getStatements = async function getStatements(request, reply) {
       const article = await $c('div#article');
       // Extract the title text
       const title = article.find('h1').text();
+      console.log(`building '${title}'...`);
       // Extract the raw date created text
       const rawDateString = article.find($c('div.newsCreatedDate')).text().trim();
       // Parse the date text into a proper Date object using moment.js and

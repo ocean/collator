@@ -61,6 +61,9 @@ module.exports = [
     config: {
       cache: {
         expiresIn: 10000,
+        // generateFunc: async function test(id, flags) {
+        //   console.dir(id, flags);
+        // },
       },
     },
   },

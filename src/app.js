@@ -3,17 +3,22 @@
 import Hapi from 'hapi';
 import Good from 'good';
 import etagger from 'etagger';
+import RedisCache from 'catbox-redis';
 
 const server = new Hapi.Server({
-  // cache: [
-  //   {
-  //     name: 'redisCache',
-  //     engine: require('catbox-redis'), // eslint-disable-line
-  //     host: '127.0.0.1',
-  //     partition: 'cache',
-  //   },
-  // ],
+  cache: [
+    {
+      // name: 'redisCache',
+      engine: RedisCache,
+      host: '127.0.0.1',
+      partition: 'cache',
+    },
+  ],
 });
+
+// server.method('saveToCache', (id, data, ttl, next) => {
+
+// }, {});
 
 // port setup with env var for hosting
 server.connection({

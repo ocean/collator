@@ -2,7 +2,8 @@ import goodGuyHttp from 'good-guy-http';
 
 const goodGuy = goodGuyHttp({
   forceCaching: {
-    timeToLive: 30000,
+    cached: true,
+    timeToLive: 60000,
   },
   // proxy: process.env.HTTP_PROXY,
   postprocess: resp => JSON.parse(resp.body.toString()),

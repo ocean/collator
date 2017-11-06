@@ -2,7 +2,7 @@ import Cheerio from 'cheerio';
 import goodGuyHttp from 'good-guy-http';
 import moment from 'moment';
 import url from 'url';
-import hash from '../hash';
+import hash from '../utils/hash';
 
 export default function (server, options, next) {
   const mediaLandingUrl = 'https://www.mediastatements.wa.gov.au/Pages/Portfolios/Commerce-and-Industrial-Relations.aspx';
@@ -12,6 +12,7 @@ export default function (server, options, next) {
 
   const goodGuy = goodGuyHttp({
     forceCaching: {
+      cached: true,
       timeToLive: 300000,
     },
     headers: {

@@ -2,11 +2,12 @@ import Cheerio from 'cheerio';
 import goodGuyHttp from 'good-guy-http';
 import { flatten, sortBy } from 'lodash';
 import Moment from 'moment';
-import hash from '../hash';
+import hash from '../utils/hash';
 
 
 const goodGuy = goodGuyHttp({
   forceCaching: {
+    cached: true,
     timeToLive: 30000,
   },
   headers: {

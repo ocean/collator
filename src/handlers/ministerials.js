@@ -1,8 +1,10 @@
+import Boom from 'boom';
 import Cheerio from 'cheerio';
 import goodGuyHttp from 'good-guy-http';
 import moment from 'moment';
 import url from 'url';
-import hash from '../hash';
+import goodGuyCache from '../utils/good-guy-cache';
+import hash from '../utils/hash';
 
 const mediaLandingUrl = 'https://www.mediastatements.wa.gov.au/Pages/Portfolios/Commerce-and-Industrial-Relations.aspx';
 
@@ -10,7 +12,9 @@ const mediaLandingUrl = 'https://www.mediastatements.wa.gov.au/Pages/Portfolios/
 // https://www.mediastatements.wa.gov.au/Pages/Portfolios/Mines-and-Petroleum.aspx
 
 const goodGuy = goodGuyHttp({
+  cache: goodGuyCache(300),
   forceCaching: {
+    cached: true,
     timeToLive: 300000,
   },
   headers: {
@@ -21,28 +25,28 @@ const goodGuy = goodGuyHttp({
 });
 
 exports.getMinisterials = async function getMinisterials(request, reply) {
-  // Fetch the media statements landing page and wait for it to return
-  const landingResponse = await goodGuy(mediaLandingUrl);
-  // Load the HTML body into Cheerio
-  const $ = Cheerio.load(landingResponse.body.toString());
-  // Extract the data from the table of links
-  const landingPage = $('tr > td', 'div.cs-rollup-content > table');
-  // Get an array of the link elements
-  const statementLinks = landingPage.find('a');
-  // Create an array for holding the relative URLs from these links
-  const linkPartials = [];
-  // For each link element, extract the href attribute
-  statementLinks.each((idx, elem) => {
-    linkPartials[idx] = $(elem).attr('href');
-  });
-  // Create a new array holding the full URLs to each statement,
-  // using url.resolve to sort them out
-  const fullUrls = linkPartials.map(linkPartial => url
-    .resolve(mediaLandingUrl, encodeURI(linkPartial)));
-  // Create an array of objects containing data extracted from
-  // each media statement
-  const statements = await fullUrls.map(async (fullUrl) => {
-    try {
+  try {
+    // Fetch the media statements landing page and wait for it to return
+    const landingResponse = await goodGuy(mediaLandingUrl);
+    // Load the HTML body into Cheerio
+    const $ = Cheerio.load(landingResponse.body.toString());
+    // Extract the data from the table of links
+    const landingPage = $('tr > td', 'div.cs-rollup-content > table');
+    // Get an array of the link elements
+    const statementLinks = landingPage.find('a');
+    // Create an array for holding the relative URLs from these links
+    const linkPartials = [];
+    // For each link element, extract the href attribute
+    statementLinks.each((idx, elem) => {
+      linkPartials[idx] = $(elem).attr('href');
+    });
+    // Create a new array holding the full URLs to each statement,
+    // using url.resolve to sort them out
+    const fullUrls = linkPartials.map(linkPartial => url
+      .resolve(mediaLandingUrl, encodeURI(linkPartial)));
+    // Create an array of objects containing data extracted from
+    // each media statement
+    const statements = await fullUrls.map(async (fullUrl) => {
       // Fetch the statement page and wait for it to return
       const statementResponse = await goodGuy(fullUrl);
       // Load the statement body into Cheerio
@@ -51,7 +55,6 @@ exports.getMinisterials = async function getMinisterials(request, reply) {
       const article = await $c('div#article');
       // Extract the title text
       const title = article.find('h1').text();
-      console.log(`building '${title}'...`);
       // Extract the raw date created text
       const rawDateString = article.find($c('div.newsCreatedDate')).text().trim();
       // Parse the date text into a proper Date object using moment.js and
@@ -76,15 +79,16 @@ exports.getMinisterials = async function getMinisterials(request, reply) {
         author: 'minister',
         id: hash.generate(title),
       };
-    } catch (error) {
-      console.log('Fetch of statement info failed', error);
-      throw error;
-    }
-  });
-  // Wait for the all the Promise objects in this array to resolve
-  const statementData = Promise.all(statements);
-  // console.log('Statements obj = ');
-  // console.dir(await statementData);
-  // Hapi reply call to send back object data serialised to JSON
-  reply(await statementData);
+    });
+    // Wait for the all the Promise objects in this array to resolve
+    const statementData = Promise.all(statements);
+    // console.log('Statements obj = ');
+    // console.dir(await statementData);
+    // Hapi reply call to send back object data serialised to JSON
+    reply(await statementData);
+  } catch (error) {
+    Boom.boomify(error);
+    console.log('Fetch of statement info failed', error);
+    reply(error);
+  }
 };

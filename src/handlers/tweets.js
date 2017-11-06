@@ -5,6 +5,7 @@ import goodGuyHttp from 'good-guy-http';
 import he from 'he';
 import moment from 'moment';
 import url from 'url';
+import goodGuyCache from '../utils/good-guy-cache';
 
 Dotenv.config();
 
@@ -48,8 +49,10 @@ exports.getTweets = async function getTweets(request, reply) {
   }
 
   const goodGuy = goodGuyHttp({
+    cache: goodGuyCache(60),
     forceCaching: {
-      timeToLive: 30000,
+      cached: true,
+      timeToLive: 60000,
     },
     ca: caFile,
     headers: {

@@ -60,10 +60,7 @@ module.exports = [
     handler: TransportData.getDepartures,
     config: {
       cache: {
-        expiresIn: 10000,
-        // generateFunc: async function test(id, flags) {
-        //   console.dir(id, flags);
-        // },
+        expiresIn: 30000,
       },
     },
   },

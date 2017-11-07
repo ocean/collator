@@ -1,8 +1,10 @@
 import goodGuyHttp from 'good-guy-http';
 import moment from 'moment';
+import goodGuyCache from '../utils/good-guy-cache';
 import hash from '../utils/hash';
 
 const goodGuy = goodGuyHttp({
+  cache: goodGuyCache(60),
   forceCaching: {
     cached: true,
     timeToLive: 60000,

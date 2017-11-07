@@ -74,7 +74,6 @@ exports.getTweets = async function getTweets(request, reply) {
     const tweets = response.body;
     const updates = [];
     tweets.forEach((status) => {
-      // console.log(status);
       const dateParsed = moment(status.created_at.toString().trim(), 'ddd MMM DD HH:mm:ss Z YYYY');
       const dateTime = moment(dateParsed).format();
       const displayName = status.user.name;

@@ -82,8 +82,6 @@ exports.getMinisterials = async function getMinisterials(request, reply) {
     });
     // Wait for the all the Promise objects in this array to resolve
     const statementData = Promise.all(statements);
-    // console.log('Statements obj = ');
-    // console.dir(await statementData);
     // Hapi reply call to send back object data serialised to JSON
     reply(await statementData);
   } catch (error) {

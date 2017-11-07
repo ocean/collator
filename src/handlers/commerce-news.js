@@ -2,9 +2,11 @@ import goodGuyHttp from 'good-guy-http';
 import he from 'he';
 import moment from 'moment';
 import xml2js from 'xml2js';
+import goodGuyCache from '../utils/good-guy-cache';
 import hash from '../utils/hash';
 
 const goodGuy = goodGuyHttp({
+  cache: goodGuyCache(120),
   forceCaching: {
     cached: true,
     timeToLive: 120000,

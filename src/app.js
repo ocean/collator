@@ -3,17 +3,17 @@
 import Hapi from 'hapi';
 import Good from 'good';
 import etagger from 'etagger';
-import RedisCache from 'catbox-redis';
+// import RedisCache from 'catbox-redis';
 
 const server = new Hapi.Server({
-  cache: [
-    {
-      // name: 'redisCache',
-      engine: RedisCache,
-      host: '127.0.0.1',
-      partition: 'cache',
-    },
-  ],
+  // cache: [
+  //   {
+  //     // name: 'redisCache',
+  //     engine: RedisCache,
+  //     host: '127.0.0.1',
+  //     partition: 'cache',
+  //   },
+  // ],
 });
 
 // server.method('saveToCache', (id, data, ttl, next) => {
@@ -28,9 +28,9 @@ server.connection({
       origin: ['*.local', '*.wa.gov.au'],
       headers: ['Accept', 'Authorization', 'Content-Type', 'If-None-Match', 'Accept-language'],
     },
-    cache: {
-      expiresIn: 60000,
-    },
+    // cache: {
+    //   expiresIn: 60000,
+    // },
   },
 });
 

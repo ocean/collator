@@ -3,11 +3,13 @@ import Cheerio from 'cheerio';
 import goodGuyHttp from 'good-guy-http';
 import moment from 'moment';
 import url from 'url';
+import goodGuyCache from '../utils/good-guy-cache';
 import hash from '../utils/hash';
 
 const mediaFrontUrl = 'https://www.mediastatements.wa.gov.au/Pages/Default.aspx';
 
 const goodGuy = goodGuyHttp({
+  cache: goodGuyCache(300),
   forceCaching: {
     cached: true,
     timeToLive: 300000,
@@ -79,8 +81,6 @@ exports.getStatements = async function getStatements(request, reply) {
     });
     // Wait for the all the Promise objects in this array to resolve
     const statementData = Promise.all(statements);
-    // console.log('Statements obj = ');
-    // console.dir(await statementData);
     // Hapi reply call to send back object data serialised to JSON
     reply(await statementData);
   } catch (error) {

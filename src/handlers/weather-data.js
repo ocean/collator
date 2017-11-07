@@ -2,6 +2,7 @@ import fs from 'fs';
 import goodGuyHttp from 'good-guy-http';
 import moment from 'moment';
 import url from 'url';
+import goodGuyCache from '../utils/good-guy-cache';
 
 let caFile = '';
 
@@ -10,6 +11,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const goodGuy = goodGuyHttp({
+  cache: goodGuyCache(2700),
   forceCaching: {
     cached: true,
     timeToLive: 2700000,
@@ -52,8 +54,6 @@ exports.getForecast = async function getWeather(request, reply) {
       weather: forecast.weather[0].main,
       weather_id: forecast.weather[0].id,
     }));
-    // console.dir(request.connection.server.cache);
-    // request.connection.server.cache.policy.set(openWeatherMapEndPoint, forecasts, 86400);
     reply(forecasts);
   } catch (error) {
     console.error('Error fetching weather forecast.', error);

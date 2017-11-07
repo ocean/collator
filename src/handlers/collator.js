@@ -1,6 +1,8 @@
 import goodGuyHttp from 'good-guy-http';
+import goodGuyCache from '../utils/good-guy-cache';
 
 const goodGuy = goodGuyHttp({
+  cache: goodGuyCache(60),
   forceCaching: {
     cached: true,
     timeToLive: 60000,
@@ -71,8 +73,6 @@ exports.collate = async function collateAllNews(request, reply) {
       combined.push(subarray);
       i += 1;
     }
-    // flattened = combined.reduce((a, b) => a.concat(b), []);
-    // console.log('items count =', flattened.length);
   } catch (error) {
     console.error('Error building combined feed:', error);
     err = error;

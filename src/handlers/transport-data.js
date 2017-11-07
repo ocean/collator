@@ -2,10 +2,12 @@ import Cheerio from 'cheerio';
 import goodGuyHttp from 'good-guy-http';
 import { flatten, sortBy } from 'lodash';
 import Moment from 'moment';
+import goodGuyCache from '../utils/good-guy-cache';
 import hash from '../utils/hash';
 
 
 const goodGuy = goodGuyHttp({
+  cache: goodGuyCache(30),
   forceCaching: {
     cached: true,
     timeToLive: 30000,
@@ -39,11 +41,9 @@ exports.getDepartures = async function getDepartures(request, reply) {
 
   // Get the location from the request parameter
   const { location } = request.params;
-  // console.log('location=', location);
 
   // Find a station object associated with the location
   const stationObject = locations[location];
-  // console.log('stationObject=', stationObject);
 
   // A station object could have one or more stations in it, this handles that
   const stationArray = Object.keys(stationObject);

@@ -16,10 +16,6 @@ const server = new Hapi.Server({
   // ],
 });
 
-// server.method('saveToCache', (id, data, ttl, next) => {
-
-// }, {});
-
 // port setup with env var for hosting
 server.connection({
   port: process.env.PORT || 3000,

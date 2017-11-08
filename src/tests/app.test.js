@@ -19,17 +19,22 @@ test('did the app load', (t) => {
 
 test('did the routes load', (t) => {
   t.truthy(routes, 'Hapi routes loaded');
-  // t.log(console.dir(routes[0]));
+  // t.log(console.dir(routes));
 });
 
-// console.dir(server);
+const homeTest = {
+  method: 'GET',
+  url: '/',
+};
 
-// test('check the homepage loads', async (t) => {
-//   t.plan(1);
-//   t.log(console.dir(server));
-//   const res = await request(server)
-//     .get('/');
+test('check the homepage loads', async (t) => {
+  t.plan(1);
+  // t.log(console.dir(server));
+  const request = Object.assign({}, homeTest);
 
-//   t.log('do we get here?');
-//   t.is(res.status, 200);
-// });
+  const response = await server.inject(request);
+
+  // t.log('do we get here?');
+  t.is(response.statusCode, 200);
+  // t.log(console.dir(response));
+});

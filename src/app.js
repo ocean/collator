@@ -79,11 +79,15 @@ server.register({
     throw err;
   }
 
-  server.start((error) => {
-    if (error) {
-      console.log(error);
-      throw error;
-    }
-    server.log('info', `Server running at ${server.info.uri}`);
-  });
+  if (!module.parent) {
+    server.start((error) => {
+      if (error) {
+        console.log(error);
+        throw error;
+      }
+      server.log('info', `Server running at ${server.info.uri}`);
+    });
+  }
 });
+
+module.exports = server;

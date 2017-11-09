@@ -1,3 +1,4 @@
+import Boom from 'boom';
 import Cheerio from 'cheerio';
 import goodGuyHttp from 'good-guy-http';
 import { flatten, sortBy } from 'lodash';
@@ -90,7 +91,8 @@ exports.getDepartures = async function getDepartures(request, reply) {
 
       return trainTimes;
     } catch (error) {
-      console.log('Fetch of statement info failed', error);
+      Boom.boomify(error);
+      request.error('Fetch of train departure times failed', error);
       throw error;
     }
   });
@@ -129,6 +131,7 @@ exports.getUpdates = async function getUpdates(request, reply) {
     // Hapi reply call to send back object data serialised to JSON
     reply(noticeData);
   } catch (error) {
-    console.error('Error fetching Intranet news:', error);
+    Boom.boomify(error);
+    request.error('Error fetching train service updates', error);
   }
 };

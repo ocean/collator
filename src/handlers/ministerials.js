@@ -99,7 +99,7 @@ exports.getMinisterials = async function getMinisterials(request, reply) {
     reply(deduped);
   } catch (error) {
     Boom.boomify(error);
-    console.log('Fetch of statement info failed', error);
+    request.error('Fetch of media statements failed', error);
     reply(error);
   }
 };

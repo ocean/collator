@@ -1,0 +1,15 @@
+{
+  "apps": [{
+    "name": "collator",
+    "script": "src/bootstrap.js",
+    "watch": true,
+    "env": {
+      "NODE_ENV": "development",
+      "PORT": 3000
+    },
+    // "script": "dist/app.js",
+    // "exec_mode": "cluster",
+    // "instances": 0,
+    "log_date_format" : "YYYY-MM-DD HH:mm:ss.SSS Z"
+  }]
+}

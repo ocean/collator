@@ -14,6 +14,7 @@ const mediaLandingUrls = [
 
 const goodGuy = goodGuyHttp({
   cache: goodGuyCache(1800),
+  cacheResponseTimeout: 700,
   forceCaching: {
     cached: true,
     timeToLive: 1800 * 1000,

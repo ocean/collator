@@ -3,7 +3,7 @@
     "name": "collator",
     "cwd": "/opt/app/collator",
     "script": "dist/app.js",
-    "log_date_format" : "YYYY-MM-DD HH:mm Z",
+    "log_date_format" : "YYYY-MM-DD HH:mm:ss.SSS Z",
     "env": {
       "NODE_ENV": "production",
       "PORT": 3000

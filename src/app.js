@@ -3,6 +3,7 @@
 import Hapi from 'hapi';
 import Good from 'good';
 import etagger from 'etagger';
+import database from './config/database';
 // import RedisCache from 'catbox-redis';
 
 const server = new Hapi.Server({
@@ -28,6 +29,13 @@ server.connection({
     //   expiresIn: 60000,
     // },
   },
+});
+
+server.register(database, (err) => {
+  if (err) {
+    console.log(err);
+    throw err;
+  }
 });
 
 server.register({
@@ -56,7 +64,8 @@ server.register(require('inert'), (err) => {
   });
 });
 
-server.route(require('./routes.js'));
+server.route(require('./config/routes/collator'));
+server.register(require('./config/routes/census'));
 
 server.register({
   register: Good,

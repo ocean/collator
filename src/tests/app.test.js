@@ -4,7 +4,7 @@ import test from 'ava';
 // import request from 'supertest';
 
 import server from '../app';
-import routes from '../routes';
+import routes from '../config/routes';
 
 // const app = server();
 

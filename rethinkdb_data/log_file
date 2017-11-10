@@ -1,0 +1,35 @@
+2017-11-10T10:19:53.648060000 0.111650s notice: Recursively removing directory /Users/ceftos/Development/intranet/collator/rethinkdb_data/tmp
+2017-11-10T10:19:53.650325000 0.113918s notice: Initializing directory /Users/ceftos/Development/intranet/collator/rethinkdb_data
+2017-11-10T10:19:53.650391000 0.113980s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/Users/ceftos/Development/intranet/collator/rethinkdb_data' did not already exist or is empty.)
+2017-11-10T10:19:53.650409000 0.113998s notice: Running rethinkdb 2.3.6 (CLANG 8.1.0 (clang-802.0.42))...
+2017-11-10T10:19:53.653781000 0.117370s notice: Running on Darwin 16.7.0 x86_64
+2017-11-10T10:19:53.653816000 0.117405s notice: Loading data from directory /Users/ceftos/Development/intranet/collator/rethinkdb_data
+2017-11-10T10:19:54.150104000 0.613693s info: Automatically using cache size of 307 MB
+2017-11-10T10:19:54.151333000 0.614922s notice: Listening for intracluster connections on port 29015
+2017-11-10T10:19:54.165062000 0.628652s notice: Listening for client driver connections on port 28015
+2017-11-10T10:19:54.224725000 0.688314s error: Could not bind to http port: The address at localhost:8080 is reserved or already in use.
+2017-11-10T10:20:13.824047000 0.007755s notice: Running rethinkdb 2.3.6 (CLANG 8.1.0 (clang-802.0.42))...
+2017-11-10T10:20:13.827835000 0.011539s notice: Running on Darwin 16.7.0 x86_64
+2017-11-10T10:20:13.827878000 0.011581s notice: Loading data from directory /Users/ceftos/Development/intranet/collator/rethinkdb_data
+2017-11-10T10:20:13.853217000 0.036920s info: Automatically using cache size of 337 MB
+2017-11-10T10:20:13.854533000 0.038235s notice: Listening for intracluster connections on port 29015
+2017-11-10T10:20:13.855631000 0.039334s notice: Listening for client driver connections on port 28015
+2017-11-10T10:20:13.855733000 0.039436s notice: Listening for administrative HTTP connections on port 8081
+2017-11-10T10:20:13.855735000 0.039438s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2017-11-10T10:20:13.855739000 0.039442s notice: Listening on driver addresses: 127.0.0.1, ::1
+2017-11-10T10:20:13.855742000 0.039445s notice: Listening on http addresses: 127.0.0.1, ::1
+2017-11-10T10:20:13.855748000 0.039451s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2017-11-10T10:20:13.855753000 0.039456s notice: Server ready, "OLSIMAC03_local_wz1" e453c60e-edbe-4512-ae62-1f83cf421f8b
+2017-11-10T10:20:45.141479000 31.325182s info: Table 4373feeb-de09-4fb0-a175-5ef5130a10ec: Starting a new Raft election for term 1.
+2017-11-10T10:20:45.142324000 31.326027s info: Table 4373feeb-de09-4fb0-a175-5ef5130a10ec: Added replica on this server.
+2017-11-10T10:20:45.167236000 31.350939s info: Table 4373feeb-de09-4fb0-a175-5ef5130a10ec: This server is Raft leader for term 1. Latest log index is 0.
+2017-11-10T10:25:52.384228000 338.567931s notice: Removing file /Users/ceftos/Development/intranet/collator/rethinkdb_data/4373feeb-de09-4fb0-a175-5ef5130a10ec
+2017-11-10T10:25:52.384234000 338.567937s info: Table 4373feeb-de09-4fb0-a175-5ef5130a10ec: Deleted the table.
+2017-11-10T10:26:12.281098000 358.464801s info: Table 42193711-5aea-4dc8-bbc8-f3bd6bb7985d: Starting a new Raft election for term 1.
+2017-11-10T10:26:12.281310000 358.465013s info: Table 42193711-5aea-4dc8-bbc8-f3bd6bb7985d: Added replica on this server.
+2017-11-10T10:26:12.300082000 358.483785s info: Table 42193711-5aea-4dc8-bbc8-f3bd6bb7985d: This server is Raft leader for term 1. Latest log index is 0.
+2017-11-10T16:05:50.590016000 20736.773720s notice: Removing file /Users/ceftos/Development/intranet/collator/rethinkdb_data/42193711-5aea-4dc8-bbc8-f3bd6bb7985d
+2017-11-10T16:05:50.590023000 20736.773726s info: Table 42193711-5aea-4dc8-bbc8-f3bd6bb7985d: Deleted the table.
+2017-11-10T16:06:23.567844000 20769.751547s info: Table 0954a0af-e0f6-456d-a96b-e8e45ae1bead: Starting a new Raft election for term 1.
+2017-11-10T16:06:23.568025000 20769.751728s info: Table 0954a0af-e0f6-456d-a96b-e8e45ae1bead: Added replica on this server.
+2017-11-10T16:06:23.582955000 20769.766658s info: Table 0954a0af-e0f6-456d-a96b-e8e45ae1bead: This server is Raft leader for term 1. Latest log index is 0.

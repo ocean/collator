@@ -1,26 +1,72 @@
-import { importHandler } from '../../handlers/census';
+import { importHandler } from "../../handlers/census";
 
 module.exports.register = (server, options, next) => {
   server.route([
     {
-      method: 'POST',
-      path: '/api/v1/census/employees/import',
-      handler: importHandler,
+      method: "GET",
+      path: "/api/v1/census/employees/import",
+      handler: importHandler
     },
+    // {
+    //   method: "GET",
+    //   path: "/api/v1/census/employees/search/{query}",
+    //   handler: (request, reply) => {
+    //     const { query } = request.params;
+    //     request.server.methods.db.search((err, returnChanges) => {
+    //       if (err) return reply(err).code(500);
+    //       return returnChanges.toArray((err, results) => reply(results).code(200));
+    //     });
+
+    //   },
+    // },
     {
       method: "GET",
       path: "/api/v1/census/employees/{employeeID}",
       handler: (request, reply) => {
-
         const { employeeID } = request.params;
-
-        request.server.methods.db.findEmployee(employeeID, (err, returnChanges) => {
-          if (err) return reply(err).code(500);
-          console.log(returnChanges);
-          return reply().code(200);
-        });
-      },
+        request.server.methods.db.findEmployee(
+          employeeID.toUpperCase(),
+          (err, returnChanges) => {
+            if (err) return reply(err).code(500);
+            return returnChanges.toArray((err, results) =>
+              reply(results).code(200)
+            );
+          }
+        );
+      }
     },
+    {
+      method: "GET",
+      path: "/api/v1/census/employees/{employeeID}/manager",
+      handler: (request, reply) => {
+        const { employeeID } = request.params;
+        request.server.methods.db.findManager(
+          employeeID.toUpperCase(),
+          (err, returnChanges) => {
+            if (err) return reply(err).code(500);
+            return returnChanges.toArray((err, results) =>
+              reply(results).code(200)
+            );
+          }
+        );
+      }
+    },
+    {
+      method: "GET",
+      path: "/api/v1/census/employees/{employeeID}/team",
+      handler: (request, reply) => {
+        const { employeeID } = request.params;
+        request.server.methods.db.findTeam(
+          employeeID.toUpperCase(),
+          (err, returnChanges) => {
+            if (err) return reply(err).code(500);
+            return returnChanges.toArray((err, results) =>
+              reply(results).code(200)
+            );
+          }
+        );
+      }
+    }
     // {
     //   method: "GET",
     //   path: "/api/v1/census/employees/{employeeID}/team",
@@ -54,5 +100,5 @@ module.exports.register = (server, options, next) => {
 };
 
 module.exports.register.attributes = {
-  name: 'census-endpoints',
-}
+  name: "census-endpoints"
+};

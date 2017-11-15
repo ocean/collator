@@ -1,3 +1,3 @@
-const rethink = require("./rethink");
+const census = require("./census");
 
-module.exports = [].concat(rethink);
+module.exports = [].concat(census);

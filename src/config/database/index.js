@@ -1,3 +1,7 @@
-const census = require("./census");
+const connection = require("rethinkdbdash")({
+  host: "localhost",
+  port: 28015,
+  db: "census",
+});
 
-module.exports = [].concat(census);
+module.exports = connection;

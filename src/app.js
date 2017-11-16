@@ -3,19 +3,10 @@
 import Hapi from 'hapi';
 import Good from 'good';
 import etagger from 'etagger';
-import database from './config/database';
+import methods from './methods';
 // import RedisCache from 'catbox-redis';
 
-const server = new Hapi.Server({
-  // cache: [
-  //   {
-  //     // name: 'redisCache',
-  //     engine: RedisCache,
-  //     host: '127.0.0.1',
-  //     partition: 'cache',
-  //   },
-  // ],
-});
+const server = new Hapi.Server();
 
 // port setup with env var for hosting
 server.connection({
@@ -31,7 +22,7 @@ server.connection({
   },
 });
 
-server.register(database, (err) => {
+server.register(methods, (err) => {
   if (err) {
     console.log(err);
     throw err;

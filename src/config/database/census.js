@@ -27,13 +27,21 @@ exports.register = (server, options, next) => {
       .run(connection, callback);
   });
 
+  // Returns the whole database to be filtered for searching.
+  // RethinkDB suggests ElasticSearch for search which is
+  // pretty much overkill for this. So I'm grabbing and caching
+  // the full database and then using a searching library to match
+  // against the query.
 
-  server.method("db.search", (callback) => {
-    r
-      .db(db)
-      .table(employeesTable)
-      .run(connection, callback);
-  });
+  server.method(
+    "db.search",
+    (callback) => {
+      r
+        .db(db)
+        .table(employeesTable)
+        .run(connection, callback);
+    }
+  );
 
   server.method("db.findEmployee", (employee, callback) => {
     r

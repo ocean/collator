@@ -1,50 +1,44 @@
-import { getEmployeeHandler, getManagerHandler, getTeamHandler } from "../../handlers/census";
+import {
+  getEmployeeHandler,
+  getManagerHandler,
+  getTeamHandler,
+  importHandler,
+  searchHandler
+} from "../../handlers/census";
 
 module.exports.register = (server, options, next) => {
   server.route([
-    // {
-    //   method: "GET",
-    //   path: "/api/v1/census/employees/import",
-    //   handler: importHandler,
-    // },
-    // {
-    //   method: "GET",
-    //   path: "/api/v1/census/employees/search",
-    //   handler: searchEmployees,
-    // },
+    {
+      method: "POST",
+      path: "/api/v1/census/employees/import",
+      config: {
+        payload: {
+          output: "stream",
+          allow: "multipart/form-data"
+        }
+      },
+      handler: importHandler
+    },
+    {
+      method: "GET",
+      path: "/api/v1/census/employees/search",
+      handler: searchHandler,
+    },
     {
       method: "GET",
       path: "/api/v1/census/employees/{id}",
-      handler: getEmployeeHandler,
+      handler: getEmployeeHandler
     },
     {
       method: "GET",
       path: "/api/v1/census/employees/{id}/manager",
-      handler: getManagerHandler,
+      handler: getManagerHandler
     },
     {
       method: "GET",
       path: "/api/v1/census/employees/{id}/team",
-      handler: getTeamHandler,
+      handler: getTeamHandler
     }
-    // {
-    //   method: "GET",
-    //   path: "/api/v1/census/employees/{employeeID}/team",
-    //   handler: function test(request, reply) {
-    //     reply({
-    //       message: "Single Employee Team"
-    //     });
-    //   }
-    // },
-    // {
-    //   method: "GET",
-    //   path: "/api/v1/census/employees/{employeeID}/manager",
-    //   handler: function test(request, reply) {
-    //     reply({
-    //       message: "Single Employee Manager"
-    //     });
-    //   }
-    // },
     // {
     //   method: "GET",
     //   path: "/api/v1/census/employees/{employeeID}/avatar",

@@ -1,6 +1,10 @@
-const employees = require('./db/all');
-const employee = require('./db/employee');
-const manager = require('./db/manager');
-const team = require('./db/team');
+// Methods for retreving the datas.
+const employee = require('./retrieve/employee');
+const employees = require('./retrieve/employees');
+const manager = require('./retrieve/manager');
+const team = require('./retrieve/team');
 
-module.exports = [].concat(employees, employee, manager, team);
+// Methods for inserting the datas.
+const collection = require('./insert/collection');
+
+module.exports = [].concat(collection, employee, employees, manager, team);

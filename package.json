@@ -38,6 +38,7 @@
     "babel-register": "^6.26.0",
     "boom": "^7.1.1",
     "cheerio": "^1.0.0-rc.2",
+    "csvdata": "^1.4.0",
     "csvtojson": "^1.1.9",
     "dotenv": "^4.0.0",
     "etagger": "^3.0.1",
@@ -56,6 +57,7 @@
     "redis": "^2.8.0",
     "rethinkdb": "^2.3.3",
     "rethinkdbdash": "^2.3.31",
+    "uuid": "^3.1.0",
     "xml2js": "^0.4.19"
   },
   "devDependencies": {

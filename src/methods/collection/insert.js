@@ -5,7 +5,7 @@ module.exports.register = (server, options, next) => {
     try {
       const insert = await connection
         .table("employees")
-        .insert(collection, { conflict: "replace", returnChanges: true })
+        .insert(collection, { conflict: "replace" })
         .run();
       // There is probably no error checking here...
       if (insert) next(null, insert);

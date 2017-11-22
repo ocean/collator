@@ -1,6 +1,6 @@
 import path from "path";
 import * as fs from "fs";
-
+import { differenceWith, size } from "lodash";
 import { csvFilter, uploader } from "../../utils/uploader";
 import { dmirs2json } from "../../utils/convertor";
 
@@ -19,16 +19,53 @@ export default async function importHandler(request, reply) {
     // Upload File
     const fileDetails = await uploader(file, fileOptions);
 
-    // Convert dmirs2json is just a wrapper around csv2json
+    // dmirs2json is just a wrapper around csv2json
     // that parses in some specific params to clean up the data
     // being inserted into the db.
-    const collection = await dmirs2json(fileDetails.path);
+    const newCollection = await dmirs2json(fileDetails.path);
 
-    // Insert the data.
-    request.server.methods.db.insertCollection(collection, (error, result) => {
-      if (error) reply(error).code(500);
-      return reply(result).code(200);
+    // Grab the current collection of staff from the DB
+    const currentCollection = new Promise((resolve, reject) => {
+      request.server.methods.db.getEmployees((error, employees) => {
+        if (error) return reject(error);
+        resolve(employees);
+      });
     });
+
+    // Diff the collection.
+    const documentsToRemove = await differenceWith(
+      await currentCollection,
+      await newCollection,
+      (a, b) => {
+        return a["userid"] === b["userid"];
+      }
+    );
+
+    // Remove the dead documents. 
+    // Can't work out how to get this in a Promise. :(
+    const removed = await [];
+    await documentsToRemove.forEach(document => {
+      request.server.methods.db.removeDocument(
+        document["userid"],
+        (error, result) => {
+          if (error) return reply(error);
+          removed.push(result.changes);
+        }
+      );
+    });
+
+    // Wrap in a Promise and do some magic.
+    const insert = new Promise((resolve, reject) => {
+      request.server.methods.db.insertCollection(
+        newCollection,
+        (error, result) => {
+          if (error) return reject(error);
+          resolve(result);
+        }
+      );
+    });
+
+    reply({ inserted: await insert, removed: size(removed) });
   } catch (error) {
     reply(error);
   }

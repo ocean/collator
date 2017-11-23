@@ -1,5 +1,8 @@
 import * as uuid from "uuid";
 import * as fs from "fs";
+import { split } from "lodash";
+import moment from "moment";
+
 
 const csvFilter = fileName => {
   if (!fileName.match(/\.(csv)$/)) {
@@ -8,17 +11,34 @@ const csvFilter = fileName => {
   return true;
 };
 
+const jpgFilter = fileName => {
+  if (!fileName.match(/\.(jpg)$/)) {
+    return false;
+  }
+  return true;
+};
+
+// Lots of assumptions here!
+// Filename needs to be userid_date.jpg
+// E.g. AAlain_20170420.jpg
+
+const decipher = string => {
+  const explode = split(string.replace(/\.[^/.]+$/, ""), "_");
+  const userid = explode[0].toUpperCase();
+  const date = moment(explode[1]).format();
+
+  return { userid, date };
+};
+
 const uploader = (file, options) => {
   if (!file) throw new Error("No file. Please upload the required file. yo.");
   return _fileHandler(file, options);
 };
 
 const _fileHandler = (file, options) => {
-  // console.log('here');
   if (!file) throw new Error("No file. Please upload the required file. yo.");
 
   const originalName = file.hapi.filename;
-  // const filename = uuid.v1();
   const path = `${options.dest}${file.hapi.filename}`;
   const fileStream = fs.createWriteStream(path);
 
@@ -40,4 +60,4 @@ const _fileHandler = (file, options) => {
   });
 };
 
-export { uploader, csvFilter };
+export { csvFilter, decipher, uploader };

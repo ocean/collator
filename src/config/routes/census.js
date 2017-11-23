@@ -1,10 +1,6 @@
-import {
-  getEmployeeHandler,
-  getManagerHandler,
-  getTeamHandler,
-  importHandler,
-  searchHandler
-} from "../../handlers/census";
+import { getAvatar, getMissing, importAvatar } from '../../handlers/census/avatar';
+import { getEmployee, getManager, getTeam, importEmployee } from '../../handlers/census/employee';
+import { searchHandler } from '../../handlers/census/search';
 
 module.exports.register = (server, options, next) => {
   server.route([
@@ -17,7 +13,7 @@ module.exports.register = (server, options, next) => {
           allow: "multipart/form-data"
         }
       },
-      handler: importHandler
+      handler: importEmployee
     },
     {
       method: "GET",
@@ -26,28 +22,42 @@ module.exports.register = (server, options, next) => {
     },
     {
       method: "GET",
-      path: "/api/v1/census/employees/{id}",
-      handler: getEmployeeHandler
+      path: "/api/v1/census/employees/{employeeID}",
+      handler: getEmployee
     },
     {
       method: "GET",
-      path: "/api/v1/census/employees/{id}/manager",
-      handler: getManagerHandler
+      path: "/api/v1/census/employees/{employeeID}/manager",
+      handler: getManager
     },
     {
       method: "GET",
-      path: "/api/v1/census/employees/{id}/team",
-      handler: getTeamHandler
+      path: "/api/v1/census/employees/{employeeID}/team",
+      handler: getTeam
+    },
+    {
+      method: "GET",
+      path: "/api/v1/census/employees/{employeeID}/avatar",
+      handler: getAvatar
+    },
+    {
+      method: "GET",
+      path: "/api/v1/census/avatar/missing",
+      handler: getMissing
+    },
+    {
+      method: "POST",
+      path: "/api/v1/census/avatar/import",
+      config: {
+        payload: {
+          output: "stream",
+          allow: "multipart/form-data",
+          parse: true
+        }
+      },
+      handler: importAvatar
     }
-    // {
-    //   method: "GET",
-    //   path: "/api/v1/census/employees/{employeeID}/avatar",
-    //   handler: function test(request, reply) {
-    //     reply({
-    //       message: "Single Employee Avatar"
-    //     });
-    //   }
-    // }
+    
   ]);
 
   next();

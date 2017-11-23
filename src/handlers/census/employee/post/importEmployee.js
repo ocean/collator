@@ -1,16 +1,16 @@
 import path from "path";
 import * as fs from "fs";
 import { differenceWith, size } from "lodash";
-import { csvFilter, uploader } from "../../utils/uploader";
-import { dmirs2json } from "../../utils/convertor";
+import { csvFilter, uploader } from "../../../../utils/uploader";
+import { dmirs2json } from "../../../../utils/convertor";
 
-const UPLOAD_PATH = path.join(__dirname, "/../../data/");
+const UPLOAD_PATH = path.join(__dirname, "../../../../data");
 const fileOptions = { dest: UPLOAD_PATH, fileFilter: csvFilter };
 
 // create folder for upload if not exist
 if (!fs.existsSync(UPLOAD_PATH)) fs.mkdirSync(UPLOAD_PATH);
 
-export default async function importHandler(request, reply) {
+export default async function importEmployee(request, reply) {
   try {
     // Get "Payload"
     const data = request.payload;
@@ -41,7 +41,7 @@ export default async function importHandler(request, reply) {
       }
     );
 
-    // Remove the dead documents. 
+    // Remove the dead documents.
     // Can't work out how to get this in a Promise. :(
     const removed = await [];
     await documentsToRemove.forEach(document => {

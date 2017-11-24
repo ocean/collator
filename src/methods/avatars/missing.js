@@ -12,7 +12,7 @@ module.exports.register = (server, options, next) => {
         .table("employees")
         .withFields("userid", "display_name")
         .run();
-      const missing = differenceWith(await employees, await avatars, (a, b) => {
+      const missing = differenceWith(await avatars, await employees, (a, b) => {
         return a["userid"] === b["userid"];
       });
       return next(null, missing);

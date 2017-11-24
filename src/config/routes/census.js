@@ -1,6 +1,19 @@
-import { getAvatar, getMissing, importAvatar } from '../../handlers/census/avatar';
-import { getEmployee, getManager, getTeam, importEmployee } from '../../handlers/census/employee';
-import { searchHandler } from '../../handlers/census/search';
+import Joi from "joi";
+
+import {
+  getAvatar,
+  getMissing,
+  importAvatar
+} from "../../handlers/census/avatar";
+
+import {
+  getEmployee,
+  getManager,
+  getTeam,
+  importEmployee
+} from "../../handlers/census/employee";
+
+import { searchHandler } from "../../handlers/census/search";
 
 module.exports.register = (server, options, next) => {
   server.route([
@@ -11,34 +24,83 @@ module.exports.register = (server, options, next) => {
         payload: {
           output: "stream",
           allow: "multipart/form-data"
-        }
-      },
-      handler: importEmployee
+        },
+        handler: importEmployee
+      }
     },
     {
       method: "GET",
       path: "/api/v1/census/employees/search",
-      handler: searchHandler,
+      config: {
+        validate: {
+          query: {
+            q: Joi.string().required()
+          }
+        },
+        handler: searchHandler
+      }
     },
     {
       method: "GET",
       path: "/api/v1/census/employees/{employeeID}",
-      handler: getEmployee
+      config: {
+        validate: {
+          params: {
+            employeeID: Joi.string()
+              .regex(/^[A-z]+$/)
+              .required()
+          }
+        },
+        handler: getEmployee
+      }
     },
     {
       method: "GET",
       path: "/api/v1/census/employees/{employeeID}/manager",
-      handler: getManager
+      config: {
+        validate: {
+          params: {
+            employeeID: Joi.string()
+              .regex(/^[A-z]+$/)
+              .required()
+          }
+        },
+        handler: getManager
+      }
     },
     {
       method: "GET",
       path: "/api/v1/census/employees/{employeeID}/team",
-      handler: getTeam
+      config: {
+        validate: {
+          params: {
+            employeeID: Joi.string()
+              .regex(/^[A-z]+$/)
+              .required()
+          }
+        },
+        handler: getTeam
+      }
     },
     {
       method: "GET",
       path: "/api/v1/census/employees/{employeeID}/avatar",
-      handler: getAvatar
+      config: {
+        validate: {
+          query: {
+            size: Joi.number()
+              .integer()
+              .min(50)
+              .max(500)
+          },
+          params: {
+            employeeID: Joi.string()
+              .regex(/^[A-z]+$/)
+              .required()
+          }
+        },
+        handler: getAvatar
+      }
     },
     {
       method: "GET",
@@ -53,11 +115,10 @@ module.exports.register = (server, options, next) => {
           output: "stream",
           allow: "multipart/form-data",
           parse: true
-        }
-      },
-      handler: importAvatar
+        },
+        handler: importAvatar
+      }
     }
-    
   ]);
 
   next();

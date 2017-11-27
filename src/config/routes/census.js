@@ -109,7 +109,7 @@ module.exports.register = (server, options, next) => {
     },
     {
       method: "POST",
-      path: "/api/v1/census/avatar/import",
+      path: "/api/v1/census/avatar",
       config: {
         payload: {
           output: "stream",

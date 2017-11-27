@@ -1,4 +1,5 @@
 import Fuse from "fuse.js";
+import { take } from 'lodash';
 
 const options = {
   shouldSort: true,
@@ -22,7 +23,7 @@ export default function searchHandler(request, reply) {
   request.server.methods.db.getEmployees((error, employees) => {
     if (q) {
       const fuse = new Fuse(employees, options);
-      return reply(fuse.search(q)).code(200);
+      return reply(take(fuse.search(q), 25)).code(200);
     }
     if (error) reply(error).code(500);
     return reply('A message about how you\'ve messed up');

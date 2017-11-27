@@ -1,5 +1,6 @@
 import csv from "csvtojson";
 import { remover } from './acronym-remover';
+import { format } from 'libphonenumber-js'
 
 const params = {
   colParser: {
@@ -39,6 +40,9 @@ const params = {
       };
 
       return locations[item] ? locations[item] : '';
+    },
+    phone: (item, head, resultRow, row, colIdx) => {
+      return format(item, 'AU', 'National');
     },
   },
 };

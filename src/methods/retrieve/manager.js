@@ -10,6 +10,7 @@ module.exports.register = (server, options, next) => {
           return user("supervisor_userid").eq(supervisor("userid"));
         })
         .zip()
+        .nth(0)
         .run();
 
       if (manager) next(null, manager);

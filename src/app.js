@@ -6,6 +6,7 @@ import etagger from 'etagger';
 import methods from './methods';
 // import RedisCache from 'catbox-redis';
 
+
 const server = new Hapi.Server();
 
 // port setup with env var for hosting

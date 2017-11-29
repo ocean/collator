@@ -45,6 +45,7 @@ module.exports.register = (server, options, next) => {
           }
         )
         .zip()
+        .orderBy('surname')
         .run();
         if (team) next(null, team);
         else next("error");

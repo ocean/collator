@@ -3,18 +3,11 @@
 import Hapi from 'hapi';
 import Good from 'good';
 import etagger from 'etagger';
+import methods from './methods';
 // import RedisCache from 'catbox-redis';
 
-const server = new Hapi.Server({
-  // cache: [
-  //   {
-  //     // name: 'redisCache',
-  //     engine: RedisCache,
-  //     host: '127.0.0.1',
-  //     partition: 'cache',
-  //   },
-  // ],
-});
+
+const server = new Hapi.Server();
 
 // port setup with env var for hosting
 server.connection({
@@ -28,6 +21,13 @@ server.connection({
     //   expiresIn: 60000,
     // },
   },
+});
+
+server.register(methods, (err) => {
+  if (err) {
+    console.log(err);
+    throw err;
+  }
 });
 
 server.register({
@@ -56,7 +56,8 @@ server.register(require('inert'), (err) => {
   });
 });
 
-server.route(require('./routes.js'));
+server.route(require('./config/routes/collator'));
+server.register(require('./config/routes/census'));
 
 server.register({
   register: Good,

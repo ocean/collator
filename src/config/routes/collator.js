@@ -1,24 +1,13 @@
-import Collator from './handlers/collator';
-import CommerceNews from './handlers/commerce-news';
-import GovernmentNews from './handlers/government-news';
-import IntranetNews from './handlers/intranet-news';
-import Ministerials from './handlers/ministerials';
-import TransportData from './handlers/transport-data';
-import Tweets from './handlers/tweets';
-import WeatherData from './handlers/weather-data';
+import Collator from '../../handlers/collator';
+import CommerceNews from '../../handlers/commerce-news';
+import GovernmentNews from '../../handlers/government-news';
+import IntranetNews from '../../handlers/intranet-news';
+import Ministerials from '../../handlers/ministerials';
+import TransportData from '../../handlers/transport-data';
+import Tweets from '../../handlers/tweets';
+import WeatherData from '../../handlers/weather-data';
 
 module.exports = [
-  // A test endpoint to check Hapi is working
-  {
-    method: 'GET',
-    path: '/test',
-    handler: function test(request, reply) {
-      reply({
-        message: 'Hello there!',
-      });
-    },
-  },
-  // Commerce Media Releases from the 'Announcements' section of the website
   {
     method: 'GET',
     path: '/api/v1/statements/commerce',
@@ -79,5 +68,4 @@ module.exports = [
       },
     },
   },
-
 ];

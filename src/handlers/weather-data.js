@@ -1,8 +1,11 @@
+import Dotenv from 'dotenv';
 import fs from 'fs';
 import goodGuyHttp from 'good-guy-http';
 import moment from 'moment';
 import url from 'url';
 import goodGuyCache from '../utils/good-guy-cache';
+
+Dotenv.config();
 
 let caFile = '';
 

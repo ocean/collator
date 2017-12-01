@@ -12,9 +12,10 @@ if (!fs.existsSync(UPLOAD_PATH)) fs.mkdirSync(UPLOAD_PATH);
 
 export default async function importEmployee(request, reply) {
   try {
+    
     // Get "Payload"
     const data = request.payload;
-    const file = data["spreadsheet"];
+    const file = data.spreadsheet;
 
     // Upload File
     const fileDetails = await uploader(file, fileOptions);
@@ -65,7 +66,9 @@ export default async function importEmployee(request, reply) {
       );
     });
 
-    reply({ inserted: await insert, removed: size(removed) });
+    // returns the "documentsToRemove" instead of the confirmed kills.
+    // this is so we have a list of people to display in the UI.
+    reply({ inserted: await insert, removed: await documentsToRemove });
   } catch (error) {
     reply(error);
   }

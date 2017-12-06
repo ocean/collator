@@ -13,6 +13,12 @@ import {
   importEmployee
 } from "../../handlers/census/employee";
 
+import {
+  getEmployees,
+  getEmployeesBySurname,
+} from "../../handlers/census/employees";
+
+
 import { searchHandler } from "../../handlers/census/search";
 
 module.exports.register = (server, options, next) => {
@@ -42,6 +48,21 @@ module.exports.register = (server, options, next) => {
     },
     {
       method: "GET",
+      path: "/api/v1/census/employees/all/{letter}",
+      config: {
+        validate: {
+          params: {
+            letter: Joi.string()
+              .regex(/^[A-z]+$/)
+              .max(1)
+              .required()
+          }
+        },
+        handler: getEmployeesBySurname
+      }
+    },    
+    {
+      method: "GET",
       path: "/api/v1/census/employees/{employeeID}",
       config: {
         validate: {
@@ -53,7 +74,7 @@ module.exports.register = (server, options, next) => {
         },
         handler: getEmployee
       }
-    },
+    },    
     {
       method: "GET",
       path: "/api/v1/census/employees/{employeeID}/manager",

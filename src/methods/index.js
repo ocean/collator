@@ -1,8 +1,12 @@
-// Methods for retreving the datas.
+// Methods for retreving a single document.
 const employee = require("./retrieve/employee");
-const employees = require("./retrieve/employees");
 const manager = require("./retrieve/manager");
 const team = require("./retrieve/team");
+
+
+// Methods for retreving a collection of documents.
+const employees = require("./collection/employees");
+const surname = require("./collection/surname");
 
 // Methods for inserting the datas.
 const avatar = require("./avatars/insert");
@@ -19,6 +23,7 @@ module.exports = [].concat(
   remove,
   employee,
   employees,
+  surname,
   manager,
   team
 );

@@ -15,9 +15,8 @@ import {
 
 import {
   getEmployees,
-  getEmployeesBySurname,
+  getEmployeesBySurname
 } from "../../handlers/census/employees";
-
 
 import { searchHandler } from "../../handlers/census/search";
 
@@ -48,6 +47,24 @@ module.exports.register = (server, options, next) => {
     },
     {
       method: "GET",
+      path: "/api/v1/census/employees/all",
+      config: {
+        validate: {
+          query: Joi.object({
+            bran: Joi.string(),
+            div: Joi.string(),
+            sect: Joi.string(),
+            location_name: Joi.string(),
+            sort: Joi.string(),
+            page: Joi.number().integer(),
+            limit: Joi.number().integer(),
+          }).options({ allowUnknown: false })
+        },
+        handler: getEmployees
+      }
+    },
+    {
+      method: "GET",
       path: "/api/v1/census/employees/all/{letter}",
       config: {
         validate: {
@@ -60,7 +77,7 @@ module.exports.register = (server, options, next) => {
         },
         handler: getEmployeesBySurname
       }
-    },    
+    },
     {
       method: "GET",
       path: "/api/v1/census/employees/{employeeID}",
@@ -74,7 +91,7 @@ module.exports.register = (server, options, next) => {
         },
         handler: getEmployee
       }
-    },    
+    },
     {
       method: "GET",
       path: "/api/v1/census/employees/{employeeID}/manager",

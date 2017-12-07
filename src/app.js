@@ -30,6 +30,10 @@ server.register(methods, (err) => {
   }
 });
 
+
+// Register a Pagination Helper. yo.
+server.register(require('./utils/pagination'));
+
 server.register({
   register: etagger,
   options: {
@@ -58,6 +62,9 @@ server.register(require('inert'), (err) => {
 
 server.route(require('./config/routes/collator'));
 server.register(require('./config/routes/census'));
+
+
+
 
 server.register({
   register: Good,

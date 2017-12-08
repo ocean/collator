@@ -18,6 +18,8 @@ import {
   getEmployeesBySurname
 } from "../../handlers/census/employees";
 
+import { statsHandler } from "../../handlers/census/statistics";
+
 import { searchHandler } from "../../handlers/census/search";
 
 module.exports.register = (server, options, next) => {
@@ -30,6 +32,11 @@ module.exports.register = (server, options, next) => {
           output: "stream",
           allow: "multipart/form-data"
         },
+        plugins: {
+          pagination: {
+            enabled: false
+          }
+        },
         handler: importEmployee
       }
     },
@@ -40,6 +47,11 @@ module.exports.register = (server, options, next) => {
         validate: {
           query: {
             q: Joi.string().required()
+          }
+        },
+        plugins: {
+          pagination: {
+            enabled: false
           }
         },
         handler: searchHandler
@@ -57,8 +69,13 @@ module.exports.register = (server, options, next) => {
             location_name: Joi.string(),
             sort: Joi.string(),
             page: Joi.number().integer(),
-            limit: Joi.number().integer(),
+            limit: Joi.number().integer()
           }).options({ allowUnknown: false })
+        },
+        plugins: {
+          pagination: {
+            enabled: true
+          }
         },
         handler: getEmployees
       }
@@ -75,6 +92,11 @@ module.exports.register = (server, options, next) => {
               .required()
           }
         },
+        plugins: {
+          pagination: {
+            enabled: true
+          }
+        },
         handler: getEmployeesBySurname
       }
     },
@@ -87,6 +109,11 @@ module.exports.register = (server, options, next) => {
             employeeID: Joi.string()
               .regex(/^[A-z]+$/)
               .required()
+          }
+        },
+        plugins: {
+          pagination: {
+            enabled: false
           }
         },
         handler: getEmployee
@@ -103,6 +130,11 @@ module.exports.register = (server, options, next) => {
               .required()
           }
         },
+        plugins: {
+          pagination: {
+            enabled: false
+          }
+        },
         handler: getManager
       }
     },
@@ -115,6 +147,11 @@ module.exports.register = (server, options, next) => {
             employeeID: Joi.string()
               .regex(/^[A-z]+$/)
               .required()
+          }
+        },
+        plugins: {
+          pagination: {
+            enabled: false
           }
         },
         handler: getTeam
@@ -137,13 +174,25 @@ module.exports.register = (server, options, next) => {
               .required()
           }
         },
+        plugins: {
+          pagination: {
+            enabled: false
+          }
+        },
         handler: getAvatar
       }
     },
     {
       method: "GET",
       path: "/api/v1/census/avatar/missing",
-      handler: getMissing
+      config: {
+        plugins: {
+          pagination: {
+            enabled: false
+          }
+        },
+        handler: getMissing
+      }
     },
     {
       method: "POST",
@@ -154,7 +203,24 @@ module.exports.register = (server, options, next) => {
           allow: "multipart/form-data",
           parse: true
         },
+        plugins: {
+          pagination: {
+            enabled: false
+          }
+        },
         handler: importAvatar
+      }
+    },
+    {
+      method: "GET",
+      path: "/api/v1/census/statistics",
+      config: {
+        plugins: {
+          pagination: {
+            enabled: false
+          }
+        },
+        handler: statsHandler
       }
     }
   ]);

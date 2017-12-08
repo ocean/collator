@@ -14,7 +14,7 @@ module.exports.register = (server, options, next) => {
         .filter(filters)
         .orderBy(sort || "surname") // if no sort order is supplied default to surname.
         .skip(offset || 0)
-        .limit(limit || 10)
+        .limit(limit || 25)
         .run();
 
       const count = await connection

@@ -1,15 +1,6 @@
-const options = {
-  meta: {
-    location: "header"
-  },
-  routes: {
-    include: ["api/v1/census/employees/all"]
-  }
-};
-
 module.exports.register = (server, options, next) => {
   server.register(
-    { register: require("hapi-pagination"), options: options },
+    { register: require("hapi-pagination")},
     err => {
       if (err) throw err;
     }

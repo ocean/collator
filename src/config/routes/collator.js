@@ -1,3 +1,4 @@
+import Joi from "joi";
 import Collator from "../../handlers/collator";
 import CommerceNews from "../../handlers/commerce-news";
 import GovernmentNews from "../../handlers/government-news";
@@ -92,7 +93,12 @@ module.exports = [
         pagination: {
           enabled: false
         }
-      }
+      },
+      validate: {
+        params: {
+          location: Joi.array().items(Joi.string().valid('baldivis', 'cannington', 'carlisle', 'east-perth', 'perth')).single()
+        }
+      },
     }
   },
   {
@@ -119,7 +125,13 @@ module.exports = [
         pagination: {
           enabled: false
         }
-      }
+      },
+      validate: {
+        params: {
+          location: Joi.array().items(Joi.string().valid('albany', 'baldivis', 'broome', 'bunbury', 'cannington', 'carlisle', 'collie', 'east-perth', 'geraldton', 'kalgoorlie', 'karratha', 'leonora', 'marble-bar', 'meekatharra', 'mount-magnet', 'perth', 'southern-cross')).single()
+        }
+      },
     }
   }
 ];
+

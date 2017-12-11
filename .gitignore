@@ -9,10 +9,6 @@ node_modules/
 # Ignore generated code directory
 dist/
 
-# Ignore uploaded data
-src/data/
-!src/data/avatar.jpg
-
 # Ignore code coverage info generated from tap
 .nyc_output
 coverage/

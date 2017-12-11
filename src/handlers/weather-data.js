@@ -4,6 +4,7 @@ import goodGuyHttp from 'good-guy-http';
 import moment from 'moment';
 import url from 'url';
 import goodGuyCache from '../utils/good-guy-cache';
+import locations from '../data/locations';
 
 Dotenv.config();
 
@@ -31,17 +32,12 @@ const goodGuy = goodGuyHttp({
 exports.getForecast = async function getWeather(request, reply) {
   const { location } = request.params;
 
-  const locations = {
-    perth: '2063523',
-    cannington: '2075024',
-  };
-
   const openWeatherMapEndPoint = url.format({
     protocol: 'https',
     hostname: 'api.openweathermap.org',
     pathname: 'data/2.5/forecast',
     query: {
-      id: locations[location],
+      id: locations[location].weather,
       mode: 'json',
       appid: process.env.OPENWEATHERMAP_API_KEY,
     },

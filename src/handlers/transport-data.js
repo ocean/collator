@@ -5,7 +5,7 @@ import { flatten, sortBy } from 'lodash';
 import Moment from 'moment';
 import goodGuyCache from '../utils/good-guy-cache';
 import hash from '../utils/hash';
-
+import locations from '../data/locations';
 
 const goodGuy = goodGuyHttp({
   cache: goodGuyCache(30),
@@ -21,35 +21,18 @@ const goodGuy = goodGuyHttp({
 });
 
 exports.getDepartures = async function getDepartures(request, reply) {
-  const locations = {
-    perth: {
-      0: {
-        station: 'Perth Station',
-        url: 'http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Perth+Stn',
-      },
-      1: {
-        station: 'Perth Underground Station',
-        url: 'http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Perth+Underground+Stn',
-      },
-    },
-    cannington: {
-      0: {
-        station: 'Cannington Station',
-        url: 'http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Cannington+Stn',
-      },
-    },
-  };
 
   // Get the location from the request parameter
   const { location } = request.params;
 
   // Find a station object associated with the location
-  const stationObject = locations[location];
+  const stationObject = locations[location].transport;
 
   // A station object could have one or more stations in it, this handles that
   const stationArray = Object.keys(stationObject);
+  
   // Async function to wait for the info to be fetched and processed
-
+  
   const now = Moment().format('YYYY-MM-DD');
 
   const departures = await stationArray.map(async (station) => {

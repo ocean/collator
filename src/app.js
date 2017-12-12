@@ -57,14 +57,18 @@ server.register(require('inert'), (err) => {
         index: true,
       },
     },
+    config: {
+      plugins: {
+        pagination: {
+          enabled: false,
+        },
+      },
+    },
   });
 });
 
 server.route(require('./config/routes/collator'));
 server.register(require('./config/routes/census'));
-
-
-
 
 server.register({
   register: Good,

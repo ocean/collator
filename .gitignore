@@ -7,12 +7,11 @@ node_modules/
 .env
 
 # Ignore generated code directory
-!dist/data/avatar.jpg
 dist/
 
 # Ignore uploaded data
-!src/data/avatar.jpg
-src/data/
+# Stopping this now as we are using this directory for things
+# src/data/
 
 # Ignore code coverage info generated from tap
 .nyc_output

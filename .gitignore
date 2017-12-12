@@ -9,6 +9,10 @@ node_modules/
 # Ignore generated code directory
 dist/
 
+# Ignore uploaded data
+# Stopping this now as we are using this directory for things
+# src/data/
+
 # Ignore code coverage info generated from tap
 .nyc_output
 coverage/

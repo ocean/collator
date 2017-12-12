@@ -7,7 +7,7 @@
     "url": "git://github.com/ocean/collator.git"
   },
   "scripts": {
-    "build": "BABEL_ENV=production babel -d dist/ src/",
+    "build": "BABEL_ENV=production babel -d dist/ src/ && cp src/data/avatar.jpg dist/data/",
     "dev": "nodejs-dashboard -- nodemon -r nodejs-dashboard src/bootstrap.js",
     "heroku-postbuild": "npm run build",
     "lint": "eslint src/ --ignore-path .gitignore",

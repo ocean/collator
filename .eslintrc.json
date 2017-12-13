@@ -7,6 +7,7 @@
   "rules": {
     "comma-dangle": [1, "always-multiline"],
     "no-console": 0,
+    "radix": [1, "as-needed"],
     "space-before-function-paren": [2, { "anonymous": "always", "named": "never" }],
     "valid-jsdoc": [2, { "requireReturn": false }],
     "vars-on-top": 1

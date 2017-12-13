@@ -1,17 +1,17 @@
-import Joi from "joi";
+import Joi from 'joi';
 
 import {
   getAvatar,
   getMissing,
-  importAvatar
-} from "../../handlers/census/avatar";
+  importAvatar,
+} from '../../handlers/census/avatar';
 
 import {
   getEmployee,
   getManager,
   getTeam,
-  importEmployee
-} from "../../handlers/census/employee";
+  importEmployee,
+} from '../../handlers/census/employee';
 
 import {
   getEmployees,
@@ -27,36 +27,36 @@ import { searchHandler } from "../../handlers/census/search";
 module.exports.register = (server, options, next) => {
   server.route([
     {
-      method: "POST",
-      path: "/api/v1/census/employees/import",
+      method: 'POST',
+      path: '/api/v1/census/employees/import',
       config: {
         payload: {
-          output: "stream",
-          allow: "multipart/form-data"
+          output: 'stream',
+          allow: 'multipart/form-data',
         },
         handler: importEmployee
       }
     },
     {
-      method: "GET",
-      path: "/api/v1/census/employees/search",
+      method: 'GET',
+      path: '/api/v1/census/employees/search',
       config: {
         validate: {
           query: {
-            q: Joi.string().required()
-          }
+            q: Joi.string().required(),
+          },
         },
         plugins: {
           pagination: {
-            enabled: false
-          }
+            enabled: false,
+          },
         },
-        handler: searchHandler
-      }
+        handler: searchHandler,
+      },
     },
     {
-      method: "GET",
-      path: "/api/v1/census/employees/all",
+      method: 'GET',
+      path: '/api/v1/census/employees/all',
       config: {
         validate: {
           query: Joi.object({
@@ -66,139 +66,139 @@ module.exports.register = (server, options, next) => {
             location_name: Joi.string(),
             sort: Joi.string(),
             page: Joi.number().integer(),
-            limit: Joi.number().integer()
-          }).options({ allowUnknown: false })
+            limit: Joi.number().integer(),
+          }).options({ allowUnknown: false }),
         },
         plugins: {
           pagination: {
-            enabled: true
-          }
+            enabled: true,
+          },
         },
         handler: getPaginatedEmployees
       }
     },
     {
-      method: "GET",
-      path: "/api/v1/census/employees/all/{letter}",
+      method: 'GET',
+      path: '/api/v1/census/employees/all/{letter}',
       config: {
         validate: {
           params: {
             letter: Joi.string()
               .regex(/^[A-z]+$/)
               .max(1)
-              .required()
-          }
+              .required(),
+          },
         },
         plugins: {
           pagination: {
-            enabled: true
-          }
+            enabled: true,
+          },
         },
-        handler: getEmployeesBySurname
-      }
+        handler: getEmployeesBySurname,
+      },
     },
     {
-      method: "GET",
-      path: "/api/v1/census/employees/{employeeID}",
+      method: 'GET',
+      path: '/api/v1/census/employees/{employeeID}',
       config: {
         validate: {
           params: {
             employeeID: Joi.string()
               .regex(/^[A-z]+$/)
-              .required()
-          }
+              .required(),
+          },
         },
         plugins: {
           pagination: {
-            enabled: false
-          }
+            enabled: false,
+          },
         },
-        handler: getEmployee
-      }
+        handler: getEmployee,
+      },
     },
     {
-      method: "GET",
-      path: "/api/v1/census/employees/{employeeID}/manager",
+      method: 'GET',
+      path: '/api/v1/census/employees/{employeeID}/manager',
       config: {
         validate: {
           params: {
             employeeID: Joi.string()
               .regex(/^[A-z]+$/)
-              .required()
-          }
+              .required(),
+          },
         },
         plugins: {
           pagination: {
-            enabled: false
-          }
+            enabled: false,
+          },
         },
-        handler: getManager
-      }
+        handler: getManager,
+      },
     },
     {
-      method: "GET",
-      path: "/api/v1/census/employees/{employeeID}/team",
+      method: 'GET',
+      path: '/api/v1/census/employees/{employeeID}/team',
       config: {
         validate: {
           params: {
             employeeID: Joi.string()
               .regex(/^[A-z]+$/)
-              .required()
-          }
+              .required(),
+          },
         },
         plugins: {
           pagination: {
-            enabled: false
-          }
+            enabled: false,
+          },
         },
-        handler: getTeam
-      }
+        handler: getTeam,
+      },
     },
     {
-      method: "GET",
-      path: "/api/v1/census/employees/{employeeID}/avatar",
+      method: 'GET',
+      path: '/api/v1/census/employees/{employeeID}/avatar',
       config: {
         validate: {
           query: {
             size: Joi.number()
               .integer()
               .min(50)
-              .max(500)
+              .max(500),
           },
           params: {
             employeeID: Joi.string()
               .regex(/^[A-z]+$/)
-              .required()
-          }
+              .required(),
+          },
         },
         plugins: {
           pagination: {
-            enabled: false
-          }
+            enabled: false,
+          },
         },
-        handler: getAvatar
-      }
+        handler: getAvatar,
+      },
     },
     {
-      method: "GET",
-      path: "/api/v1/census/avatar/missing",
+      method: 'GET',
+      path: '/api/v1/census/avatar/missing',
       config: {
         plugins: {
           pagination: {
-            enabled: false
-          }
+            enabled: false,
+          },
         },
-        handler: getMissing
-      }
+        handler: getMissing,
+      },
     },
     {
-      method: "POST",
-      path: "/api/v1/census/avatar",
+      method: 'POST',
+      path: '/api/v1/census/avatar',
       config: {
         payload: {
-          output: "stream",
-          allow: "multipart/form-data",
-          parse: true
+          output: 'stream',
+          allow: 'multipart/form-data',
+          parse: true,
         },
         handler: importAvatar
       }
@@ -209,8 +209,8 @@ module.exports.register = (server, options, next) => {
       config: {
         plugins: {
           pagination: {
-            enabled: false
-          }
+            enabled: false,
+          },
         },
         handler: statsHandler
       }
@@ -221,8 +221,8 @@ module.exports.register = (server, options, next) => {
       config: {
         plugins: {
           pagination: {
-            enabled: false
-          }
+            enabled: false,
+          },
         },
         handler: orgHandler
       }
@@ -233,5 +233,5 @@ module.exports.register = (server, options, next) => {
 };
 
 module.exports.register.attributes = {
-  name: "routes.census"
+  name: 'routes.census',
 };

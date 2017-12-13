@@ -15,12 +15,14 @@ import {
 
 import {
   getEmployees,
-  getEmployeesBySurname
+  getEmployeesBySurname,
+  getPaginatedEmployees
 } from "../../handlers/census/employees";
 
+import { orgHandler } from "../../handlers/census/organisation";
 import { statsHandler } from "../../handlers/census/statistics";
-
 import { searchHandler } from "../../handlers/census/search";
+
 
 module.exports.register = (server, options, next) => {
   server.route([
@@ -31,11 +33,6 @@ module.exports.register = (server, options, next) => {
         payload: {
           output: "stream",
           allow: "multipart/form-data"
-        },
-        plugins: {
-          pagination: {
-            enabled: false
-          }
         },
         handler: importEmployee
       }
@@ -77,7 +74,7 @@ module.exports.register = (server, options, next) => {
             enabled: true
           }
         },
-        handler: getEmployees
+        handler: getPaginatedEmployees
       }
     },
     {
@@ -203,11 +200,6 @@ module.exports.register = (server, options, next) => {
           allow: "multipart/form-data",
           parse: true
         },
-        plugins: {
-          pagination: {
-            enabled: false
-          }
-        },
         handler: importAvatar
       }
     },
@@ -222,7 +214,19 @@ module.exports.register = (server, options, next) => {
         },
         handler: statsHandler
       }
-    }
+    },
+    {
+      method: "GET",
+      path: "/api/v1/census/organisation",
+      config: {
+        plugins: {
+          pagination: {
+            enabled: false
+          }
+        },
+        handler: orgHandler
+      }
+    }    
   ]);
 
   next();

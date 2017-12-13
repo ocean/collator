@@ -5,6 +5,7 @@ const team = require("./retrieve/team");
 
 // Methods for retreving a collection of documents.
 const employees = require("./collection/employees");
+const paginated = require("./collection/paginated");
 const surname = require("./collection/surname");
 
 // Methods for inserting the datas.
@@ -14,8 +15,11 @@ const missing = require("./avatars/missing");
 const insert = require("./collection/insert");
 const remove = require("./collection/remove");
 
-// Methods for statistics
-const stats = require("./statistics/stats");
+// Statistics Methods
+const stats = require("./statistics");
+
+// Organisation Methods
+const organisation = require("./organisation");
 
 module.exports = [].concat(
   avatar,
@@ -25,6 +29,8 @@ module.exports = [].concat(
   insert,
   manager,
   missing,
+  organisation,
+  paginated,
   remove,
   stats,
   surname,

@@ -12,11 +12,9 @@ if (!fs.existsSync(UPLOAD_PATH)) fs.mkdirSync(UPLOAD_PATH);
 
 export default async function importEmployee(request, reply) {
   try {
-    
     // Get "Payload"
     const data = request.payload;
     const file = data.spreadsheet;
-
     // Upload File
     const fileDetails = await uploader(file, fileOptions);
 
@@ -70,6 +68,7 @@ export default async function importEmployee(request, reply) {
     // this is so we have a list of people to display in the UI.
     reply({ inserted: await insert, removed: await documentsToRemove });
   } catch (error) {
+    console.log(error);
     reply(error);
   }
 }

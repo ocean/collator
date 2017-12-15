@@ -34,7 +34,10 @@ module.exports.register = (server, options, next) => {
           output: 'stream',
           allow: 'multipart/form-data',
         },
-        handler: importEmployee
+        handler: importEmployee,
+        description: "Import",
+        notes: "Import employee spreadsheet.",
+        tags: ["api", "Employees"]
       }
     },
     {
@@ -52,6 +55,9 @@ module.exports.register = (server, options, next) => {
           },
         },
         handler: searchHandler,
+        description: "Search",
+        notes: "Search for employees.",
+        tags: ["api", "Employees"]
       },
     },
     {
@@ -74,7 +80,10 @@ module.exports.register = (server, options, next) => {
             enabled: true,
           },
         },
-        handler: getPaginatedEmployees
+        handler: getPaginatedEmployees,
+        description: "Filterable",
+        notes: "Filterable list of employees (Paginated!).",
+        tags: ["api", "Employees"]
       }
     },
     {

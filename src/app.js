@@ -31,8 +31,10 @@ server.register(methods, (err) => {
 });
 
 
-// Register a Pagination Helper. yo.
+// Register a Pagination Helper. Yo.
 server.register(require('./utils/pagination'));
+
+// Register a Documenation Generator . Fool.
 
 server.register({
   register: etagger,
@@ -66,6 +68,7 @@ server.register(require('inert'), (err) => {
     },
   });
 });
+
 
 server.route(require('./config/routes/collator'));
 server.register(require('./config/routes/census'));
@@ -101,5 +104,21 @@ server.register({
     });
   }
 });
+
+
+server.register([
+  {register: require('vision')},
+  {
+    register: require('hapi-swagger'),
+    options: {
+        info: {
+            'title': 'Collatorrroror Documentation',
+            'version': '1.0.0',
+        },
+        basePath: '/api/v1',
+        grouping: 'tags'
+    }
+}
+]);
 
 module.exports = server;

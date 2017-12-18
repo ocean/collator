@@ -1,17 +1,17 @@
-import * as uuid from "uuid";
-import * as fs from "fs";
-import { split } from "lodash";
-import moment from "moment";
+import * as uuid from 'uuid';
+import * as fs from 'fs';
+import split from 'lodash/split';
+import moment from 'moment';
 
 
-const csvFilter = fileName => {
+const csvFilter = (fileName) => {
   if (!fileName.match(/\.(csv)$/)) {
     return false;
   }
   return true;
 };
 
-const jpgFilter = fileName => {
+const jpgFilter = (fileName) => {
   if (!fileName.match(/\.(jpg)$/)) {
     return false;
   }
@@ -22,42 +22,42 @@ const jpgFilter = fileName => {
 // Filename needs to be userid_date.jpg
 // E.g. AAlain_20170420.jpg
 
-const decipher = string => {
-  const explode = split(string.replace(/\.[^/.]+$/, ""), "_");
+const decipher = (string) => {
+  const explode = split(string.replace(/\.[^/.]+$/, ''), '_');
   const userid = explode[0].toUpperCase();
   const date = moment(explode[1]).format();
 
   return { userid, date };
 };
 
-const uploader = (file, options) => {
-  if (!file) throw new Error("No file. Please upload the required file. yo.");
-  return _fileHandler(file, options);
-};
-
-const _fileHandler = (file, options) => {
-  if (!file) throw new Error("No file. Please upload the required file. yo.");
+const _fileHandler = (file, options) => { // eslint-disable-line
+  if (!file) throw new Error('No file. Please upload the required file. yo.');
 
   const originalName = file.hapi.filename;
   const path = `${options.dest}${file.hapi.filename}`;
   const fileStream = fs.createWriteStream(path);
 
   return new Promise((resolve, reject) => {
-    file.on("error", err => reject(err));
+    file.on('error', err => reject(err));
     file.pipe(fileStream);
-    file.on("end", err => {
+    file.on('end', (err) => {
       const fileDetails = {
         fieldName: file.hapi.name,
         originalName: file.hapi.filename,
-        mimetype: file.hapi.headers["content-type"],
+        mimetype: file.hapi.headers['content-type'],
         destination: `${options.dest}`,
         path,
-        size: fs.statSync(path).size
+        size: fs.statSync(path).size,
       };
 
       resolve(fileDetails);
     });
   });
+};
+
+const uploader = (file, options) => {
+  if (!file) throw new Error('No file. Please upload the required file. yo.');
+  return _fileHandler(file, options);
 };
 
 export { csvFilter, decipher, uploader };

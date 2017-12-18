@@ -1,10 +1,10 @@
-import path from "path";
-import * as fs from "fs";
-import { differenceWith, size } from "lodash";
-import { csvFilter, uploader } from "../../../../utils/uploader";
-import { dmirs2json } from "../../../../utils/convertor";
+import path from 'path';
+import * as fs from 'fs';
+import differenceWith from 'lodash/differenceWith';
+import { csvFilter, uploader } from '../../../../utils/uploader';
+import { dmirs2json } from '../../../../utils/convertor';
 
-const UPLOAD_PATH = path.join(__dirname, "../../../../data");
+const UPLOAD_PATH = path.join(__dirname, '../../../../data');
 const fileOptions = { dest: UPLOAD_PATH, fileFilter: csvFilter };
 
 // create folder for upload if not exist
@@ -35,17 +35,15 @@ export default async function importEmployee(request, reply) {
     const documentsToRemove = await differenceWith(
       await currentCollection,
       await newCollection,
-      (a, b) => {
-        return a["userid"] === b["userid"];
-      }
+      (a, b) => a["userid"] === b["userid"]
     );
 
     // Remove the dead documents.
     // Can't work out how to get this in a Promise. :(
     const removed = await [];
-    await documentsToRemove.forEach(document => {
+    await documentsToRemove.forEach((document) => {
       request.server.methods.db.removeDocument(
-        document["userid"],
+        document.userid,
         (error, result) => {
           if (error) return reply(error);
           removed.push(result.changes);

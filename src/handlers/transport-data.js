@@ -1,7 +1,8 @@
 import Boom from 'boom';
 import Cheerio from 'cheerio';
 import goodGuyHttp from 'good-guy-http';
-import { flatten, sortBy } from 'lodash';
+import flatten from 'lodash/flatten';
+import sortBy from 'lodash/sortBy';
 import Moment from 'moment';
 import goodGuyCache from '../utils/good-guy-cache';
 import hash from '../utils/hash';

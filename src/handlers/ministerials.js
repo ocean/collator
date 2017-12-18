@@ -1,7 +1,8 @@
 import Boom from 'boom';
 import Cheerio from 'cheerio';
 import goodGuyHttp from 'good-guy-http';
-import { flattenDeep, uniqBy } from 'lodash';
+import uniqBy from 'lodash/uniqBy';
+import flattenDeep from 'lodash/flattenDeep';
 import moment from 'moment';
 import url from 'url';
 import goodGuyCache from '../utils/good-guy-cache';

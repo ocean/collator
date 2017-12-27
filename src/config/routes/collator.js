@@ -27,6 +27,11 @@ module.exports = [
       description: 'Intranet News',
       notes: 'News items (currently all of them) from the new Intranet.',
       tags: ['api', 'Intranet'],
+      validate: {
+        params: {
+          featured: Joi.any().valid('', 'featured'),
+        },
+      },
     },
   },
   {
@@ -37,6 +42,18 @@ module.exports = [
       description: 'Intranet News',
       notes: 'News items, filtered by type, from the new Intranet.',
       tags: ['api', 'Intranet'],
+      validate: {
+        params: {
+          newsType: Joi.any()
+            .valid(
+              'commerce-news',
+              'my-employment-news',
+              'corporate-executive-news'
+            )
+            .required(),
+          featured: Joi.any().valid('', 'featured'),
+        },
+      },
     },
   },
   {
@@ -69,6 +86,11 @@ module.exports = [
       notes:
         'Twitter updates from either @DMIRS_WA and related accounts or Perth transport information, including @Transperth and @Perth_Traffic.',
       tags: ['api', 'Tweets'],
+      validate: {
+        params: {
+          list: Joi.any().valid('dmirs', 'transport').required(),
+        },
+      },
     },
   },
   {

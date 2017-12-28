@@ -22,7 +22,6 @@ const goodGuy = goodGuyHttp({
 });
 
 exports.getDepartures = async function getDepartures(request, reply) {
-
   // Get the location from the request parameter
   const { location } = request.params;
 
@@ -31,9 +30,9 @@ exports.getDepartures = async function getDepartures(request, reply) {
 
   // A station object could have one or more stations in it, this handles that
   const stationArray = Object.keys(stationObject);
-  
+
   // Async function to wait for the info to be fetched and processed
-  
+
   const now = Moment().format('YYYY-MM-DD');
 
   const departures = await stationArray.map(async (station) => {

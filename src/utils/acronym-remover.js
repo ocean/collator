@@ -1,11 +1,9 @@
-import _ from "lodash";
+import _ from 'lodash';
 
-exports.remover = input => {
-  const a = _.split(input, " ");
+exports.remover = (input) => {
+  const a = _.split(input, ' ');
 
-  const c = _.remove(a, n => {
-    return !(n === n.toUpperCase() && /[A-Z]/.test(n));
-  });
+  const c = _.remove(a, n => !(n === n.toUpperCase() && /[A-Z]/.test(n)));
 
-  return _.join(c, " ");
+  return _.join(c, ' ');
 };

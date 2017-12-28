@@ -107,18 +107,18 @@ server.register({
 
 
 server.register([
-  {register: require('vision')},
+  { register: require('vision') },
   {
     register: require('hapi-swagger'),
     options: {
-        info: {
-            'title': 'Collatorrroror Documentation',
-            'version': '1.0.0',
-        },
-        basePath: '/api/v1',
-        grouping: 'tags'
-    }
-}
+      info: {
+        title: 'Collatorrroror Documentation',
+        version: '1.0.0',
+      },
+      basePath: '/api/v1',
+      grouping: 'tags',
+    },
+  },
 ]);
 
 module.exports = server;

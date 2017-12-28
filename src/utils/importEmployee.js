@@ -35,7 +35,7 @@ export default async function importEmployee(request, reply) {
     const documentsToRemove = await differenceWith(
       await currentCollection,
       await newCollection,
-      (a, b) => a["userid"] === b["userid"]
+      (a, b) => a.userid === b.userid
     );
 
     // Remove the dead documents.

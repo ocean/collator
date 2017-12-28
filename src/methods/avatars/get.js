@@ -1,10 +1,10 @@
-import connection from "../../config/database";
+import connection from '../../config/database';
 
 module.exports.register = (server, options, next) => {
   async function getAvatar(userid, next) {
     try {
       const employee = await connection
-        .table("avatars")
+        .table('avatars')
         .filter({ userid: userid.toUpperCase() })
         .nth(0)
         .run();
@@ -15,11 +15,11 @@ module.exports.register = (server, options, next) => {
     }
   }
 
-  server.method("db.getAvatar", getAvatar, {});
+  server.method('db.getAvatar', getAvatar, {});
 
   next();
 };
 
 module.exports.register.attributes = {
-  name: "method.db.getAvatar"
+  name: 'method.db.getAvatar',
 };

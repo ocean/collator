@@ -1,46 +1,36 @@
-import connection from "../../config/database";
+import connection from '../../config/database';
 
 module.exports.register = (server, options, next) => {
   async function getStats(next) {
     try {
       const divisions = await connection
-        .table("employees")
-        .filter(doc => {
-          return doc("div").ne("");
-        })("div")
+        .table('employees')
+        .filter(doc => doc('div').ne(''))('div')
         .distinct()
         .count();
 
       const directorates = await connection
-        .table("employees")
-        .filter(doc => {
-          return doc("bran").ne("");
-        })("bran")
+        .table('employees')
+        .filter(doc => doc('bran').ne(''))('bran')
         .distinct()
         .count();
 
       const branches = await connection
-        .table("employees")
-        .filter(doc => {
-          return doc("sect").ne("");
-        })("sect")
+        .table('employees')
+        .filter(doc => doc('sect').ne(''))('sect')
         .distinct()
         .count();
 
-        const employees = await connection
-        .table("employees")
-        .filter(doc => {
-          return doc("email").ne("");
-        })("email")
+      const employees = await connection
+        .table('employees')
+        .filter(doc => doc('email').ne(''))('email')
         .distinct()
         .count();
 
 
-        const locations = await connection
-        .table("employees")
-        .filter(doc => {
-          return doc("location_name").ne("");
-        })("location_name")
+      const locations = await connection
+        .table('employees')
+        .filter(doc => doc('location_name').ne(''))('location_name')
         .distinct()
         .count();
 
@@ -52,11 +42,11 @@ module.exports.register = (server, options, next) => {
     }
   }
 
-  server.method("db.getStats", getStats, {});
+  server.method('db.getStats', getStats, {});
 
   next();
 };
 
 module.exports.register.attributes = {
-  name: "method.db.getStats"
+  name: 'method.db.getStats',
 };

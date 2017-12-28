@@ -1,93 +1,93 @@
 module.exports = {
   albany: {
-    weather: 2077963
+    weather: 2077963,
   },
   baldivis: {
     transport: [
       {
-        station: "Warnbro Station",
+        station: 'Warnbro Station',
         url:
-          "http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Warnbro+Stn"
-      }
+          'http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Warnbro+Stn',
+      },
     ],
-    weather: 2079183
+    weather: 2079183,
   },
   broome: {
-    weather: 2075720
+    weather: 2075720,
   },
   bunbury: {
-    weather: 2075432
+    weather: 2075432,
   },
   cannington: {
     transport: [
       {
-        station: "Cannington Station",
+        station: 'Cannington Station',
         url:
-          "http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Cannington+Stn"
-      }
+          'http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Cannington+Stn',
+      },
     ],
-    weather: 2075024
+    weather: 2075024,
   },
   carlisle: {
     transport: [
       {
-        station: "Oats Street Station",
+        station: 'Oats Street Station',
         url:
-          "http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Oats+Street+Stn"
-      }
+          'http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Oats+Street+Stn',
+      },
     ],
-    weather: 2145220
+    weather: 2145220,
   },
   collie: {
-    weather: 2074113
+    weather: 2074113,
   },
-  "east-perth": {
+  'east-perth': {
     transport: [
       {
-        station: "McIver Station",
+        station: 'McIver Station',
         url:
-          "http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=McIver+Stn"
-      }
+          'http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=McIver+Stn',
+      },
     ],
-    weather: 2063523
+    weather: 2063523,
   },
   geraldton: {
-    weather: 2070998
+    weather: 2070998,
   },
   kalgoorlie: {
-    weather: 2068823
+    weather: 2068823,
   },
   karratha: {
-    weather: 6620339
+    weather: 6620339,
   },
   leonora: {
-    weather: 2067792
+    weather: 2067792,
   },
-  "marble-bar": {
-    weather: 2067029
+  'marble-bar': {
+    weather: 2067029,
   },
   meekatharra: {
-    weather: 2066591
+    weather: 2066591,
   },
-  "mount-magnet": {
-    weather: 2066591
+  'mount-magnet': {
+    weather: 2066591,
   },
   perth: {
     transport: [
       {
-        station: "Perth Station",
+        station: 'Perth Station',
         url:
-          "http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Perth+Stn"
+          'http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Perth+Stn',
       },
       {
-        station: "Perth Underground Station",
+        station: 'Perth Underground Station',
         url:
-          "http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Perth+Underground+Stn"
-      }
+          'http://www.transperth.wa.gov.au/Timetables/Live-Train-Times?stationname=Perth+Underground+Stn',
+      },
     ],
-    weather: 2063523
+    weather: 2063523,
   },
-  "southern-cross": {
-    weather: 2061298
-  }
+  'southern-cross': {
+    weather: 2061298,
+  },
 };

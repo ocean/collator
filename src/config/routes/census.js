@@ -215,7 +215,7 @@ module.exports.register = (server, options, next) => {
         handler: getMissing,
         description: 'Missing',
         notes: 'Returns userids of unused avatars. However, this is not a list of employees with missing avatars.',
-        tags: ['api', 'Avatar'],        
+        tags: ['api', 'Avatar'],
       },
     },
     {
@@ -260,7 +260,7 @@ module.exports.register = (server, options, next) => {
         handler: orgHandler,
         description: 'Structure',
         notes: 'Returns a nested organisation structure.',
-        tags: ['api', 'Organisation'],        
+        tags: ['api', 'Organisation'],
       },
     },
   ]);

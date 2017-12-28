@@ -1,15 +1,15 @@
 module.exports.register = (server, options, next) => {
   server.register(
     {
-      register: require("hapi-pagination"),
+      register: require('hapi-pagination'),
       options: {
         routes: {
           include: [],
-          exclude: ["/documentation"]
-        }
-      }
+          exclude: ['/documentation'],
+        },
+      },
     },
-    err => {
+    (err) => {
       if (err) throw err;
     }
   );
@@ -18,5 +18,5 @@ module.exports.register = (server, options, next) => {
 };
 
 module.exports.register.attributes = {
-  name: "pagination"
+  name: 'pagination',
 };

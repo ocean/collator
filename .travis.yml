@@ -7,9 +7,12 @@ language: node_js
 notifications:
   email: false
 
+services:
+  - redis-server
+
 node_js:
-  - "6"
   - "8"
+  - "9"
 
 env:
   global:
@@ -18,7 +21,7 @@ env:
 
 matrix:
   allow_failures:
-  - node_js: "6"
+  - node_js: "9"
 
 addons:
   apt:
@@ -28,6 +31,7 @@ addons:
       - g++-4.8
   code_climate:
       repo_token: ${CODECLIMATE_REPO_TOKEN}
+  rethinkdb: '2.3.6'
 
 # before_script:
 #   - npm install --global snyk
@@ -36,5 +40,5 @@ addons:
 script:
   - npm run build
   # - npm run security_check
-  - npm run lint
   - npm run test
+  - npm run lint

@@ -16,12 +16,12 @@ import {
 import {
   getEmployees,
   getEmployeesBySurname,
-  getPaginatedEmployees
-} from "../../handlers/census/employees";
+  getPaginatedEmployees,
+} from '../../handlers/census/employees';
 
-import { orgHandler } from "../../handlers/census/organisation";
-import { statsHandler } from "../../handlers/census/statistics";
-import { searchHandler } from "../../handlers/census/search";
+import { orgHandler } from '../../handlers/census/organisation';
+import { statsHandler } from '../../handlers/census/statistics';
+import { searchHandler } from '../../handlers/census/search';
 
 
 module.exports.register = (server, options, next) => {
@@ -35,10 +35,10 @@ module.exports.register = (server, options, next) => {
           allow: 'multipart/form-data',
         },
         handler: importEmployee,
-        description: "Import",
-        notes: "Import employee spreadsheet.",
-        tags: ["api", "Employees"]
-      }
+        description: 'Import',
+        notes: 'Import employee spreadsheet.',
+        tags: ['api', 'Employees'],
+      },
     },
     {
       method: 'GET',
@@ -55,9 +55,9 @@ module.exports.register = (server, options, next) => {
           },
         },
         handler: searchHandler,
-        description: "Search",
-        notes: "Search for employees.",
-        tags: ["api", "Employees"]
+        description: 'Search',
+        notes: 'Search for employees.',
+        tags: ['api', 'Employees'],
       },
     },
     {
@@ -81,10 +81,10 @@ module.exports.register = (server, options, next) => {
           },
         },
         handler: getPaginatedEmployees,
-        description: "Filterable",
-        notes: "Filterable list of employees (Paginated!).",
-        tags: ["api", "Employees"]
-      }
+        description: 'Filterable',
+        notes: 'Filterable list of employees (Paginated!).',
+        tags: ['api', 'Employees'],
+      },
     },
     {
       method: 'GET',
@@ -209,33 +209,33 @@ module.exports.register = (server, options, next) => {
           allow: 'multipart/form-data',
           parse: true,
         },
-        handler: importAvatar
-      }
+        handler: importAvatar,
+      },
     },
     {
-      method: "GET",
-      path: "/api/v1/census/statistics",
+      method: 'GET',
+      path: '/api/v1/census/statistics',
       config: {
         plugins: {
           pagination: {
             enabled: false,
           },
         },
-        handler: statsHandler
-      }
+        handler: statsHandler,
+      },
     },
     {
-      method: "GET",
-      path: "/api/v1/census/organisation",
+      method: 'GET',
+      path: '/api/v1/census/organisation',
       config: {
         plugins: {
           pagination: {
             enabled: false,
           },
         },
-        handler: orgHandler
-      }
-    }    
+        handler: orgHandler,
+      },
+    },
   ]);
 
   next();

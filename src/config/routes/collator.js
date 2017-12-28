@@ -136,7 +136,7 @@ module.exports = [
       },
       description: "Updates",
       notes: "Weather updates from Open Weather Map.",
-      tags: ["api", "Weather"]            
+      tags: ["api", "Weather"]
     }
   }
 ];

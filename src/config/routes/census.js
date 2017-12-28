@@ -62,7 +62,7 @@ module.exports.register = (server, options, next) => {
     },
     {
       method: 'GET',
-      path: '/api/v1/census/employees/all',
+      path: '/api/v1/census/employees',
       config: {
         validate: {
           query: Joi.object({
@@ -88,7 +88,7 @@ module.exports.register = (server, options, next) => {
     },
     {
       method: 'GET',
-      path: '/api/v1/census/employees/all/{letter}',
+      path: '/api/v1/census/employees/{letter}',
       config: {
         validate: {
           params: {
@@ -104,11 +104,14 @@ module.exports.register = (server, options, next) => {
           },
         },
         handler: getEmployeesBySurname,
+        description: 'Surname',
+        notes: 'Get a paginated list of employees grouped by the first letter of their surname.',
+        tags: ['api', 'Employees'],
       },
     },
     {
       method: 'GET',
-      path: '/api/v1/census/employees/{employeeID}',
+      path: '/api/v1/census/employee/{employeeID}',
       config: {
         validate: {
           params: {
@@ -123,11 +126,14 @@ module.exports.register = (server, options, next) => {
           },
         },
         handler: getEmployee,
+        description: 'Employee',
+        notes: 'Returns information for the requested employeeID',
+        tags: ['api', 'Employee'],
       },
     },
     {
       method: 'GET',
-      path: '/api/v1/census/employees/{employeeID}/manager',
+      path: '/api/v1/census/employee/{employeeID}/manager',
       config: {
         validate: {
           params: {
@@ -142,11 +148,14 @@ module.exports.register = (server, options, next) => {
           },
         },
         handler: getManager,
+        description: 'Manager',
+        notes: 'Returns the manager for the requested employeeID',
+        tags: ['api', 'Employee'],
       },
     },
     {
       method: 'GET',
-      path: '/api/v1/census/employees/{employeeID}/team',
+      path: '/api/v1/census/employee/{employeeID}/team',
       config: {
         validate: {
           params: {
@@ -161,11 +170,14 @@ module.exports.register = (server, options, next) => {
           },
         },
         handler: getTeam,
+        description: 'Team',
+        notes: 'Returns the team for the requested employeeID',
+        tags: ['api', 'Employee'],
       },
     },
     {
       method: 'GET',
-      path: '/api/v1/census/employees/{employeeID}/avatar',
+      path: '/api/v1/census/employee/{employeeID}/avatar',
       config: {
         validate: {
           query: {
@@ -186,6 +198,9 @@ module.exports.register = (server, options, next) => {
           },
         },
         handler: getAvatar,
+        description: 'Avatar',
+        notes: 'Returns an avatar for the supplied employeeID if avaliable. A default avatar is shown if the avatar is missing.',
+        tags: ['api', 'Employee'],
       },
     },
     {
@@ -198,6 +213,9 @@ module.exports.register = (server, options, next) => {
           },
         },
         handler: getMissing,
+        description: 'Missing',
+        notes: 'Returns userids of unused avatars. However, this is not a list of employees with missing avatars.',
+        tags: ['api', 'Avatar'],        
       },
     },
     {
@@ -210,11 +228,14 @@ module.exports.register = (server, options, next) => {
           parse: true,
         },
         handler: importAvatar,
+        description: 'Import',
+        notes: 'Import an avatar. Filename needs to be userid_date.jpg...e.g. AAlain_20170420.jpg',
+        tags: ['api', 'Avatar'],
       },
     },
     {
       method: 'GET',
-      path: '/api/v1/census/statistics',
+      path: '/api/v1/census/organisation/statistics',
       config: {
         plugins: {
           pagination: {
@@ -222,11 +243,14 @@ module.exports.register = (server, options, next) => {
           },
         },
         handler: statsHandler,
+        description: 'Statistics',
+        notes: 'Returns the count of groups, divisions, directorates, branches, employees and locations',
+        tags: ['api', 'Organisation'],
       },
     },
     {
       method: 'GET',
-      path: '/api/v1/census/organisation',
+      path: '/api/v1/census/organisation/structure',
       config: {
         plugins: {
           pagination: {
@@ -234,6 +258,9 @@ module.exports.register = (server, options, next) => {
           },
         },
         handler: orgHandler,
+        description: 'Structure',
+        notes: 'Returns a nested organisation structure.',
+        tags: ['api', 'Organisation'],        
       },
     },
   ]);

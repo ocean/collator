@@ -38,7 +38,7 @@ module.exports.register = (server, options, next) => {
 
       return next(null, stats);
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 

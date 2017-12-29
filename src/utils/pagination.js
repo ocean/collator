@@ -1,7 +1,9 @@
+import hapiPagination from 'hapi-pagination';
+
 module.exports.register = (server, options, next) => {
   server.register(
     {
-      register: require('hapi-pagination'),
+      register: hapiPagination,
       options: {
         routes: {
           include: [],

@@ -3,6 +3,8 @@
 import Hapi from 'hapi';
 import Good from 'good';
 import etagger from 'etagger';
+import vision from 'vision';
+import hapiSwagger from 'hapi-swagger';
 import methods from './methods';
 // import RedisCache from 'catbox-redis';
 
@@ -107,9 +109,9 @@ server.register({
 
 
 server.register([
-  { register: require('vision') },
+  { register: vision },
   {
-    register: require('hapi-swagger'),
+    register: hapiSwagger,
     options: {
       info: {
         title: 'Collatorrroror Documentation',

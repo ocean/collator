@@ -1,8 +1,8 @@
 import path from 'path';
 import * as fs from 'fs';
 import differenceWith from 'lodash/differenceWith';
-import { csvFilter, uploader } from '../../../../utils/uploader';
-import { dmirs2json } from '../../../../utils/convertor';
+import { csvFilter, uploader } from './uploader';
+import { dmirs2json } from './convertor';
 
 const UPLOAD_PATH = path.join(__dirname, '../../../../data');
 const fileOptions = { dest: UPLOAD_PATH, fileFilter: csvFilter };
@@ -25,10 +25,13 @@ export default async function importEmployee(request, reply) {
 
     // Grab the current collection of staff from the DB
     const currentCollection = new Promise((resolve, reject) => {
-      request.server.methods.db.getEmployees((error, employees) => {
-        if (error) return reject(error);
-        resolve(employees);
-      });
+      try {
+        request.server.methods.db.getEmployees((error, employees) => {
+          resolve(employees);
+        });
+      } catch (error) {
+        reject(error);
+      }
     });
 
     // Diff the collection.
@@ -45,8 +48,11 @@ export default async function importEmployee(request, reply) {
       request.server.methods.db.removeDocument(
         document.userid,
         (error, result) => {
-          if (error) return reply(error);
-          removed.push(result.changes);
+          try {
+            removed.push(result.changes);
+          } catch (err) {
+            reply(error);
+          }
         }
       );
     });
@@ -56,8 +62,11 @@ export default async function importEmployee(request, reply) {
       request.server.methods.db.insertCollection(
         newCollection,
         (error, result) => {
-          if (error) return reject(error);
-          resolve(result);
+          try {
+            resolve(result);
+          } catch (err) {
+            reject(error);
+          }
         }
       );
     });

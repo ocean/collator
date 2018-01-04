@@ -1,5 +1,5 @@
-import connection from '../../config/database';
 import _ from 'lodash';
+import connection from '../../config/database';
 
 module.exports.register = (server, options, next) => {
   async function getOrganisation(next) {

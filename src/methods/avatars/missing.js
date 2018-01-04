@@ -1,5 +1,5 @@
+import differenceWith from 'lodash/differenceWith';
 import connection from '../../config/database';
-import { differenceWith, size } from 'lodash';
 
 module.exports.register = (server, options, next) => {
   async function getMissingAvatars(next) {

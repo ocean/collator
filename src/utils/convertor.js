@@ -1,7 +1,6 @@
 import csv from 'csvtojson';
-import { remover } from './acronym-remover';
 import { format } from 'libphonenumber-js';
-
+import { remover } from './acronym-remover';
 
 const params = {
   colParser: {
@@ -41,12 +40,13 @@ const params = {
 
 const dmirs2json = file => new Promise((resolve, reject) => {
   csv(params).fromFile(file, (err, result) => {
-    if (err) err => reject(err);
-    const filtered = result.filter(person => !(person.actingOrHDAFlag === 'N' && !!person.HDA_termination_date));
-    resolve(filtered);
+    try {
+      const filtered = result.filter(person => !(person.actingOrHDAFlag === 'N' && !!person.HDA_termination_date));
+      resolve(filtered);
+    } catch (error) {
+      reject(err);
+    }
   });
 });
 
-
-export { dmirs2json };
-
+export default dmirs2json;

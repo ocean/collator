@@ -16,7 +16,7 @@ server.connection({
   port: process.env.PORT || 3000,
   routes: {
     cors: {
-      origin: ['*.local', '*.wa.gov.au'],
+      origin: ['http://localhost:8082', '*.local', '*.wa.gov.au'],
       headers: ['Accept', 'Authorization', 'Content-Type', 'If-None-Match', 'Accept-language'],
     },
     // cache: {

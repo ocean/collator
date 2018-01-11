@@ -1,5 +1,6 @@
 import Fuse from 'fuse.js';
 import connection from '../../../config/database';
+import { remover } from '../../../utils/acronym-remover';
 
 const options = {
   shouldSort: true,
@@ -27,11 +28,11 @@ export default async function searchHandler(request, reply) {
     return reply(fuse
       .search(q)
       .slice(0, 25)
-      .map(result => ['first_name', 'preferred_name', 'surname', 'userid'].reduce(
+      .map(result => ['first_name', 'preferred_name', 'surname', 'phone', 'position_title', 'userid', 'grp', 'div', remover('bran'), remover('sect')].reduce(
         (a, b) => ((a[b] = result[b]), a),
         {}
       ))).code(200);
   } catch (error) {
-    reply(error).code(500);
+    return reply(error).code(500);
   }
 }

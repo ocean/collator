@@ -38,15 +38,31 @@ const params = {
   },
 };
 
-const dmirs2json = file => new Promise((resolve, reject) => {
-  csv(params).fromFile(file, (err, result) => {
-    try {
-      const filtered = result.filter(person => !(person.actingOrHDAFlag === 'N' && !!person.HDA_termination_date));
-      resolve(filtered);
-    } catch (error) {
-      reject(err);
-    }
+const dmirs2json = (file) => {
+  return new Promise((resolve, reject) => {
+    csv(params).fromFile(file, (err, result) => {
+      try {
+        const filtered = result.filter((person) => {
+          return !(person.actingOrHDAFlag === 'N' && !!person.HDA_termination_date);
+        });
+        resolve(filtered);
+      } catch (error) {
+        reject(error);
+      }
+    });
   });
-});
+};
 
-export default dmirs2json;
+// export default async function dmirs2jsonAa(file) {
+//   await csv(params).fromFile(file, (err, result) => {
+//     try {
+//       const filtered = result.filter(person => !(person.actingOrHDAFlag === 'N' && !!person.HDA_termination_date));
+//       return filtered;
+//     } catch (error) {
+//       console.error(error);
+//       return error;
+//     }
+//   });
+// }
+
+export { dmirs2json };

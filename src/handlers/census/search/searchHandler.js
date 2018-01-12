@@ -28,7 +28,7 @@ export default async function searchHandler(request, reply) {
     return reply(fuse
       .search(q)
       .slice(0, 25)
-      .map(result => ['first_name', 'preferred_name', 'surname', 'phone', 'position_title', 'userid', 'grp', 'div', remover('bran'), remover('sect')].reduce(
+      .map(result => ['first_name', 'preferred_name', 'surname', 'phone', 'position_title', 'userid', 'grp', 'div', remover('bran'), remover('sect'), 'location_name', 'sublocation_name'].reduce(
         (a, b) => ((a[b] = result[b]), a),
         {}
       ))).code(200);

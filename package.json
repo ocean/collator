@@ -54,7 +54,7 @@
     "he": "^1.1.1",
     "inert": "^4.2.1",
     "joi": "^13.0.2",
-    "libphonenumber-js": "^0.4.44",
+    "libphonenumber-js": "^1.0.0",
     "lodash": "^4.17.4",
     "moment": "^2.20.1",
     "nano-fs": "^1.2.4",

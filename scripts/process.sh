@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "Ahoy!, I'm Robo convertor..."
+echo "Ahoy!, I'm Robo converter..."
 
 echo "Creating Outlook, Intranet and ID Card Directories..."
 mkdir -p "96x96"
@@ -30,5 +30,3 @@ do
   echo "Cropping $file..."
   convert $file -gravity Center -crop 2362x2362+0+0 +repage 2362x2362/$file
 done
-
-  

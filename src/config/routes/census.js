@@ -116,7 +116,7 @@ module.exports.register = (server, options, next) => {
         validate: {
           params: {
             employeeID: Joi.string()
-              .regex(/^[A-z]+$/)
+              .regex(/^[A-z-]+$/)
               .required(),
           },
         },
@@ -138,7 +138,7 @@ module.exports.register = (server, options, next) => {
         validate: {
           params: {
             employeeID: Joi.string()
-              .regex(/^[A-z]+$/)
+              .regex(/^[A-z-]+$/)
               .required(),
           },
         },
@@ -160,7 +160,7 @@ module.exports.register = (server, options, next) => {
         validate: {
           params: {
             employeeID: Joi.string()
-              .regex(/^[A-z]+$/)
+              .regex(/^[A-z-]+$/)
               .required(),
           },
         },
@@ -188,7 +188,7 @@ module.exports.register = (server, options, next) => {
           },
           params: {
             employeeID: Joi.string()
-              .regex(/^[A-z]+$/)
+              .regex(/^[A-z-]+$/)
               .required(),
           },
         },
@@ -199,7 +199,7 @@ module.exports.register = (server, options, next) => {
         },
         handler: getAvatar,
         description: 'Avatar',
-        notes: 'Returns an avatar for the supplied employeeID if avaliable. A default avatar is shown if the avatar is missing.',
+        notes: 'Returns an avatar for the supplied employeeID if available. A default avatar is shown if the avatar is missing.',
         tags: ['api', 'Employee'],
       },
     },

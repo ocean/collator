@@ -17,5 +17,8 @@ export default async function importAvatar(request, reply) {
         return reply(result).code(200);
       }
     );
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+    return reply(error).code(500);
+  }
 }

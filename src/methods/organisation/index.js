@@ -9,7 +9,7 @@ module.exports.register = (server, options, next) => {
       const organisation = await connection
         .table('employees')
         .filter(doc => doc('div').ne(''))
-        .pluck('grp', 'div', 'sect', 'bran');
+        .pluck('grp', 'div', 'directorate', 'bran', 'sect', 'team');
 
       const filtered = Array.from(new Set(organisation.map(JSON.stringify))).map(JSON.parse);
 

@@ -14,14 +14,14 @@ import {
 } from '../../handlers/census/employee';
 
 import {
-  getEmployees,
   getEmployeesBySurname,
   getPaginatedEmployees,
 } from '../../handlers/census/employees';
 
 import { orgHandler } from '../../handlers/census/organisation';
 import { statsHandler } from '../../handlers/census/statistics';
-import { searchHandler } from '../../handlers/census/search';
+import searchEmployees from '../../handlers/census/search/searchEmployees';
+import searchBusinessUnits from '../../handlers/census/search/searchBusinessUnits';
 
 
 module.exports.register = (server, options, next) => {
@@ -54,7 +54,7 @@ module.exports.register = (server, options, next) => {
             enabled: false,
           },
         },
-        handler: searchHandler,
+        handler: searchEmployees,
         description: 'Search',
         notes: 'Search for employees.',
         tags: ['api', 'Employees'],
@@ -231,6 +231,26 @@ module.exports.register = (server, options, next) => {
         description: 'Import',
         notes: 'Import an avatar. Filename needs to be userid_date.jpg...e.g. AAlain_20170420.jpg',
         tags: ['api', 'Avatar'],
+      },
+    },
+    {
+      method: 'GET',
+      path: '/api/v1/census/organisation/search',
+      config: {
+        validate: {
+          query: {
+            q: Joi.string().required(),
+          },
+        },
+        plugins: {
+          pagination: {
+            enabled: false,
+          },
+        },
+        handler: searchBusinessUnits,
+        description: 'Search',
+        notes: 'Search for business units.',
+        tags: ['api', 'Organisation'],
       },
     },
     {

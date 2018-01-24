@@ -68,6 +68,7 @@ module.exports.register = (server, options, next) => {
           query: Joi.object({
             bran: Joi.string(),
             div: Joi.string(),
+            directorate: Joi.string(),
             sect: Joi.string(),
             location_name: Joi.string(),
             sort: Joi.string(),

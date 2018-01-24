@@ -14,8 +14,8 @@ module.exports.register = (server, options, next) => {
       const filtered = Array.from(new Set(organisation.map(JSON.stringify))).map(JSON.parse);
 
       filtered.map((obj) => {
-        _.merge(structure, { [obj.grp]: { [obj.div]: { [obj.bran]: [] } } });
-        structure[obj.grp][obj.div][obj.bran].push(obj.sect);
+        _.merge(structure, { [obj.grp]: { [obj.div]: { [obj.directorate]: { [obj.bran]: [] } } } });
+        structure[obj.grp][obj.div][obj.directorate][obj.bran].push(obj.sect);
       });
 
       return next(null, structure);

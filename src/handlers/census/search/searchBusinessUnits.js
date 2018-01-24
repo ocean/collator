@@ -29,7 +29,7 @@ export default async function searchBusinessUnits(request, reply) {
 
     const fullResults = fuse
       .search(q)
-      .slice(0, 25)
+      .slice(0, 40)
       .map(result => ['div', 'directorate', 'bran', 'sect', 'team', 'grp']
         .reduce((a, b) => ((a[b] = result[b]), a),
           {}

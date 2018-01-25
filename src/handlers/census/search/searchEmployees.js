@@ -1,7 +1,6 @@
 import Fuse from 'fuse.js';
 import sortBy from 'lodash/sortBy';
 import connection from '../../../config/database';
-// import { remover } from '../../../utils/acronym-remover';
 
 const options = {
   shouldSort: true,

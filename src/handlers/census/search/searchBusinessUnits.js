@@ -31,7 +31,8 @@ export default async function searchBusinessUnits(request, reply) {
       .search(q)
       .slice(0, 40)
       .map(result => ['div', 'directorate', 'bran', 'sect', 'team', 'grp']
-        .reduce((a, b) => ((a[b] = result[b]), a),
+        .reduce(
+          (a, b) => ((a[b] = result[b]), a),
           {}
         ));
     const results = _.uniqWith(fullResults, _.isEqual);

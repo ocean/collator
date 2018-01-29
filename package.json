@@ -40,7 +40,7 @@
     "cheerio": "^1.0.0-rc.2",
     "csvdata": "^1.4.0",
     "csvtojson": "^1.1.9",
-    "dotenv": "^4.0.0",
+    "dotenv": "^5.0.0",
     "etagger": "^3.0.2",
     "fuse.js": "^3.2.0",
     "good": "^7.3.0",

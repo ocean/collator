@@ -23,13 +23,13 @@ import { statsHandler } from '../../handlers/census/statistics';
 import searchEmployees from '../../handlers/census/search/searchEmployees';
 import searchBusinessUnits from '../../handlers/census/search/searchBusinessUnits';
 
-
 module.exports.register = (server, options, next) => {
   server.route([
     {
       method: 'POST',
       path: '/api/v1/census/employees/import',
       config: {
+        auth: 'simple-token',
         payload: {
           output: 'stream',
           allow: 'multipart/form-data',
@@ -223,6 +223,7 @@ module.exports.register = (server, options, next) => {
       method: 'POST',
       path: '/api/v1/census/avatar',
       config: {
+        auth: 'simple-token',
         payload: {
           output: 'stream',
           allow: 'multipart/form-data',

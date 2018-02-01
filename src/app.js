@@ -1,13 +1,13 @@
 'use strict'; // eslint-disable-line
 
 import Hapi from 'hapi';
+import Boom from 'boom';
 import Good from 'good';
 import etagger from 'etagger';
 import vision from 'vision';
 import hapiSwagger from 'hapi-swagger';
 import methods from './methods';
 // import RedisCache from 'catbox-redis';
-
 
 const server = new Hapi.Server();
 
@@ -32,12 +32,10 @@ server.register(methods, (err) => {
   }
 });
 
-
 // Register a Pagination Helper. Yo.
 server.register(require('./utils/pagination'));
 
-// Register a Documenation Generator . Fool.
-
+// Register ETag functionality
 server.register({
   register: etagger,
   options: {
@@ -71,7 +69,40 @@ server.register(require('inert'), (err) => {
   });
 });
 
+// Set up Bearer auth token scheme
+server.auth.scheme('bearer-access-token', () => {
+  if (!process.env.CENSUS_API_ACCESS_TOKEN) {
+    throw Error('Error: An expected bearer token must be set in CENSUS_API_ACCESS_TOKEN environment variable.');
+  }
+  return {
+    authenticate: (request, reply) => {
+      const { authorization } = request.raw.req.headers;
+      if (!authorization) {
+        return reply(Boom.unauthorized('Authorisation required', 'Bearer'));
+      }
 
+      console.dir(authorization);
+
+      const parts = authorization.split(/\s+/);
+
+      if (parts[0].toLowerCase() !== 'bearer') {
+        return reply(Boom.unauthorized('Bearer authorisation required', 'Bearer'));
+      }
+
+      const token = parts[1];
+      const apiToken = process.env.CENSUS_API_ACCESS_TOKEN;
+      if (token === apiToken) {
+        return reply.continue({ credentials: { token } });
+      }
+      return reply(Boom.unauthorized('Invalid Bearer token', 'Bearer'));
+    },
+  };
+});
+
+// Register bearer access token authentication for POST handlers
+server.auth.strategy('simple-token', 'bearer-access-token');
+
+// The main sets of routes
 server.route(require('./config/routes/collator'));
 server.register(require('./config/routes/census'));
 
@@ -107,7 +138,7 @@ server.register({
   }
 });
 
-
+// Register hapi-swagger Documentation Generator. Fool.
 server.register([
   { register: vision },
   {

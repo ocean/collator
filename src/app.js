@@ -81,8 +81,6 @@ server.auth.scheme('bearer-access-token', () => {
         return reply(Boom.unauthorized('Authorisation required', 'Bearer'));
       }
 
-      console.dir(authorization);
-
       const parts = authorization.split(/\s+/);
 
       if (parts[0].toLowerCase() !== 'bearer') {

@@ -46,7 +46,7 @@ module.exports = [
         params: {
           newsType: Joi.any()
             .valid(
-              'commerce-news',
+              'dmirs-news',
               'my-employment-news',
               'corporate-executive-news'
             )

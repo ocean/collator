@@ -33,7 +33,7 @@ const _fileHandler = (file, options) => { // eslint-disable-line
   if (!file) throw new Error('No file. Please upload the required file. yo.');
 
   const originalName = file.hapi.filename;
-  const path = `${options.dest}${originalName}`;
+  const path = `${options.dest}/${originalName}`;
   const fileStream = fs.createWriteStream(path);
 
   return new Promise((resolve, reject) => {

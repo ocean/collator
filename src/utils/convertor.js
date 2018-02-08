@@ -1,13 +1,13 @@
 import csv from 'csvtojson';
 import { format } from 'libphonenumber-js';
-import { remover } from './acronym-remover';
+// import { remover } from './acronym-remover';
 
 const params = {
   colParser: {
-    sect: (item, head, resultRow, row, colIdx) => remover(item),
-    bran: (item, head, resultRow, row, colIdx) => remover(item),
-    grp: (item, head, resultRow, row, colIdx) => remover(item),
-    supervisor_position_title: (item, head, resultRow, row, colIdx) => remover(item),
+    // sect: (item, head, resultRow, row, colIdx) => remover(item),
+    // bran: (item, head, resultRow, row, colIdx) => remover(item),
+    // grp: (item, head, resultRow, row, colIdx) => remover(item),
+    // supervisor_position_title: (item, head, resultRow, row, colIdx) => remover(item),
     location_name: (item, head, resultRow, row, colIdx) => {
       const locations = {
         '1 Adelaide Terrace': '1 Adelaide Terrace, East Perth WA 6004',

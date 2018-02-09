@@ -7,7 +7,6 @@ import etagger from 'etagger';
 import vision from 'vision';
 import hapiSwagger from 'hapi-swagger';
 import methods from './methods';
-// import RedisCache from 'catbox-redis';
 
 const server = new Hapi.Server();
 
@@ -19,9 +18,6 @@ server.connection({
       origin: ['http://localhost:*', 'http://10.11.*', '*.local', '*.testsite', '*.wa.gov.au'],
       headers: ['Accept', 'Authorization', 'Content-Type', 'If-None-Match', 'Accept-language'],
     },
-    // cache: {
-    //   expiresIn: 60000,
-    // },
   },
 });
 

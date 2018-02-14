@@ -11,16 +11,6 @@ import WeatherData from '../../handlers/weather-data';
 module.exports = [
   {
     method: 'GET',
-    path: '/api/v1/statements/commerce',
-    config: {
-      handler: CommerceNews.getStatements,
-      description: 'Commerce',
-      notes: 'Commerce media statements from the Commerce site.',
-      tags: ['api', 'Statements'],
-    },
-  },
-  {
-    method: 'GET',
     path: '/api/v1/intranet/news/{featured?}',
     config: {
       handler: IntranetNews.getIntranetNews,
@@ -58,10 +48,20 @@ module.exports = [
   },
   {
     method: 'GET',
+    path: '/api/v1/statements/commerce',
+    config: {
+      handler: CommerceNews.getStatements,
+      description: 'Commerce media',
+      notes: 'Commerce media statements from the Commerce site.',
+      tags: ['api', 'Statements'],
+    },
+  },
+  {
+    method: 'GET',
     path: '/api/v1/statements/ministerials',
     config: {
       handler: Ministerials.getMinisterials,
-      description: 'Ministerials',
+      description: "Minister's media",
       notes:
         'Ministerial media statements from the WA Govt Media Statements site - the Mines and Petroleum and Commerce and Industrial Relations portfolios.',
       tags: ['api', 'Statements'],
@@ -72,7 +72,7 @@ module.exports = [
     path: '/api/v1/statements/government',
     config: {
       handler: GovernmentNews.getStatements,
-      description: 'Government',
+      description: 'Government media',
       notes: 'All Government media statements from the Media Statements site.',
       tags: ['api', 'Statements'],
     },

@@ -11,17 +11,17 @@ const options = {
   maxPatternLength: 32,
   minMatchCharLength: 3,
   keys: [
-    {
-      name: 'first_name',
-      weight: 0.5,
-    },
+    // {
+    //   name: 'first_name',
+    //   weight: 0.5,
+    // },
     {
       name: 'preferred_name',
-      weight: 0.7,
+      weight: 1,
     },
     {
       name: 'previous_surname',
-      weight: 0.4,
+      weight: 0.6,
     },
     {
       name: 'surname',
@@ -29,22 +29,6 @@ const options = {
     },
     {
       name: 'userid',
-      weight: 0.4,
-    },
-    {
-      name: 'div',
-      weight: 0.4,
-    },
-    {
-      name: 'directorate',
-      weight: 0.4,
-    },
-    {
-      name: 'bran',
-      weight: 0.4,
-    },
-    {
-      name: 'sect',
       weight: 0.4,
     },
   ],
@@ -66,6 +50,7 @@ export default async function searchEmployees(request, reply) {
         ));
     const results = sortBy(fullResults, ['surname', 'preferred_name']);
     return reply(results).code(200);
+    // return reply(fullResults).code(200);
   } catch (error) {
     return reply(error).code(500);
   }

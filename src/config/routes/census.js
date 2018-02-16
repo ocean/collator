@@ -46,7 +46,9 @@ module.exports.register = (server, options, next) => {
       config: {
         validate: {
           query: {
-            q: Joi.string().required(),
+            q: Joi.string(),
+            fn: Joi.string(),
+            sn: Joi.string(),
           },
         },
         plugins: {

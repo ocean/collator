@@ -33,6 +33,18 @@ const params = {
 
       return locations[item] ? locations[item] : '';
     },
+    sublocation_name: (item, head, resultRow, row, colIdx) => {
+      if (item.search(/WestCentre|Perth|Cannington|R-Broome|R-Bunbury|R-Baldivis/i) > -1) {
+        return '';
+      }
+      if (item.search(/Mineral House - East Perth/i) > -1) {
+        return '';
+      }
+      if (item.search(/ 140 William St/i) > -1) {
+        return item.replace(' 140 William St', '');
+      }
+      return item;
+    },
     phone: (item, head, resultRow, row, colIdx) => format(item, 'AU', 'National'),
     mobile: (item, head, resultRow, row, colIdx) => format(item, 'AU', 'National'),
   },

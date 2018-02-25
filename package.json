@@ -77,6 +77,6 @@
     "nodejs-dashboard": "^0.4.3",
     "nyc": "^11.4.1",
     "supertest": "^3.0.0",
-    "webpack": "^3.10.0"
+    "webpack": "^4.0.0"
   }
 }

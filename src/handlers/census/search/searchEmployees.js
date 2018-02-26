@@ -69,14 +69,14 @@ export default async function searchEmployees(request, reply) {
       ));
     const results = sortBy(fullResults, ['surname', 'preferred_name']);
 
-    const fuseFirstName = new Fuse(await employees, fnOptions);
-    const fnResults = fuseFirstName
-      .search(fn)
-      .slice(0, 60)
-      .map(result => fieldsToExtract.reduce(
-        (a, b) => ((a[b] = result[b]), a),
-        {}
-      ));
+    // const fuseFirstName = new Fuse(await employees, fnOptions);
+    // const fnResults = fuseFirstName
+    //   .search(fn)
+    //   .slice(0, 60)
+    //   .map(result => fieldsToExtract.reduce(
+    //     (a, b) => ((a[b] = result[b]), a),
+    //     {}
+    //   ));
 
     return reply(results).code(200);
     // return reply(fullResults).code(200);

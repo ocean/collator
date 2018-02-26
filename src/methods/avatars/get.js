@@ -6,6 +6,7 @@ module.exports.register = (server, options, next) => {
       const employee = await connection
         .table('avatars')
         .filter({ userid: userid.toUpperCase() })
+        .orderBy(connection.desc('taken'))
         .nth(0)
         .run();
 

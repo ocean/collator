@@ -8,10 +8,10 @@
   },
   "scripts": {
     "build": "BABEL_ENV=production babel -d dist/ src/ && cp src/data/avatar.jpg dist/data/",
-    "dev": "nodejs-dashboard -- nodemon -r nodejs-dashboard src/bootstrap.js",
+    "dev": "nodejs-dashboard -- nodemon --trace-warnings -r nodejs-dashboard src/bootstrap.js",
     "heroku-postbuild": "npm run build",
     "lint": "eslint src/ --ignore-path .gitignore",
-    "mon": "nodemon src/bootstrap.js",
+    "mon": "nodemon --trace-warnings src/bootstrap.js",
     "security_check": "snyk test",
     "start": "node dist/app.js",
     "test": "ava"

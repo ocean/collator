@@ -23,275 +23,267 @@ import { statsHandler } from '../../handlers/census/statistics';
 import searchEmployees from '../../handlers/census/search/searchEmployees';
 import searchBusinessUnits from '../../handlers/census/search/searchBusinessUnits';
 
-module.exports.register = (server, options, next) => {
-  server.route([
-    {
-      method: 'POST',
-      path: '/api/v1/census/employees/import',
-      config: {
-        auth: 'simple-token',
-        payload: {
-          output: 'stream',
-          allow: 'multipart/form-data',
-        },
-        handler: importEmployee,
-        description: 'Import',
-        notes: 'Import employee spreadsheet. Requires Bearer token authorisation header.',
-        tags: ['api', 'Employees'],
+module.exports = [
+  {
+    method: 'POST',
+    path: '/api/v1/census/employees/import',
+    options: {
+      auth: 'simple-token',
+      payload: {
+        output: 'stream',
+        allow: 'multipart/form-data',
       },
+      handler: importEmployee,
+      description: 'Import',
+      notes: 'Import employee spreadsheet. Requires Bearer token authorisation header.',
+      tags: ['api', 'Employees'],
     },
-    {
-      method: 'GET',
-      path: '/api/v1/census/employees/search',
-      config: {
-        validate: {
-          query: {
-            q: Joi.string(),
-            fn: Joi.string(),
-            sn: Joi.string(),
-          },
+  },
+  {
+    method: 'GET',
+    path: '/api/v1/census/employees/search',
+    options: {
+      validate: {
+        query: {
+          q: Joi.string(),
+          fn: Joi.string(),
+          sn: Joi.string(),
         },
-        plugins: {
-          pagination: {
-            enabled: false,
-          },
-        },
-        handler: searchEmployees,
-        description: 'Search',
-        notes: 'Search for employees.',
-        tags: ['api', 'Employees'],
       },
-    },
-    {
-      method: 'GET',
-      path: '/api/v1/census/employees',
-      config: {
-        validate: {
-          query: Joi.object({
-            bran: Joi.string(),
-            div: Joi.string(),
-            directorate: Joi.string(),
-            sect: Joi.string(),
-            location_name: Joi.string(),
-            sort: Joi.string(),
-            page: Joi.number().integer(),
-            limit: Joi.number().integer(),
-          }).options({ allowUnknown: false }),
+      plugins: {
+        pagination: {
+          enabled: false,
         },
-        plugins: {
-          pagination: {
-            enabled: true,
-          },
-        },
-        handler: getPaginatedEmployees,
-        description: 'Filterable',
-        notes: 'Filterable list of employees (Paginated!).',
-        tags: ['api', 'Employees'],
       },
+      handler: searchEmployees,
+      description: 'Search',
+      notes: 'Search for employees.',
+      tags: ['api', 'Employees'],
     },
-    {
-      method: 'GET',
-      path: '/api/v1/census/employees/{letter}',
-      config: {
-        validate: {
-          params: {
-            letter: Joi.string()
-              .regex(/^[A-z]+$/)
-              .max(1)
-              .required(),
-          },
-        },
-        plugins: {
-          pagination: {
-            enabled: true,
-          },
-        },
-        handler: getEmployeesBySurname,
-        description: 'Surname',
-        notes: 'Get a paginated list of employees grouped by the first letter of their surname.',
-        tags: ['api', 'Employees'],
+  },
+  {
+    method: 'GET',
+    path: '/api/v1/census/employees',
+    options: {
+      validate: {
+        query: Joi.object({
+          bran: Joi.string(),
+          div: Joi.string(),
+          directorate: Joi.string(),
+          sect: Joi.string(),
+          location_name: Joi.string(),
+          sort: Joi.string(),
+          page: Joi.number().integer(),
+          limit: Joi.number().integer(),
+        }).options({ allowUnknown: false }),
       },
-    },
-    {
-      method: 'GET',
-      path: '/api/v1/census/employee/{employeeID}',
-      config: {
-        validate: {
-          params: {
-            employeeID: Joi.string()
-              .regex(/^[A-z-]+$/)
-              .required(),
-          },
+      plugins: {
+        pagination: {
+          enabled: true,
         },
-        plugins: {
-          pagination: {
-            enabled: false,
-          },
-        },
-        handler: getEmployee,
-        description: 'Employee',
-        notes: 'Returns information for the requested employeeID',
-        tags: ['api', 'Employee'],
       },
+      handler: getPaginatedEmployees,
+      description: 'Filterable',
+      notes: 'Filterable list of employees (Paginated!).',
+      tags: ['api', 'Employees'],
     },
-    {
-      method: 'GET',
-      path: '/api/v1/census/employee/{employeeID}/manager',
-      config: {
-        validate: {
-          params: {
-            employeeID: Joi.string()
-              .regex(/^[A-z-]+$/)
-              .required(),
-          },
+  },
+  {
+    method: 'GET',
+    path: '/api/v1/census/employees/{letter}',
+    options: {
+      validate: {
+        params: {
+          letter: Joi.string()
+            .regex(/^[A-z]+$/)
+            .max(1)
+            .required(),
         },
-        plugins: {
-          pagination: {
-            enabled: false,
-          },
-        },
-        handler: getManager,
-        description: 'Manager',
-        notes: 'Returns the manager for the requested employeeID',
-        tags: ['api', 'Employee'],
       },
-    },
-    {
-      method: 'GET',
-      path: '/api/v1/census/employee/{employeeID}/team',
-      config: {
-        validate: {
-          params: {
-            employeeID: Joi.string()
-              .regex(/^[A-z-]+$/)
-              .required(),
-          },
+      plugins: {
+        pagination: {
+          enabled: true,
         },
-        plugins: {
-          pagination: {
-            enabled: false,
-          },
-        },
-        handler: getTeam,
-        description: 'Team',
-        notes: 'Returns the team for the requested employeeID',
-        tags: ['api', 'Employee'],
       },
+      handler: getEmployeesBySurname,
+      description: 'Surname',
+      notes: 'Get a paginated list of employees grouped by the first letter of their surname.',
+      tags: ['api', 'Employees'],
     },
-    {
-      method: 'GET',
-      path: '/api/v1/census/employee/{employeeID}/avatar',
-      config: {
-        validate: {
-          query: {
-            size: Joi.number()
-              .integer()
-              .min(50)
-              .max(500),
-          },
-          params: {
-            employeeID: Joi.string()
-              .regex(/^[A-z-]+$/)
-              .required(),
-          },
+  },
+  {
+    method: 'GET',
+    path: '/api/v1/census/employee/{employeeID}',
+    options: {
+      validate: {
+        params: {
+          employeeID: Joi.string()
+            .regex(/^[A-z-]+$/)
+            .required(),
         },
-        plugins: {
-          pagination: {
-            enabled: false,
-          },
-        },
-        handler: getAvatar,
-        description: 'Avatar',
-        notes: 'Returns an avatar for the supplied employeeID if available. A default avatar is shown if the avatar is missing.',
-        tags: ['api', 'Employee'],
       },
-    },
-    {
-      method: 'GET',
-      path: '/api/v1/census/avatar/missing',
-      config: {
-        plugins: {
-          pagination: {
-            enabled: false,
-          },
+      plugins: {
+        pagination: {
+          enabled: false,
         },
-        handler: getMissing,
-        description: 'Missing',
-        notes: 'Returns userids of unused avatars. However, this is not a list of employees with missing avatars.',
-        tags: ['api', 'Avatar'],
       },
+      handler: getEmployee,
+      description: 'Employee',
+      notes: 'Returns information for the requested employeeID',
+      tags: ['api', 'Employee'],
     },
-    {
-      method: 'POST',
-      path: '/api/v1/census/avatar',
-      config: {
-        auth: 'simple-token',
-        payload: {
-          output: 'stream',
-          allow: 'multipart/form-data',
-          parse: true,
+  },
+  {
+    method: 'GET',
+    path: '/api/v1/census/employee/{employeeID}/manager',
+    options: {
+      validate: {
+        params: {
+          employeeID: Joi.string()
+            .regex(/^[A-z-]+$/)
+            .required(),
         },
-        handler: importAvatar,
-        description: 'Import',
-        notes: 'Import an avatar. Filename needs to be userid_date.jpg...e.g. AAlain_20170420.jpg. Requires Bearer token authorisation header.',
-        tags: ['api', 'Avatar'],
       },
-    },
-    {
-      method: 'GET',
-      path: '/api/v1/census/organisation/search',
-      config: {
-        validate: {
-          query: {
-            q: Joi.string().required(),
-          },
+      plugins: {
+        pagination: {
+          enabled: false,
         },
-        plugins: {
-          pagination: {
-            enabled: false,
-          },
-        },
-        handler: searchBusinessUnits,
-        description: 'Search',
-        notes: 'Search for business units.',
-        tags: ['api', 'Organisation'],
       },
+      handler: getManager,
+      description: 'Manager',
+      notes: 'Returns the manager for the requested employeeID',
+      tags: ['api', 'Employee'],
     },
-    {
-      method: 'GET',
-      path: '/api/v1/census/organisation/statistics',
-      config: {
-        plugins: {
-          pagination: {
-            enabled: false,
-          },
+  },
+  {
+    method: 'GET',
+    path: '/api/v1/census/employee/{employeeID}/team',
+    options: {
+      validate: {
+        params: {
+          employeeID: Joi.string()
+            .regex(/^[A-z-]+$/)
+            .required(),
         },
-        handler: statsHandler,
-        description: 'Statistics',
-        notes: 'Returns the count of groups, divisions, directorates, branches, employees and locations',
-        tags: ['api', 'Organisation'],
       },
-    },
-    {
-      method: 'GET',
-      path: '/api/v1/census/organisation/structure',
-      config: {
-        plugins: {
-          pagination: {
-            enabled: false,
-          },
+      plugins: {
+        pagination: {
+          enabled: false,
         },
-        handler: orgHandler,
-        description: 'Structure',
-        notes: 'Returns a nested organisation structure.',
-        tags: ['api', 'Organisation'],
       },
+      handler: getTeam,
+      description: 'Team',
+      notes: 'Returns the team for the requested employeeID',
+      tags: ['api', 'Employee'],
     },
-  ]);
-
-  next();
-};
-
-module.exports.register.attributes = {
-  name: 'routes.census',
-};
+  },
+  {
+    method: 'GET',
+    path: '/api/v1/census/employee/{employeeID}/avatar',
+    options: {
+      validate: {
+        query: {
+          size: Joi.number()
+            .integer()
+            .min(50)
+            .max(500),
+        },
+        params: {
+          employeeID: Joi.string()
+            .regex(/^[A-z-]+$/)
+            .required(),
+        },
+      },
+      plugins: {
+        pagination: {
+          enabled: false,
+        },
+      },
+      handler: getAvatar,
+      description: 'Avatar',
+      notes: 'Returns an avatar for the supplied employeeID if available. A default avatar is shown if the avatar is missing.',
+      tags: ['api', 'Employee'],
+    },
+  },
+  {
+    method: 'GET',
+    path: '/api/v1/census/avatar/missing',
+    options: {
+      plugins: {
+        pagination: {
+          enabled: false,
+        },
+      },
+      handler: getMissing,
+      description: 'Missing',
+      notes: 'Returns userids of unused avatars. However, this is not a list of employees with missing avatars.',
+      tags: ['api', 'Avatar'],
+    },
+  },
+  {
+    method: 'POST',
+    path: '/api/v1/census/avatar',
+    options: {
+      auth: 'simple-token',
+      payload: {
+        output: 'stream',
+        allow: 'multipart/form-data',
+        parse: true,
+      },
+      handler: importAvatar,
+      description: 'Import',
+      notes: 'Import an avatar. Filename needs to be userid_date.jpg...e.g. AAlain_20170420.jpg. Requires Bearer token authorisation header.',
+      tags: ['api', 'Avatar'],
+    },
+  },
+  {
+    method: 'GET',
+    path: '/api/v1/census/organisation/search',
+    options: {
+      validate: {
+        query: {
+          q: Joi.string().required(),
+        },
+      },
+      plugins: {
+        pagination: {
+          enabled: false,
+        },
+      },
+      handler: searchBusinessUnits,
+      description: 'Search',
+      notes: 'Search for business units.',
+      tags: ['api', 'Organisation'],
+    },
+  },
+  {
+    method: 'GET',
+    path: '/api/v1/census/organisation/statistics',
+    options: {
+      plugins: {
+        pagination: {
+          enabled: false,
+        },
+      },
+      handler: statsHandler,
+      description: 'Statistics',
+      notes: 'Returns the count of groups, divisions, directorates, branches, employees and locations',
+      tags: ['api', 'Organisation'],
+    },
+  },
+  {
+    method: 'GET',
+    path: '/api/v1/census/organisation/structure',
+    options: {
+      plugins: {
+        pagination: {
+          enabled: false,
+        },
+      },
+      handler: orgHandler,
+      description: 'Structure',
+      notes: 'Returns a nested organisation structure.',
+      tags: ['api', 'Organisation'],
+    },
+  },
+];

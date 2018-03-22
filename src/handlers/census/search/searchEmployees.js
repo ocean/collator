@@ -49,7 +49,7 @@ const fnKeys = {
 };
 const fnOptions = { ...defaultSearchOptions, ...fnKeys };
 
-export default async function searchEmployees(request, reply) {
+export default async function searchEmployees(request, h) {
   const { q, fn, sn } = request.query;
   try {
     // Get all employees from the database
@@ -78,9 +78,12 @@ export default async function searchEmployees(request, reply) {
     //     {}
     //   ));
 
-    return reply(results).code(200);
+    // return reply(results).code(200);
     // return reply(fullResults).code(200);
+    return h.response(results)
+      .code(200);
   } catch (error) {
-    return reply(error).code(500);
+    return h.response(error)
+      .code(500);
   }
 }

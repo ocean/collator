@@ -20,7 +20,7 @@ const options = {
   ],
 };
 
-export default async function searchBusinessUnits(request, reply) {
+export default async function searchBusinessUnits(request, h) {
   const { q } = request.query;
   try {
     const employees = await connection.table('employees').run();
@@ -35,8 +35,8 @@ export default async function searchBusinessUnits(request, reply) {
           {}
         ));
     const results = _.uniqWith(fullResults, _.isEqual);
-    return reply(results).code(200);
+    return results;
   } catch (error) {
-    return reply(error).code(500);
+    return h.response(error).code(500);
   }
 }

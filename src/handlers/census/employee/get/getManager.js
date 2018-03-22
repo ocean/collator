@@ -1,7 +1,9 @@
-export default function getManager(request, reply) {
+export default async function getManager(request, h) {
   const { employeeID } = request.params;
-  request.server.methods.db.getManager(employeeID, (error, employee) => {
-    if (error) reply(error).code(500);
-    return reply(employee).code(200);
-  });
+  const employee = await request.server.methods.db.getManager(employeeID);
+  try {
+    return h.response(employee).code(200);
+  } catch (error) {
+    throw error;
+  }
 }

@@ -4,14 +4,14 @@ import Hapi from 'hapi';
 import Boom from 'boom';
 import Good from 'good';
 import etagger from 'etagger';
+import inert from 'inert';
 import vision from 'vision';
 import hapiSwagger from 'hapi-swagger';
+import hapiPagination from 'hapi-pagination';
 import methods from './methods';
 
-const server = new Hapi.Server();
-
 // port setup with env var for hosting
-server.connection({
+const server = Hapi.Server({
   port: process.env.PORT || 3000,
   routes: {
     cors: {
@@ -21,30 +21,9 @@ server.connection({
   },
 });
 
-server.register(methods, (err) => {
-  if (err) {
-    console.log(err);
-    throw err;
-  }
-});
-
-// Register a Pagination Helper. Yo.
-server.register(require('./utils/pagination'));
-
-// Register ETag functionality
-server.register({
-  register: etagger,
-  options: {
-    enabled: true,
-  },
-});
-
-// static file handler for public directory
-server.register(require('inert'), (err) => {
-  if (err) {
-    console.log(err);
-    throw err;
-  }
+const init = async () => {
+  // static file handler for public directory
+  await server.register(inert);
 
   server.route({
     method: 'GET',
@@ -63,6 +42,70 @@ server.register(require('inert'), (err) => {
       },
     },
   });
+
+  await server.method(methods);
+
+  // Register a Pagination Helper. Yo.
+  await server.register({
+    plugin: hapiPagination,
+    options: {
+      routes: {
+        include: [],
+        exclude: ['/documentation'],
+      },
+    },
+  });
+
+  // Register ETag functionality
+  await server.register({
+    plugin: etagger,
+    options: {
+      enabled: true,
+    },
+  });
+
+  // Good process monitor and logger
+  await server.register({
+    plugin: Good,
+    options: {
+      reporters: {
+        console: [{
+          module: 'good-squeeze',
+          name: 'Squeeze',
+          args: [{
+            response: '*',
+            log: '*',
+          }],
+        }, {
+          module: 'good-console',
+        }, 'stdout'],
+      },
+    },
+  });
+
+  // Register hapi-swagger Documentation Generator. Fool.
+  await server.register([
+    { plugin: vision },
+    {
+      plugin: hapiSwagger,
+      options: {
+        info: {
+          title: 'Collatorrroror Documentation',
+          version: '1.0.0',
+        },
+        basePath: '/api/v1',
+        grouping: 'tags',
+      },
+    },
+  ]);
+
+  await server.start();
+  server.log('info', `Server running at ${server.info.uri}`);
+};
+
+process.on('unhandledRejection', (err) => {
+  server.log('error', err);
+  process.exit(1);
 });
 
 // Set up Bearer auth token scheme
@@ -98,54 +141,7 @@ server.auth.strategy('simple-token', 'bearer-access-token');
 
 // The main sets of routes
 server.route(require('./config/routes/collator'));
-server.register(require('./config/routes/census'));
+server.route(require('./config/routes/census'));
 
-server.register({
-  register: Good,
-  options: {
-    reporters: {
-      console: [{
-        module: 'good-squeeze',
-        name: 'Squeeze',
-        args: [{
-          response: '*',
-          log: '*',
-        }],
-      }, {
-        module: 'good-console',
-      }, 'stdout'],
-    },
-  },
-}, (err) => {
-  if (err) {
-    throw err;
-  }
-
-  if (!module.parent) {
-    server.start((error) => {
-      if (error) {
-        console.log(error);
-        throw error;
-      }
-      server.log('info', `Server running at ${server.info.uri}`);
-    });
-  }
-});
-
-// Register hapi-swagger Documentation Generator. Fool.
-server.register([
-  { register: vision },
-  {
-    register: hapiSwagger,
-    options: {
-      info: {
-        title: 'Collatorrroror Documentation',
-        version: '1.0.0',
-      },
-      basePath: '/api/v1',
-      grouping: 'tags',
-    },
-  },
-]);
-
-module.exports = server;
+// Run the init function which starts the server.
+init();

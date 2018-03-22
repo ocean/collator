@@ -1,28 +1,23 @@
 import connection from '../../config/database';
 
-module.exports.register = (server, options, next) => {
-  async function getManager(id, next) {
-    try {
-      const manager = connection
-        .table('employees')
-        .filter({ userid: id.toUpperCase() })
-        .innerJoin(connection.table('employees'), (user, supervisor) => user('supervisor_userid').eq(supervisor('userid')))
-        .zip()
-        .nth(0)
-        .run();
+async function getManager(id) {
+  try {
+    const manager = await connection
+      .table('employees')
+      .filter({ userid: id.toUpperCase() })
+      .innerJoin(connection.table('employees'), (user, supervisor) => user('supervisor_userid').eq(supervisor('userid')))
+      .zip()
+      .nth(0)
+      .run();
 
-      if (manager) next(null, manager);
-      else next('error');
-    } catch (error) {
-      next(error);
-    }
+    return manager;
+  } catch (error) {
+    throw error;
   }
+}
 
-  server.method('db.getManager', getManager, {});
-
-  next();
-};
-
-module.exports.register.attributes = {
-  name: 'method.db.getManager',
+module.exports = {
+  name: 'db.getManager',
+  method: getManager,
+  options: {},
 };

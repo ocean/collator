@@ -1,7 +1,11 @@
-export default function getTeam(request, reply) {
+import Boom from 'boom';
+
+export default async function getTeam(request, h) {
   const { employeeID } = request.params;
-  request.server.methods.db.getTeam(employeeID, (error, employee) => {
-    if (error) reply(error).code(500);
-    return reply(employee).code(200);
-  });
+  const team = await request.server.methods.db.getTeam(employeeID);
+  try {
+    return team;
+  } catch (error) {
+    return h.response(Boom.notFound(`No team found for user ID "${employeeID}"`)).code(404);
+  }
 }

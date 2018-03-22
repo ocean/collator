@@ -12,7 +12,7 @@ module.exports = [
   {
     method: 'GET',
     path: '/api/v1/intranet/news/{featured?}',
-    config: {
+    options: {
       handler: IntranetNews.getIntranetNews,
       description: 'Intranet News',
       notes: 'News items (currently all of them) from the new Intranet.',
@@ -27,7 +27,7 @@ module.exports = [
   {
     method: 'GET',
     path: '/api/v1/intranet/news/type/{newsType}/{featured?}',
-    config: {
+    options: {
       handler: IntranetNews.getIntranetNewsByType,
       description: 'Intranet News',
       notes: 'News items, filtered by type, from the new Intranet.',
@@ -49,7 +49,7 @@ module.exports = [
   {
     method: 'GET',
     path: '/api/v1/statements/commerce',
-    config: {
+    options: {
       handler: CommerceNews.getStatements,
       description: 'Commerce media',
       notes: 'Commerce media statements from the Commerce site.',
@@ -59,7 +59,7 @@ module.exports = [
   {
     method: 'GET',
     path: '/api/v1/statements/ministerials',
-    config: {
+    options: {
       handler: Ministerials.getMinisterials,
       description: "Minister's media",
       notes:
@@ -70,7 +70,7 @@ module.exports = [
   {
     method: 'GET',
     path: '/api/v1/statements/government',
-    config: {
+    options: {
       handler: GovernmentNews.getStatements,
       description: 'Government media',
       notes: 'All Government media statements from the Media Statements site.',
@@ -80,7 +80,7 @@ module.exports = [
   {
     method: 'GET',
     path: '/api/v1/tweets/{list}',
-    config: {
+    options: {
       handler: Tweets.getTweets,
       description: 'Tweets',
       notes:
@@ -97,7 +97,7 @@ module.exports = [
     method: 'GET',
     path: '/api/v1/data/transport/departures/{location}',
     handler: TransportData.getDepartures,
-    config: {
+    options: {
       cache: {
         expiresIn: 30000,
       },
@@ -116,7 +116,7 @@ module.exports = [
   {
     method: 'GET',
     path: '/api/v1/data/transport/updates',
-    config: {
+    options: {
       handler: TransportData.getUpdates,
       description: 'Updates',
       notes: 'Train service updates from Transperth train updates.',
@@ -127,7 +127,7 @@ module.exports = [
     method: 'GET',
     path: '/api/v1/data/weather/{location}',
     handler: WeatherData.getForecast,
-    config: {
+    options: {
       cache: {
         expiresIn: 86400000,
       },

@@ -21,7 +21,7 @@ const goodGuy = goodGuyHttp({
   timeout: 15000,
 });
 
-exports.getDepartures = async function getDepartures(request, reply) {
+exports.getDepartures = async function getDepartures(request, h) {
   // Get the location from the request parameter
   const { location } = request.params;
 
@@ -82,11 +82,11 @@ exports.getDepartures = async function getDepartures(request, reply) {
   // Wait for the all the Promise objects in this array to resolve
   const departureData = await Promise.all(departures);
   // Hapi reply call to send back object data serialised to JSON
-  reply(await sortBy(flatten(departureData), 'departureTime'));
+  return h.response(await sortBy(flatten(departureData), 'departureTime')).code(200);
 };
 
 
-exports.getUpdates = async function getUpdates(request, reply) {
+exports.getUpdates = async function getUpdates(request, h) {
   const serviceUpdatesUrl = 'http://www.transperth.wa.gov.au/service-updates/train-updates';
   try {
     // Fetch the service updates page and wait for it to return
@@ -112,9 +112,10 @@ exports.getUpdates = async function getUpdates(request, reply) {
       .get();
 
     // Hapi reply call to send back object data serialised to JSON
-    reply(noticeData);
+    return h.response(noticeData).code(200);
   } catch (error) {
     Boom.boomify(error);
     request.error('Error fetching train service updates', error);
+    throw error;
   }
 };

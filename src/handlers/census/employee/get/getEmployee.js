@@ -1,11 +1,14 @@
 import Boom from 'boom';
+// import Bounce from 'bounce';
 
-export default function getEmployee(request, reply) {
+export default async function getEmployee(request, h) {
   const { employeeID } = request.params;
-  request.server.methods.db.getEmployee(employeeID, (error, employee) => {
-    if (error) {
-      return reply(Boom.notFound(`No staff member found for user ID "${employeeID}"`));
-    }
-    return reply(employee).code(200);
-  });
+  const employee = await request.server.methods.db.getEmployee(employeeID);
+  try {
+    return h.response(employee).code(200);
+  } catch (error) {
+    // Bounce.rethrow(error, 'boom');
+    return h.response(Boom.notFound(`No staff member found for user ID "${employeeID}"`)).code(404);
+  }
+  // return employee;
 }

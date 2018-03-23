@@ -2,25 +2,21 @@ import _ from 'lodash';
 import connection from '../../config/database';
 
 async function getOrganisation() {
-  try {
-    const structure = {};
+  const structure = {};
 
-    const organisation = await connection
-      .table('employees')
-      .filter(doc => doc('div').ne(''))
-      .pluck('grp', 'div', 'directorate', 'bran', 'sect', 'team');
+  const organisation = await connection
+    .table('employees')
+    .filter(doc => doc('div').ne(''))
+    .pluck('grp', 'div', 'directorate', 'bran', 'sect', 'team');
 
-    const filtered = Array.from(new Set(organisation.map(JSON.stringify))).map(JSON.parse);
+  const filtered = Array.from(new Set(organisation.map(JSON.stringify))).map(JSON.parse);
 
-    filtered.map((obj) => {
-      _.merge(structure, { [obj.grp]: { [obj.div]: { [obj.directorate]: { [obj.bran]: [] } } } });
-      structure[obj.grp][obj.div][obj.directorate][obj.bran].push(obj.sect);
-    });
+  filtered.map((obj) => {
+    _.merge(structure, { [obj.grp]: { [obj.div]: { [obj.directorate]: { [obj.bran]: [] } } } });
+    structure[obj.grp][obj.div][obj.directorate][obj.bran].push(obj.sect);
+  });
 
-    return structure;
-  } catch (error) {
-    throw error;
-  }
+  return structure;
 }
 
 module.exports = {

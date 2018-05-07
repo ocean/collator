@@ -13,6 +13,7 @@ services:
 node_js:
   - "8"
   - "9"
+  - "10"
 
 env:
   global:

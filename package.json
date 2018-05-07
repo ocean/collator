@@ -19,7 +19,7 @@
   "author": "Drew Robinson <drew.robinson@gmail.com>",
   "license": "Apache-2.0",
   "engines": {
-    "node": "8.x"
+    "node": "10"
   },
   "ava": {
     "files": [

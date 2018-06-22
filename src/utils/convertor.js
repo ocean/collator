@@ -18,7 +18,7 @@ const params = {
         'Mineral House - East Perth': 'Mineral House, 100 Plain Street, East Perth WA 6004',
         Perth: 'Gordon Stephenson House, 140 William Street, Perth WA 6000',
         'R-Albany': 'Unit 2/129 Aberdeen St, Albany WA 6330',
-        'R-Broome': 'Woody\'s Arcade, 7/15 Dampier Terrace, Broome WA 6725',
+        'R-Broome': 'Woody\'s Arcade, 6/15 Dampier Terrace, Broome WA 6725',
         'R-Bunbury': 'Bunbury Tower, 61 Victoria Street, Bunbury WA 6230',
         'R-Collie': '66 Wittenoom St, Collie WA 6225',
         'R-Kalgoorlie': 'Suite 4/37 Brookman Street Kalgoorlie, WA 6430',

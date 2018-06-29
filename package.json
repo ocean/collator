@@ -14,7 +14,9 @@
     "mon": "nodemon --trace-warnings src/bootstrap.js",
     "security_check": "snyk test",
     "start": "node dist/app.js",
-    "test": "ava"
+    "test": "ava",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "author": "Drew Robinson <drew.robinson@gmail.com>",
   "license": "Apache-2.0",
@@ -64,7 +66,8 @@
     "sharp": "^0.19.1",
     "uuid": "^3.2.1",
     "vision": "^4.1.1",
-    "xml2js": "^0.4.19"
+    "xml2js": "^0.4.19",
+    "snyk": "^1.87.0"
   },
   "devDependencies": {
     "ava": "^0.25.0",
@@ -76,5 +79,6 @@
     "nodejs-dashboard": "^0.4.3",
     "nyc": "^11.9.0",
     "supertest": "^3.1.0"
-  }
+  },
+  "snyk": true
 }

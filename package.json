@@ -38,7 +38,7 @@
     "boom": "^7.2.0",
     "cheerio": "^1.0.0-rc.2",
     "csvdata": "^1.7.0",
-    "csvtojson": "^1.1.12",
+    "csvtojson": "^2.0.5",
     "dotenv": "^4.0.0",
     "etagger": "^3.0.2",
     "fuse.js": "^3.2.1",

@@ -49,7 +49,7 @@
     "good-squeeze": "^5.1.0",
     "hapi": "^16.6.3",
     "hapi-auth-bearer-token": "^5.1.0",
-    "hapi-pagination": "^1.22.0",
+    "hapi-pagination": "^2.0.1",
     "hapi-swagger": "^8.0.0",
     "he": "^1.1.1",
     "inert": "^4.2.1",

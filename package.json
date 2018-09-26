@@ -57,7 +57,7 @@
     "libphonenumber-js": "^1.2.15",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
-    "nano-fs": "^1.2.4",
+    "nano-fs": "^1.2.5",
     "redis": "^2.8.0",
     "rethinkdb": "^2.3.3",
     "rethinkdbdash": "^2.3.31",

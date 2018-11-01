@@ -47,7 +47,7 @@
     "good-guy-cache-redis": "^1.2.0",
     "good-guy-http": "^1.10.3",
     "good-squeeze": "^5.1.0",
-    "hapi": "^16.6.3",
+    "hapi": "^17.6.1",
     "hapi-auth-bearer-token": "^5.1.0",
     "hapi-pagination": "^1.22.0",
     "hapi-swagger": "^8.0.0",

@@ -35,7 +35,7 @@
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
-    "boom": "^7.2.0",
+    "boom": "^7.2.1",
     "cheerio": "^1.0.0-rc.2",
     "csvdata": "^1.7.0",
     "csvtojson": "^1.1.12",

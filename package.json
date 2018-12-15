@@ -67,7 +67,7 @@
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
-    "ava": "^0.25.0",
+    "ava": "^1.0.1",
     "babel-plugin-syntax-object-rest-spread": "^6.13.0",
     "babel-preset-airbnb": "^2.5.1",
     "eslint": "^4.19.1",
